@@ -3,14 +3,17 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/home" />
+        android:icon="@drawable/home"
+        android:title="@string/home" />
 
     <item
         android:id="@+id/navigation_upload"
-        android:icon="@drawable/upload" />
+        android:icon="@drawable/upload"
+        android:title="@string/upload" />
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/account" />
+        android:icon="@drawable/account"
+        android:title="@string/profile" />
 
 </menu>
