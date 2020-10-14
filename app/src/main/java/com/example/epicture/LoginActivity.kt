@@ -15,6 +15,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
 
+        // TODO: call pour voir si les credentials sont bonnes et passer au home si success
+
         val button = findViewById<Button>(R.id.connection)
         button.setOnClickListener {
             ImgurAuth.getToken(this)

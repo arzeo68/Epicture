@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity"
             android:launchMode="singleTask"
+            android:noHistory="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
