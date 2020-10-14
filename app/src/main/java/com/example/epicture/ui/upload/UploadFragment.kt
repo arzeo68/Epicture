@@ -19,7 +19,6 @@ class UploadFragment : Fragment() {
     ): View? {
         uploadViewModel =
                 ViewModelProviders.of(this).get(UploadViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_upload, container, false)
-        return root
+        return inflater.inflate(R.layout.fragment_upload, container, false)
     }
 }
