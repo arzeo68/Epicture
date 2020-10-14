@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Epicture</string>
+    <string name="connection">Connect</string>
 </resources>
