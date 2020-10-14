@@ -4,4 +4,7 @@
     <string name="home">Maison</string>
     <string name="upload">Téléverser</string>
     <string name="profile">Mon espace perso</string>
+    <string name="langue">Langue</string>
+    <string name="francais">Français</string>
+    <string name="anglais">Anglais</string>
 </resources>

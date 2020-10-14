@@ -4,4 +4,7 @@
     <string name="home">Home</string>
     <string name="upload">Upload</string>
     <string name="profile">Profile</string>
+    <string name="langue">Language</string>
+    <string name="francais">French</string>
+    <string name="anglais">English</string>
 </resources>

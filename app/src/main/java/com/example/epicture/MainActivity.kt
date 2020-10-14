@@ -1,14 +1,8 @@
 package com.example.epicture
 
 import android.os.Bundle
-import android.view.MenuItem
-import android.view.View
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,6 +17,9 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // view pager allow the user to swipe between each fragment
+
         viewPager = findViewById(
             R.id.viewpager
         )
@@ -31,9 +28,10 @@ class MainActivity : AppCompatActivity() {
         )
         viewPager.adapter = adapter
 
+        // navView is the bottom navigation bar
+
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener { menuItem ->
-            print(menuItem.itemId)
             when (menuItem.itemId) {
                 R.id.navigation_home -> viewPager.currentItem = 0
                 R.id.navigation_upload -> viewPager.currentItem = 1
@@ -47,7 +45,8 @@ class MainActivity : AppCompatActivity() {
                 position: Int,
                 positionOffset: Float,
                 positionOffsetPixels: Int
-            ) {}
+            ) {
+            }
 
             override fun onPageSelected(position: Int) {
                 when (position) {
@@ -59,6 +58,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onPageScrollStateChanged(state: Int) {}
         })
+
     }
 
 
