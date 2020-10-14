@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="country_entries">
+        <item>@string/anglais</item>
+        <item>@string/francais</item>
+    </string-array>
+
+    <string-array name="country_values">
+        <item>anglais</item>
+        <item>francais</item>
+    </string-array>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Epicture</string>
+    <string name="home">Home</string>
+    <string name="upload">Upload</string>
+    <string name="profile">Profile</string>
+    <string name="langue">Language</string>
+    <string name="francais">French</string>
+    <string name="anglais">English</string>
+</resources>

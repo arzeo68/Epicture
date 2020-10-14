@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Epicture</string>
+    <string name="home">Maison</string>
+    <string name="upload">Téléverser</string>
+    <string name="profile">Mon espace perso</string>
+    <string name="langue">Langue</string>
+    <string name="francais">Français</string>
+    <string name="anglais">Anglais</string>
     <string name="connection">Connection</string>
 </resources>
