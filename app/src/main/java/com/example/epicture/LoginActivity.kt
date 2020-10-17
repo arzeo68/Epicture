@@ -17,10 +17,13 @@ class LoginActivity : AppCompatActivity() {
 
         // TODO: call pour voir si les credentials sont bonnes et passer au home si success
 
+        if (ImgurAuth.alreadyConnected()) {
+            accessApp()
+        }
+
         val button = findViewById<Button>(R.id.connection)
         button.setOnClickListener {
             ImgurAuth.getToken(this)
-            Log.d("STATE", "test")
         }
     }
 
@@ -33,9 +36,9 @@ class LoginActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         when (intent?.action) {
             Intent.ACTION_VIEW -> {
-                Log.d("STATE", intent.data.toString())
                 if (intent.data != null) {
                     ImgurAuth.saveToken(intent)
+                    ImgurAuth.printCredentials()
                     accessApp()
                 }
             }
