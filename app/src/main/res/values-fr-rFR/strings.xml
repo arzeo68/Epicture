@@ -8,4 +8,10 @@
     <string name="francais">Français</string>
     <string name="anglais">Anglais</string>
     <string name="connection">Connection</string>
+    <string name="pseudo">Pseudonyme</string>
+    <string name="description">Description</string>
+    <string name="point_text">Points:</string>
+    <string name="point_nb">0</string>
+    <string name="reputation_text">Reputation</string>
+    <string name="reputation_nb">neutre</string>
 </resources>
