@@ -7,4 +7,11 @@
     <string name="langue">Language</string>
     <string name="francais">French</string>
     <string name="anglais">English</string>
+    <string name="connection">Connect</string>
+    <string name="pseudo">Username</string>
+    <string name="description">Description</string>
+    <string name="point_text">Points:</string>
+    <string name="point_nb">0</string>
+    <string name="reputation_text">Reputation</string>
+    <string name="reputation_nb">neutral</string>
 </resources>
