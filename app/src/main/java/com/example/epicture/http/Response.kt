@@ -47,3 +47,69 @@ class AccountBase(
     val created: Int?,
     val pro_expiration: Boolean?,
 )
+
+class Album(
+    val id: String?,
+    val title: String?,
+    val description: String?,
+    val datetime: Int?,
+    val cover: String?,
+    val cover_edited: Int?,
+    val cover_width: Int?,
+    val cover_height: Int?,
+    val account_url: String?,
+    val account_id: Int?,
+    val privacy: String?,
+    val layout: String?,
+    val views: Int?,
+    val link: String?,
+    val favorite: Boolean?,
+    val images_count: Int?,
+    val in_gallery: Boolean?,
+    val is_ad: Boolean?,
+    val include_album_ads: Boolean?,
+    val is_album: Boolean?,
+    val deletehash: String?,
+    val order: Int?
+)
+
+class AlbumImage (
+    val id: String?,
+    val title: String?,
+    val description: String?,
+    val datetime: Int?,
+    val type: String?,
+    val animated: Boolean?,
+    val width: Int?,
+    val height: Int?,
+    val size: Int?,
+    val views: Int?,
+    val bandwidth: Int?,
+    val vote: String?,
+    val favorite: Boolean?,
+    val account_url: String?,
+    val account_id: Int?,
+    val is_ad: Boolean?,
+    val in_most_viral: Boolean,
+    val has_sound: Boolean?,
+    val tags: Array<String?>?,
+    val in_gallery: Boolean?,
+    val link: String?
+)
+
+class AccountSettings(
+    val account_url: String?,
+    val email: String?,
+    val avatar: String?,
+    val cover: String?,
+    val public_images: Boolean?,
+    val album_privacy: String?,
+    val pro_expiration: Boolean?,
+    val accepted_gallery_terms: Boolean?,
+    val messaging_enabled: Boolean?,
+    val comment_replies: Boolean?,
+    val blocked_users: List<String?>?,
+    val show_mature: Boolean?,
+    val newsletter_subscribed: Boolean?,
+    val first_party: Boolean?
+)
