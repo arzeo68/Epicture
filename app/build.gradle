@@ -42,6 +42,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
     implementation 'androidx.preference:preference:1.1.1'
+    implementation 'com.beust:klaxon:5.0.1'
     testImplementation 'junit:junit:4.13.1'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
