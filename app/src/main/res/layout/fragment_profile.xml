@@ -6,19 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="403dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginBottom="432dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@color/design_default_color_on_secondary" />
-
     <TextView
         android:id="@+id/text_dashboard"
         android:layout_width="wrap_content"
@@ -61,6 +48,27 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
+        android:id="@+id/backgroundButtonMyPicture"
+        android:layout_width="207dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="13dp"
+        android:background="@color/darkerLightMode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="?attr/colorOnSurface" />
+
+    <ImageButton
+        android:id="@+id/backgroundButtonLikedPicture"
+        android:layout_width="207dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="13dp"
+        android:background="@color/darkerNightMode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/backgroundButtonMyPicture"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="?attr/colorOnSurface" />
+
+    <ImageButton
         android:id="@+id/myPictureButton"
         android:layout_width="39dp"
         android:layout_height="38dp"
@@ -68,7 +76,7 @@
         android:layout_marginTop="16dp"
         android:background="#00FFFFFF"
         android:backgroundTint="#00FFFFFF"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:srcCompat="@drawable/ic_person" />
 
@@ -80,8 +88,6 @@
         android:layout_marginTop="16dp"
         android:background="#FFFFFF"
         android:backgroundTint="#00FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/myPictureButton"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:srcCompat="@drawable/ic_like_complete" />

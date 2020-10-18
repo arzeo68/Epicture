@@ -1,21 +1,39 @@
 package com.example.epicture.ui.profile
 
 import android.content.Intent
-import android.graphics.Color
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.preference.PreferenceManager
+import com.example.epicture.App
+import com.example.epicture.ImgurAuth
 import com.example.epicture.R
 import com.example.epicture.SettingsActivity
+import com.example.epicture.http.AccountBase
+import com.example.epicture.http.AccountSettings
 
 
 class ProfileFragment : Fragment() {
 
     private lateinit var profileViewModel: ProfileViewModel
+    private var account = AccountBase(0,"","","",0,"", 0, false)
+
+    public fun callBackGetUserDataResolve(data: AccountBase)
+    {
+        account = data
+    }
+
+    public fun callBackGetUserDataReject()
+    {
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,20 +48,47 @@ class ProfileFragment : Fragment() {
             val intent = Intent(context, SettingsActivity::class.java)
             startActivity(intent)
         }
-        val buttonMyPicture: ImageButton = returnValue?.findViewById(R.id.myPictureButton)!!
-        val buttonLikedPicture: ImageButton = returnValue?.findViewById(R.id.likedPicture)!!
-        buttonLikedPicture.setColorFilter(Color.GRAY)
-        buttonMyPicture.setColorFilter(Color.WHITE)
+
+
+
+        /////////////////////////////// GET USER DATA ///////////////////
+
+        val prefs: String? = PreferenceManager.getDefaultSharedPreferences(App.context).getString("account_username", "")
+        if (prefs != null) {
+            ImgurAuth.getAccountBase({ callBackGetUserDataResolve(account) }, { callBackGetUserDataReject() }, prefs)
+        }
+
+        Log.d("PROFILENTM", account.avatar.toString())
+
+
+
+
+        ////////////////////////////   BUTTON SWITCH BETWEEN MY PICTURE AND LIKED ///////////////////////
+        val buttonMyPicture: ImageButton = returnValue.findViewById(R.id.myPictureButton)!!
+        val buttonLikedPicture: ImageButton = returnValue.findViewById(R.id.likedPicture)!!
+        val backMyPicture: ImageButton = returnValue.findViewById(R.id.backgroundButtonMyPicture)!!
+        val backLikedPicture: ImageButton = returnValue.findViewById(R.id.backgroundButtonLikedPicture)!!
+
+        buttonLikedPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
+        buttonMyPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonSelectedColor))
+
         buttonLikedPicture.setOnClickListener {
-            buttonMyPicture.setColorFilter(Color.GRAY)
-            buttonLikedPicture.setColorFilter(Color.WHITE)
+            buttonMyPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
+            buttonLikedPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonSelectedColor))
         }
         buttonMyPicture.setOnClickListener {
-            buttonLikedPicture.setColorFilter(Color.GRAY)
-            buttonMyPicture.setColorFilter(Color.WHITE)
-
+            buttonLikedPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
+            buttonMyPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonSelectedColor))
+        }
+        backMyPicture.setOnClickListener {
+            buttonLikedPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
+            buttonMyPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonSelectedColor))
         }
 
+        backLikedPicture.setOnClickListener {
+            buttonLikedPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonSelectedColor))
+            buttonMyPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
+        }
         return returnValue
     }
 }
