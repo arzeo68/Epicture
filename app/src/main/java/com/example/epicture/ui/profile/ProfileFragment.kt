@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageButton
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -18,6 +19,8 @@ import com.example.epicture.R
 import com.example.epicture.SettingsActivity
 import com.example.epicture.http.AccountBase
 import com.example.epicture.http.AccountSettings
+import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 
 class ProfileFragment : Fragment() {
@@ -25,12 +28,17 @@ class ProfileFragment : Fragment() {
     private lateinit var profileViewModel: ProfileViewModel
     private var account = AccountBase(0,"","","",0,"", 0, false)
 
-    public fun callBackGetUserDataResolve(data: AccountBase)
+    fun callBackGetUserDataResolve(data: AccountBase)
     {
-        account = data
+        activity?.runOnUiThread{
+            account = data
+            textView.text = account.bio
+            textView2.text = account.reputation.toString()
+            textView5.text = account.reputation_name
+        }
     }
 
-    public fun callBackGetUserDataReject()
+    fun callBackGetUserDataReject()
     {
 
     }
@@ -55,7 +63,9 @@ class ProfileFragment : Fragment() {
 
         val prefs: String? = PreferenceManager.getDefaultSharedPreferences(App.context).getString("account_username", "")
         if (prefs != null) {
-            ImgurAuth.getAccountBase({ callBackGetUserDataResolve(account) }, { callBackGetUserDataReject() }, prefs)
+            ImgurAuth.getAccountBase({ res ->
+                callBackGetUserDataResolve(res)
+            }, { callBackGetUserDataReject() }, prefs)
         }
 
         Log.d("PROFILENTM", account.avatar.toString())

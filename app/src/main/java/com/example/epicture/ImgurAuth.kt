@@ -152,20 +152,20 @@ object ImgurAuth {
         )
         HttpCall.client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                reject()
+                return reject()
             }
 
             override fun onResponse(call: Call, response: Response) {
                 if (!response.isSuccessful)
-                    reject()
+                    return reject()
                 val res = response.body()!!.string()!!
                 val jObj = Klaxon().parseJsonObject(StringReader(res))
                 val jArray = jObj.array<Any>("data")
                 val images = Klaxon().parseArray<Image>(jArray?.toJsonString().toString())
                 if (images != null) {
-                    resolve(images)
+                    return resolve(images)
                 }
-                reject()
+                return reject()
             }
 
         })
@@ -182,25 +182,28 @@ object ImgurAuth {
         )
         HttpCall.client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                reject()
+                return reject()
             }
 
             override fun onResponse(call: Call, response: Response) {
-                if (!response.isSuccessful)
-                    reject()
+                if (!response.isSuccessful) {
+                    return reject()
+                    return
+                }
                 class ImageById(val data: Image?)
                 val res = response.body()!!.string()!!
                 val jObj = Klaxon().parseJsonObject(StringReader(res))
                 val image = Klaxon().parseFromJsonObject<ImageById>(jObj)?.data
                 if (image != null) {
-                    resolve(image)
+                    return resolve(image)
                 }
-                reject()
+                return reject()
             }
         })
     }
 
     fun getAccountBase(resolve: (AccountBase) -> Unit, reject: () -> Unit, username: String) {
+        Log.d("PROFIL", username)
         val request = HttpCall.getRequestBuilder(
             HttpCall.urlBuilder(imgurUrl, listOf("3", "account", username)),
             mapOf(
@@ -210,21 +213,22 @@ object ImgurAuth {
         )
         HttpCall.client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                reject()
+                return reject()
             }
 
             override fun onResponse(call: Call, response: Response) {
-                if (!response.isSuccessful)
-                    reject()
+                if (!response.isSuccessful) {
+                    return reject()
+                }
                 class Account(val data: AccountBase?)
                 val res = response.body()!!.string()!!
                 val jObj = Klaxon().parseJsonObject(StringReader(res))
                 val account = Klaxon().parseFromJsonObject<Account>(jObj)?.data
                 if (account != null) {
-                    Log.d("AUTH", account.avatar.toString())
-                    resolve(account)
+                    Log.d("PROFIL", account.avatar.toString())
+                    return resolve(account)
                 }
-                reject()
+                return reject()
             }
         })
     }
@@ -239,19 +243,20 @@ object ImgurAuth {
         )
         HttpCall.client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                reject()
+                return reject()
             }
 
             override fun onResponse(call: Call, response: Response) {
                 if (!response.isSuccessful)
-                    reject()
+                    return reject()
                 val res = response.body()!!.string()!!
                 val jObj = Klaxon().parseJsonObject(StringReader(res))
                 val jArray = jObj.array<Any>("data")
                 val albums = Klaxon().parseArray<Album>(jArray?.toJsonString().toString())
                 if (albums != null) {
-                    resolve(albums)
+                    return resolve(albums)
                 }
+                return reject()
             }
 
         })
@@ -267,20 +272,20 @@ object ImgurAuth {
         )
         HttpCall.client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                reject()
+                return reject()
             }
 
             override fun onResponse(call: Call, response: Response) {
                 if (!response.isSuccessful)
-                    reject()
+                    return reject()
                 val res = response.body()!!.string()!!
                 val jObj = Klaxon().parseJsonObject(StringReader(res))
                 val jArray = jObj.array<Any>("data")
                 val images = Klaxon().parseArray<AlbumImage>(jArray?.toJsonString().toString())
                 if (images != null) {
-                    resolve(images)
+                    return resolve(images)
                 }
-                reject()
+                return reject()
             }
         })
     }
@@ -295,21 +300,21 @@ object ImgurAuth {
         )
         HttpCall.client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                reject()
+                return reject()
             }
 
             override fun onResponse(call: Call, response: Response) {
                 if (!response.isSuccessful)
-                    reject()
+                    return reject()
                 class Settings(val data: AccountSettings?)
                 val res = response.body()!!.string()!!
                 Log.d("AUTH", res)
                 val jObj = Klaxon().parseJsonObject(StringReader(res))
                 val settings = Klaxon().parseFromJsonObject<Settings>(jObj)?.data
                 if (settings != null) {
-                    resolve(settings)
+                    return resolve(settings)
                 }
-                reject()
+                return reject()
             }
         })
     }
@@ -325,13 +330,13 @@ object ImgurAuth {
         )
         HttpCall.client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                reject()
+                return reject()
             }
 
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful)
-                    resolve()
-                reject()
+                    return resolve()
+                return reject()
             }
 
         })
