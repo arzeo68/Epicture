@@ -24,13 +24,13 @@ class ProfileFragment : Fragment() {
 
     fun callBackGetUserDataResolve(data: AccountBase)
     {
-        activity?.runOnUiThread{
+        activity?.runOnUiThread {
             account = data
             textView.text = account.bio
             pointsText.text = account.reputation.toString()
             reputationText.text = account.reputation_name
             usernameDisplay.text = username
-            Glide.with(this) .load(data.avatar).into(imageView3);
+            Glide.with(this).load(data.avatar).into(imageView3);
         }
     }
 
@@ -51,23 +51,6 @@ class ProfileFragment : Fragment() {
         button.setOnClickListener {
             val intent = Intent(context, SettingsActivity::class.java)
             startActivity(intent)
-        }
-
-
-
-        /////////////////////////////// GET USER DATA ///////////////////
-        if (account.id == 0) {
-            val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
-                .getString("account_username", "")
-            if (pseudo != null) {
-                username = pseudo
-                ImgurAuth.getAccountBase({ res ->
-                    callBackGetUserDataResolve(res)
-                }, { callBackGetUserDataReject() }, pseudo)
-            }
-        }
-        else {
-            callBackGetUserDataResolve(account)
         }
 
 
@@ -100,5 +83,27 @@ class ProfileFragment : Fragment() {
             buttonMyPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
         }
         return returnValue
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
+    {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        /////////////////////////////// GET USER DATA ///////////////////
+
+        if (account.id == 0) {
+            val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
+                .getString("account_username", "")
+            if (pseudo != null) {
+                username = pseudo
+                ImgurAuth.getAccountBase({ res ->
+                        callBackGetUserDataResolve(res)
+                }, { callBackGetUserDataReject() }, pseudo)
+            }
+        }
+        else {
+            callBackGetUserDataResolve(account)
+        }
     }
 }
