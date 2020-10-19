@@ -163,6 +163,7 @@ object ImgurAuth {
                 val jArray = jObj.array<Any>("data")
                 val images = Klaxon().parseArray<Image>(jArray?.toJsonString().toString())
                 if (images != null) {
+                    Log.d("AUTH", images[0].id.toString())
                     return resolve(images)
                 }
                 return reject()
@@ -339,6 +340,85 @@ object ImgurAuth {
                 return reject()
             }
 
+        })
+    }
+
+    fun getGallery(resolve: () -> Unit, reject: () -> Unit, page: String = "", section: String = "hot", sort: String = "viral", window: String = "day") {
+        val request = HttpCall.getRequestBuilder(
+            HttpCall.urlBuilder(imgurUrl, listOf("3", "gallery", section, sort, window, page)),
+            mapOf(
+                "Authorization" to "Client-ID $clientId",
+                "Authorization" to "Bearer ${authParams["access_token"]}"
+            )
+        )
+        HttpCall.client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                return reject()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (!response.isSuccessful)
+                    return reject()
+                val res = response.body()!!.string()!!
+                Log.d("AUTH", res)
+                TODO("do parsing")
+            }
+
+        })
+    }
+
+    fun getFavorites(resolve: (List<Gallery>) -> Unit, reject: () -> Unit, page: String = "") {
+        val request = HttpCall.getRequestBuilder(
+            HttpCall.urlBuilder(imgurUrl, listOf("3", "account", authParams["account_username"].toString(), "favorites", page)),
+            mapOf(
+                "Authorization" to "Client-ID $clientId",
+                "Authorization" to "Bearer ${authParams["access_token"]}"
+            )
+        )
+        HttpCall.client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                reject()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (!response.isSuccessful)
+                    return reject()
+                val res = response.body()!!.string()!!
+                val jObj = Klaxon().parseJsonObject(StringReader(res))
+                val jArray = jObj.array<Any>("data")
+                val galleries = Klaxon().parseArray<Gallery>(jArray?.toJsonString().toString())
+                if (galleries != null)
+                    return resolve(galleries)
+                return reject()
+            }
+        })
+    }
+
+    fun getGalleryImages(resolve: (List<GalleryAlbumImage>) -> Unit, reject: () -> Unit, galleryId: String) {
+        val request = HttpCall.getRequestBuilder(
+            HttpCall.urlBuilder(imgurUrl, listOf("3", "gallery", "album", galleryId)),
+            mapOf(
+                "Authorization" to "Client-ID $clientId",
+                "Authorization" to "Bearer ${authParams["access_token"]}"
+            )
+        )
+        HttpCall.client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                return reject()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (!response.isSuccessful)
+                    return reject()
+                class AlbumImages(val images: List<GalleryAlbumImage>)
+                class AlbumData(val data: AlbumImages)
+                val res = response.body()!!.string()!!
+                val images = Klaxon().parse<AlbumData>(res)
+                if (images != null) {
+                    return resolve(images.data.images)
+                }
+                return reject()
+            }
         })
     }
 }

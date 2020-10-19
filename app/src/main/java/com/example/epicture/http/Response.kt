@@ -113,3 +113,38 @@ class AccountSettings(
     val newsletter_subscribed: Boolean?,
     val first_party: Boolean?
 )
+
+class Gallery(
+    val id: String?,
+    val title: String?,
+    val description: String?,
+    val cover: String?,
+    val cover_width: Int?,
+    val cover_height: Int?,
+    val width: Int?,
+    val height: Int?,
+    val account_url: String?,
+    val account_id: Int?,
+    val views: Int?,
+    val ups: Int?,
+    val downs: Int?,
+    val points: Int?,
+    val score: Int?,
+    val is_album: Boolean?,
+    val favorite: Boolean?,
+    val favorite_count: Int?,
+    val in_gallery: Boolean?,
+    val type: String?,
+)
+
+class GalleryAlbumImage(
+    val id: String?,
+    val title: String?,
+    val description: String?,
+    val datetime: Int?,
+    val type: String?,
+    val width: Int?,
+    val height: Int?,
+    val views: Int?,
+    val link: String?
+)
