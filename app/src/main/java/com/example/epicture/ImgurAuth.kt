@@ -427,4 +427,26 @@ object ImgurAuth {
             }
         })
     }
+
+    fun putFavorite(resolve: () -> Unit, reject: () -> Unit, id: String, type: String = "image") {
+        val request = HttpCall.postRequestBuilder(
+            HttpCall.urlBuilder(imgurUrl, listOf("3", type, id, "favorite")),
+            HttpCall.bodyBuilder(null),
+            mapOf(
+                "Authorization" to "Client-ID $clientId",
+                "Authorization" to "Bearer ${authParams["access_token"]}"
+            )
+        )
+        HttpCall.client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                return reject()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (!response.isSuccessful)
+                    return reject()
+                return resolve()
+            }
+        })
+    }
 }
