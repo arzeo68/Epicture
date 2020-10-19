@@ -1,25 +1,18 @@
 package com.example.epicture.ui.profile
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageButton
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.preference.PreferenceManager
-import com.example.epicture.App
-import com.example.epicture.ImgurAuth
-import com.example.epicture.R
-import com.example.epicture.SettingsActivity
+import com.bumptech.glide.Glide
+import com.example.epicture.*
 import com.example.epicture.http.AccountBase
-import com.example.epicture.http.AccountSettings
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 
@@ -27,14 +20,18 @@ class ProfileFragment : Fragment() {
 
     private lateinit var profileViewModel: ProfileViewModel
     private var account = AccountBase(0,"","","",0,"", 0, false)
+    private lateinit var username: String
 
     fun callBackGetUserDataResolve(data: AccountBase)
     {
         activity?.runOnUiThread{
             account = data
             textView.text = account.bio
-            textView2.text = account.reputation.toString()
-            textView5.text = account.reputation_name
+            pointsText.text = account.reputation.toString()
+            reputationText.text = account.reputation_name
+            usernameDisplay.text = username
+
+            Glide.with(this) .load(data.avatar).into(imageView3);
         }
     }
 
@@ -60,15 +57,19 @@ class ProfileFragment : Fragment() {
 
 
         /////////////////////////////// GET USER DATA ///////////////////
-
-        val prefs: String? = PreferenceManager.getDefaultSharedPreferences(App.context).getString("account_username", "")
-        if (prefs != null) {
-            ImgurAuth.getAccountBase({ res ->
-                callBackGetUserDataResolve(res)
-            }, { callBackGetUserDataReject() }, prefs)
+        if (account.id == 0) {
+            val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
+                .getString("account_username", "")
+            if (pseudo != null) {
+                username = pseudo
+                ImgurAuth.getAccountBase({ res ->
+                    callBackGetUserDataResolve(res)
+                }, { callBackGetUserDataReject() }, pseudo)
+            }
         }
-
-        Log.d("PROFILENTM", account.avatar.toString())
+        else {
+            callBackGetUserDataResolve(account)
+        }
 
 
 
