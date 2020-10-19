@@ -30,7 +30,6 @@ class ProfileFragment : Fragment() {
             pointsText.text = account.reputation.toString()
             reputationText.text = account.reputation_name
             usernameDisplay.text = username
-
             Glide.with(this) .load(data.avatar).into(imageView3);
         }
     }
