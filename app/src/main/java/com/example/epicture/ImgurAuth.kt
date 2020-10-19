@@ -387,8 +387,14 @@ object ImgurAuth {
                 val jObj = Klaxon().parseJsonObject(StringReader(res))
                 val jArray = jObj.array<Any>("data")
                 val galleries = Klaxon().parseArray<Gallery>(jArray?.toJsonString().toString())
-                if (galleries != null)
+                if (galleries != null) {
+                    for (gallery in galleries) {
+                        val type = gallery.type.toString().substring(6)
+                        gallery.cover = "https://i.imgur.com/${gallery.cover}.${type}"
+                        Log.d("AUTH", gallery.cover.toString())
+                    }
                     return resolve(galleries)
+                }
                 return reject()
             }
         })

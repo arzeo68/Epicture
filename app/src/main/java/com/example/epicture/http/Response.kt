@@ -118,7 +118,7 @@ class Gallery(
     val id: String?,
     val title: String?,
     val description: String?,
-    val cover: String?,
+    var cover: String?,
     val cover_width: Int?,
     val cover_height: Int?,
     val width: Int?,
