@@ -1,28 +1,22 @@
 package com.example.epicture.ui.profile
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.epicture.R
-import com.example.epicture.http.Album
-import com.example.epicture.http.Gallery
+import com.example.epicture.http.AlbumImage
 import com.example.epicture.http.Image
-import kotlinx.android.synthetic.main.favorite_list_view.view.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.android.synthetic.main.image_view_on_home_page.view.*
-import kotlinx.android.synthetic.main.image_view_on_home_page.view.imageTitle
-import kotlinx.android.synthetic.main.image_view_on_home_page.view.usernameUploader
 
 
-class MyAdapterFavorite(
+class MyAdapterInAlbum(
     private val context: Context,
-    private val dataSource: List<Gallery>?,
-    private val buttonCallback: (String?) -> Unit
-) : RecyclerView.Adapter<MyAdapterFavorite.MyViewHolder>() {
+    private val dataSource: List<AlbumImage>?
+) : RecyclerView.Adapter<MyAdapterInAlbum.MyViewHolder>() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -39,10 +33,10 @@ class MyAdapterFavorite(
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): MyAdapterFavorite.MyViewHolder {
+                                    viewType: Int): MyAdapterInAlbum.MyViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.favorite_list_view, parent, false)
+            .inflate(R.layout.image_view_on_profile_page_in_album, parent, false)
         // set the view's size, margins, paddings and layout parameters
         return MyViewHolder(view)
     }
@@ -53,16 +47,7 @@ class MyAdapterFavorite(
         // - replace the contents of the view with that element
         if (dataSource != null)
         {
-            holder.myView.usernameUploader.text = dataSource[position].account_url
-            holder.myView.imageTitle.text = dataSource[position].title
-            Glide.with(context).load(dataSource[position].cover).into(holder.myView.buttonImageOrPreview)
-            if (dataSource[position].is_album!!)
-            {
-                holder.myView.buttonImageOrPreview.setOnClickListener {
-                    dataSource[position].title?.let { it1 -> Log.d("PREVIEWBUTTON", it1) }
-                    buttonCallback(dataSource[position].id)
-                }
-            }
+            Glide.with(context).load(dataSource[position].link).into(holder.myView.image);
         }
     }
 
