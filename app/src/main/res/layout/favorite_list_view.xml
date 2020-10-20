@@ -26,7 +26,7 @@
         app:srcCompat="@drawable/account" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/bottomBar"
         android:layout_width="410dp"
         android:layout_height="0.5dp"
         android:layout_marginStart="1dp"

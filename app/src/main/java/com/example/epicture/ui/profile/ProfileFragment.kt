@@ -3,6 +3,7 @@ package com.example.epicture.ui.profile
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.epicture.*
 import com.example.epicture.http.AccountBase
+import com.example.epicture.http.AlbumImage
 import com.example.epicture.http.Gallery
 import com.example.epicture.http.Image
 import com.example.epicture.ui.home.MyAdapter
@@ -28,6 +30,7 @@ class ProfileFragment : Fragment() {
     private var _viewList: RecyclerView? = null
     private lateinit var adapterUser: MyAdapter
     private lateinit var adapterFavorite: MyAdapterFavorite
+    private lateinit var adapterInAlbum: MyAdapterInAlbum
     private lateinit var profileViewModel: ProfileViewModel
     private var account = AccountBase(0,"","","",0,"", 0, false)
     private var username: String = ""
@@ -55,6 +58,23 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun getAlbumImage(data: String?) {
+        if (data != null) {
+            Log.d("JHGFDDF", data)
+        }
+        val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
+            .getString("account_username", "")
+        if (pseudo != null) {
+            if (data != null) {
+                ImgurAuth.getAlbumImages({ res ->
+                    getImagesInAlbumResolve(res)
+                },
+                    {Log.d("JHGFDDF", "call back failed")
+                    }, data)
+            }
+        }
+    }
+
     private fun switchMode()
     {
         _viewList?.removeAllViews()
@@ -72,6 +92,8 @@ class ProfileFragment : Fragment() {
         }
     }
 
+
+
     private fun getUserImagesResolve(data: List<Image>) {
         activity?.runOnUiThread {
             adapterUser = MyAdapter(requireContext(), data)
@@ -79,9 +101,17 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun getImagesInAlbumResolve(data: List<AlbumImage>) {
+        activity?.runOnUiThread {
+            Log.d("JHGFDDF", "call back resolve")
+            adapterInAlbum = MyAdapterInAlbum(requireContext(), data)
+            _viewList?.adapter = adapterInAlbum
+        }
+    }
+
     private fun GetUserFavoriteResolve(data: List<Gallery>) {
         activity?.runOnUiThread {
-            adapterFavorite = MyAdapterFavorite(requireContext(), data)
+            adapterFavorite = MyAdapterFavorite(requireContext(), data, {res ->getAlbumImage(res)})
             _viewList?.adapter = adapterFavorite
         }
     }
