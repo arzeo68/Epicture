@@ -1,5 +1,6 @@
 package com.example.epicture.ui.profile
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,31 +11,96 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.epicture.*
 import com.example.epicture.http.AccountBase
+import com.example.epicture.http.Gallery
+import com.example.epicture.http.Image
+import com.example.epicture.ui.home.MyAdapter
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 
 class ProfileFragment : Fragment() {
 
+    private var isOnMyPicture: Boolean = true
+    private var _viewList: RecyclerView? = null
+    private lateinit var adapterUser: MyAdapter
+    private lateinit var adapterFavorite: MyAdapterFavorite
     private lateinit var profileViewModel: ProfileViewModel
     private var account = AccountBase(0,"","","",0,"", 0, false)
-    private lateinit var username: String
+    private var username: String = ""
+    private lateinit var buttonArray: ArrayList<ImageButton>
 
+    private fun getFavorite()
+    {
+        val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
+            .getString("account_username", "")
+        if (pseudo != null) {
+            ImgurAuth.getFavorites({ res ->
+                GetUserFavoriteResolve(res)
+            }, { }, pseudo)
+        }
+    }
+
+    private fun getUserImage()
+    {
+        val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
+            .getString("account_username", "")
+        if (pseudo != null) {
+            ImgurAuth.getImagesByAccountAuth({ res ->
+                getUserImagesResolve(res)
+            }, { }, pseudo)
+        }
+    }
+
+    private fun switchMode()
+    {
+        _viewList?.removeAllViews()
+        if (isOnMyPicture)
+        {
+            getUserImage()
+            buttonArray[2].setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
+            buttonArray[0].setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonSelectedColor))
+        }
+        else
+        {
+            getFavorite()
+            buttonArray[0].setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
+            buttonArray[2].setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonSelectedColor))
+        }
+    }
+
+    private fun getUserImagesResolve(data: List<Image>) {
+        activity?.runOnUiThread {
+            adapterUser = MyAdapter(requireContext(), data)
+            _viewList?.adapter = adapterUser
+        }
+    }
+
+    private fun GetUserFavoriteResolve(data: List<Gallery>) {
+        activity?.runOnUiThread {
+            adapterFavorite = MyAdapterFavorite(requireContext(), data)
+            _viewList?.adapter = adapterFavorite
+        }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
     fun callBackGetUserDataResolve(data: AccountBase)
     {
         activity?.runOnUiThread {
             account = data
-            textView.text = account.bio
+            descriptionText.text = account.bio
             pointsText.text = account.reputation.toString()
             reputationText.text = account.reputation_name
             usernameDisplay.text = username
-            Glide.with(this).load(data.avatar).into(imageView3);
+            Glide.with(this).load(data.avatar).into(userProfileImage);
+            userProfileImage.background = requireContext().resources.getDrawable(R.drawable.circle)
         }
     }
 
-    fun callBackGetUserDataReject()
+    private fun callBackGetUserDataReject()
     {
 
     }
@@ -47,52 +113,69 @@ class ProfileFragment : Fragment() {
         profileViewModel =
                 ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         val returnValue : View? = inflater.inflate(R.layout.fragment_profile, container, false)
+        val viewManager = LinearLayoutManager(context)
+
+        _viewList = returnValue?.findViewById<RecyclerView>(R.id.imageList)?.apply {
+            setHasFixedSize(false)
+            adapter = MyAdapter(requireContext(), null)
+            layoutManager = viewManager
+        }
+
         val button: ImageButton = returnValue?.findViewById(R.id.buttonSetting)!!
         button.setOnClickListener {
             val intent = Intent(context, SettingsActivity::class.java)
             startActivity(intent)
         }
+        //////////////////////////// STYLE //////////////////////////////
 
 
 
 
         ////////////////////////////   BUTTON SWITCH BETWEEN MY PICTURE AND LIKED ///////////////////////
+        isOnMyPicture = true
         val buttonMyPicture: ImageButton = returnValue.findViewById(R.id.myPictureButton)!!
         val buttonLikedPicture: ImageButton = returnValue.findViewById(R.id.likedPicture)!!
         val backMyPicture: ImageButton = returnValue.findViewById(R.id.backgroundButtonMyPicture)!!
         val backLikedPicture: ImageButton = returnValue.findViewById(R.id.backgroundButtonLikedPicture)!!
+        buttonArray = ArrayList()
+        buttonArray.add(buttonMyPicture)
+        buttonArray.add(backMyPicture)
+        buttonArray.add(buttonLikedPicture)
+        buttonArray.add(backLikedPicture)
+
 
         buttonLikedPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
         buttonMyPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonSelectedColor))
 
-        buttonLikedPicture.setOnClickListener {
-            buttonMyPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
-            buttonLikedPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonSelectedColor))
-        }
-        buttonMyPicture.setOnClickListener {
-            buttonLikedPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
-            buttonMyPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonSelectedColor))
-        }
-        backMyPicture.setOnClickListener {
-            buttonLikedPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
-            buttonMyPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonSelectedColor))
-        }
 
-        backLikedPicture.setOnClickListener {
-            buttonLikedPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonSelectedColor))
-            buttonMyPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
-        }
         return returnValue
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+        buttonArray[2].setOnClickListener {
+            isOnMyPicture = false
+            switchMode()
+        }
+        buttonArray[0].setOnClickListener {
+            isOnMyPicture = true
+            switchMode()
+        }
+        buttonArray[1].setOnClickListener {
+            isOnMyPicture = true
+            switchMode()
+        }
 
+        buttonArray[3].setOnClickListener {
+            isOnMyPicture = false
+            switchMode()
+        }
 
         /////////////////////////////// GET USER DATA ///////////////////
 
-        if (account.id == 0) {
+
+        if (username == "") {
             val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
                 .getString("account_username", "")
             if (pseudo != null) {
@@ -105,5 +188,6 @@ class ProfileFragment : Fragment() {
         else {
             callBackGetUserDataResolve(account)
         }
+        switchMode()
     }
 }
