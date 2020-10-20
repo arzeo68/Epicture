@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,10 +12,10 @@
         android:text="@string/pseudo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.141" />
+        app:layout_constraintVertical_bias="0.12" />
 
     <ImageButton
         android:id="@+id/buttonSetting"
@@ -32,85 +31,77 @@
         app:srcCompat="@drawable/ic_settings" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="363dp"
-        android:layout_height="95dp"
+        android:id="@+id/descriptionText"
+        android:layout_width="370dp"
+        android:layout_height="30dp"
         android:layout_marginStart="13dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="13dp"
-        android:layout_marginBottom="464dp"
         android:text="@string/description"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.264"
+        app:layout_constraintHorizontal_bias="0.187"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameDisplay"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameDisplay" />
 
     <ImageButton
         android:id="@+id/backgroundButtonMyPicture"
-        android:layout_width="207dp"
-        android:layout_height="43dp"
+        style="str"
+        android:layout_width="209dp"
+        android:layout_height="33dp"
         android:layout_marginTop="13dp"
-        android:background="#00DEDEDE"
-        android:backgroundTint="#00FFFFFF"
-        android:tint="#00FFFFFF"
+        android:background="@drawable/corner"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@color/darkerNightMode" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
 
     <ImageButton
         android:id="@+id/backgroundButtonLikedPicture"
-        android:layout_width="207dp"
-        android:layout_height="43dp"
+        android:layout_width="202dp"
+        android:layout_height="32dp"
         android:layout_marginTop="13dp"
-        android:background="#003A3A3A"
-        android:backgroundTint="#00FFFFFF"
-        android:tint="#00FFFFFF"
+        android:background="@drawable/corner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backgroundButtonMyPicture"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@color/darkerNightMode" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
 
     <ImageButton
         android:id="@+id/myPictureButton"
-        android:layout_width="39dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="76dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="72dp"
         android:layout_marginTop="16dp"
         android:background="#00FFFFFF"
         android:backgroundTint="#00FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionText"
         app:srcCompat="@drawable/ic_person" />
 
     <ImageButton
         android:id="@+id/likedPicture"
-        android:layout_width="39dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="162dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="188dp"
         android:layout_marginTop="16dp"
         android:background="#FFFFFF"
         android:backgroundTint="#00FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/myPictureButton"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionText"
         app:srcCompat="@drawable/ic_like_complete" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/userProfileImage"
         android:layout_width="65dp"
         android:layout_height="71dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="281dp"
         android:layout_marginBottom="1dp"
+        android:background="@drawable/circle"
         app:layout_constraintBottom_toTopOf="@+id/usernameDisplay"
         app:layout_constraintEnd_toStartOf="@+id/buttonSetting"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/account" />
+        app:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView
         android:id="@+id/pointsText"
@@ -120,7 +111,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.121"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toEndOf="@+id/userProfileImage"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.056" />
 
@@ -138,5 +129,18 @@
         app:layout_constraintStart_toEndOf="@+id/pointsText"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.056" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/imageList"
+        android:layout_width="411dp"
+        android:layout_height="519dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backgroundButtonMyPicture"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
