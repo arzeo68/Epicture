@@ -4,18 +4,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
+import android.util.Base64
 import android.util.Log
 import androidx.core.content.ContextCompat.startActivity
 import androidx.preference.PreferenceManager
 import com.beust.klaxon.*
-import com.beust.klaxon.Klaxon.*
 import com.example.epicture.http.*
 import okhttp3.Call
 import okhttp3.Callback
-import okhttp3.HttpUrl
 import okhttp3.Response
 import java.io.IOException
 import java.io.StringReader
+import java.lang.invoke.CallSite
 
 class Config {
 
@@ -432,6 +432,85 @@ object ImgurAuth {
         val request = HttpCall.postRequestBuilder(
             HttpCall.urlBuilder(imgurUrl, listOf("3", type, id, "favorite")),
             HttpCall.bodyBuilder(null),
+            mapOf(
+                "Authorization" to "Client-ID $clientId",
+                "Authorization" to "Bearer ${authParams["access_token"]}"
+            )
+        )
+        HttpCall.client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                return reject()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (!response.isSuccessful)
+                    return reject()
+                return resolve()
+            }
+        })
+    }
+
+    fun searchGallery(resolve: (List<SearchGallery>) -> Unit, reject: () -> Unit, q: String, page: String = "0", sort: String = "time", window: String = "all") {
+        val request = HttpCall.getRequestBuilder(
+            HttpCall.urlBuilder(imgurUrl, listOf("3", "gallery", "search", sort, window, page), mapOf("q" to q)),
+            mapOf(
+                "Authorization" to "Client-ID $clientId",
+                "Authorization" to "Bearer ${authParams["access_token"]}"
+            )
+        )
+        HttpCall.client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                return reject()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (!response.isSuccessful)
+                    return reject()
+                val res = response.body()!!.string()!!
+                val jObj = Klaxon().parseJsonObject(StringReader(res))
+                val jArray = jObj.array<Any>("data")
+                val albums = Klaxon().parseArray<SearchGallery>(jArray?.toJsonString().toString())
+                if (albums != null) {
+                    return resolve(albums)
+                }
+                return reject()
+            }
+        })
+    }
+
+    fun deleteImageOrAlbum(resolve: () -> Unit, reject: () -> Unit, type: String, username: String, id: String) {
+        val request = HttpCall.deleteRequestBuilder(
+            HttpCall.urlBuilder(imgurUrl, listOf("3", "account", username, type, id)),
+            mapOf(
+                "Authorization" to "Client-ID $clientId",
+                "Authorization" to "Bearer ${authParams["access_token"]}"
+            )
+        )
+        HttpCall.client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                return reject()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                Log.d("AUTH", response.body()!!.string()!!)
+                if (!response.isSuccessful) {
+                    return reject()
+                }
+                return resolve()
+            }
+        })
+    }
+
+    fun uploadImage(resolve: () -> Unit, reject: () -> Unit, type: String, base64: String, urlType: String, name: String, title: String, description: String) {
+        val request = HttpCall.postRequestBuilder(
+            HttpCall.urlBuilder(imgurUrl, listOf("3", "upload")),
+            HttpCall.bodyBuilder(mapOf(
+                type to "",
+                "type" to urlType,
+                "name" to name,
+                "title" to title,
+                "description" to description
+            )),
             mapOf(
                 "Authorization" to "Client-ID $clientId",
                 "Authorization" to "Bearer ${authParams["access_token"]}"

@@ -8,13 +8,18 @@ import okhttp3.Request
 object HttpCall {
     public val client: OkHttpClient = OkHttpClient.Builder().build()
 
-    fun urlBuilder(host: String, pathSegments: List<String>?): HttpUrl {
+    fun urlBuilder(host: String, pathSegments: List<String>?, queries: Map<String, String>? = null): HttpUrl {
         val builder = HttpUrl.Builder()
             .scheme("https")
             .host(host)
         if (pathSegments != null) {
             for (pathSegment in pathSegments)
                 builder.addPathSegment(pathSegment)
+        }
+        if (queries != null) {
+            for (query in queries) {
+                builder.addQueryParameter(query.key, query.value)
+            }
         }
         return builder.build()
     }
