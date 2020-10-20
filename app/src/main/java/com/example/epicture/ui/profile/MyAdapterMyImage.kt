@@ -1,6 +1,7 @@
-package com.example.epicture.ui.home
+package com.example.epicture.ui.profile
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.epicture.R
 import com.example.epicture.http.Image
-import kotlinx.android.synthetic.main.fragment_profile.view.*
-import kotlinx.android.synthetic.main.image_view_on_home_page.view.*
+import kotlinx.android.synthetic.main.my_picture_view_list.view.*
 
 
-class MyAdapter(
+class MyAdapterMyImage(
     private val context: Context,
-    private val dataSource: List<Image>?
-) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+    private val dataSource: List<Image>?,
+    private val buttonLikeCallback: (String?, String) -> Unit
+) : RecyclerView.Adapter<MyAdapterMyImage.MyViewHolder>() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -32,10 +33,10 @@ class MyAdapter(
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): MyAdapter.MyViewHolder {
+                                    viewType: Int): MyViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.image_view_on_home_page, parent, false)
+            .inflate(R.layout.my_picture_view_list, parent, false)
         // set the view's size, margins, paddings and layout parameters
         return MyViewHolder(view)
     }
@@ -47,8 +48,18 @@ class MyAdapter(
         if (dataSource != null)
         {
             holder.myView.imageTitle.text = dataSource[position].name
-            holder.myView.usernameUploader.text = dataSource[position].account_url
-            Glide.with(context).load(dataSource[position].link).into(holder.myView.image);
+            Glide.with(context).load(dataSource[position].link).into(holder.myView.image)
+            if (dataSource[position].favorite!!)
+                holder.myView.likeButton.setImageResource(R.drawable.ic_like_complete)
+            holder.myView.likeButton.setOnClickListener {
+
+                buttonLikeCallback(dataSource[position].id, "image")
+                if (holder.myView.likeButton.drawable.getConstantState()?.equals(context.getResources().getDrawable(R.drawable.ic_like_complete).getConstantState())!!)
+                    holder.myView.likeButton.setImageResource(R.drawable.ic_unlike)
+                else
+                    holder.myView.likeButton.setImageResource(R.drawable.ic_like_complete)
+
+            }
         }
     }
 
@@ -58,6 +69,4 @@ class MyAdapter(
         }
         return -1
     }
-
-
 }

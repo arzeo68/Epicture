@@ -13,9 +13,6 @@ import com.example.epicture.http.Gallery
 import com.example.epicture.http.Image
 import kotlinx.android.synthetic.main.favorite_list_view.view.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
-import kotlinx.android.synthetic.main.image_view_on_home_page.view.*
-import kotlinx.android.synthetic.main.image_view_on_home_page.view.imageTitle
-import kotlinx.android.synthetic.main.image_view_on_home_page.view.usernameUploader
 
 
 class MyAdapterFavorite(
@@ -53,13 +50,16 @@ class MyAdapterFavorite(
         // - replace the contents of the view with that element
         if (dataSource != null)
         {
+            Log.d("ImageDimension", holder.myView.buttonImageOrPreview.measuredHeight.toString())
+            Log.d("ImageDimension", holder.myView.buttonImageOrPreview.measuredWidth.toString())
+            Log.d("ImageDimension", dataSource[position].height.toString())
+            Log.d("ImageDimension", dataSource[position].width.toString())
             holder.myView.usernameUploader.text = dataSource[position].account_url
             holder.myView.imageTitle.text = dataSource[position].title
-            Glide.with(context).load(dataSource[position].cover).into(holder.myView.buttonImageOrPreview)
+            Glide.with(context).load(dataSource[position].cover).centerInside().into(holder.myView.buttonImageOrPreview)
             if (dataSource[position].is_album!!)
             {
                 holder.myView.buttonImageOrPreview.setOnClickListener {
-                    dataSource[position].title?.let { it1 -> Log.d("PREVIEWBUTTON", it1) }
                     buttonCallback(dataSource[position].id)
                 }
             }

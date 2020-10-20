@@ -55,8 +55,8 @@
 
     <ImageButton
         android:id="@+id/backgroundButtonLikedPicture"
-        android:layout_width="202dp"
-        android:layout_height="32dp"
+        android:layout_width="201dp"
+        android:layout_height="33dp"
         android:layout_marginTop="13dp"
         android:background="@drawable/corner"
         app:layout_constraintEnd_toEndOf="parent"

@@ -20,7 +20,6 @@ import com.example.epicture.http.AccountBase
 import com.example.epicture.http.AlbumImage
 import com.example.epicture.http.Gallery
 import com.example.epicture.http.Image
-import com.example.epicture.ui.home.MyAdapter
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 
@@ -28,7 +27,7 @@ class ProfileFragment : Fragment() {
 
     private var isOnMyPicture: Boolean = true
     private var _viewList: RecyclerView? = null
-    private lateinit var adapterUser: MyAdapter
+    private lateinit var adapterUser: MyAdapterMyImage
     private lateinit var adapterFavorite: MyAdapterFavorite
     private lateinit var adapterInAlbum: MyAdapterInAlbum
     private lateinit var profileViewModel: ProfileViewModel
@@ -92,13 +91,21 @@ class ProfileFragment : Fragment() {
         }
     }
 
-
+    private fun likeCallback(id: String?, type: String)
+    {
+        if (id != null) {
+            ImgurAuth.putFavorite({putFavoriteResolve()}, {}, id, type)
+        }
+    }
 
     private fun getUserImagesResolve(data: List<Image>) {
         activity?.runOnUiThread {
-            adapterUser = MyAdapter(requireContext(), data)
+            adapterUser = MyAdapterMyImage(requireContext(), data, {res, res2 ->likeCallback(res, res2)})
             _viewList?.adapter = adapterUser
         }
+    }
+
+    private fun putFavoriteResolve() {
     }
 
     private fun getImagesInAlbumResolve(data: List<AlbumImage>) {
@@ -147,7 +154,7 @@ class ProfileFragment : Fragment() {
 
         _viewList = returnValue?.findViewById<RecyclerView>(R.id.imageList)?.apply {
             setHasFixedSize(false)
-            adapter = MyAdapter(requireContext(), null)
+            adapter = MyAdapterMyImage(requireContext(), null, {res, res2 ->likeCallback(res, res2)})
             layoutManager = viewManager
         }
 

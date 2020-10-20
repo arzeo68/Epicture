@@ -6,33 +6,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/usernameUploader"
-        android:layout_width="219dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="26dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/uploaderImage"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/uploaderImage"
-        android:layout_width="38dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="17dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/account" />
-
     <ImageView
         android:id="@+id/image"
         android:layout_width="411dp"
         android:layout_height="334dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="7dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageTitle"
+        app:layout_constraintTop_toBottomOf="@+id/likeButton"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <ImageView
@@ -47,12 +27,25 @@
 
     <TextView
         android:id="@+id/imageTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="303dp"
+        android:layout_height="29dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uploaderImage" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/likeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_unlike" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

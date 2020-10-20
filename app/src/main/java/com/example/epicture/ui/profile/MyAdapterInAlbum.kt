@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.epicture.R
 import com.example.epicture.http.AlbumImage
-import com.example.epicture.http.Image
-import kotlinx.android.synthetic.main.fragment_profile.view.*
-import kotlinx.android.synthetic.main.image_view_on_home_page.view.*
+import kotlinx.android.synthetic.main.image_view_on_profile_page_in_album.view.*
 
 
 class MyAdapterInAlbum(

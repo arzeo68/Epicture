@@ -17,8 +17,9 @@ class UploadFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        uploadViewModel =
-            ViewModelProviders.of(this).get(UploadViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_upload, container, false)
+        uploadViewModel = ViewModelProviders.of(this).get(UploadViewModel::class.java)
+        val res = inflater.inflate(R.layout.fragment_upload, container, false)
+        // write code here
+        return res
     }
 }

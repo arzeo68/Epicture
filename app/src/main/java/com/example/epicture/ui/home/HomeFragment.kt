@@ -1,7 +1,6 @@
 package com.example.epicture.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,19 +12,24 @@ import com.example.epicture.App
 import com.example.epicture.ImgurAuth
 import com.example.epicture.R
 import com.example.epicture.http.Image
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
+import com.example.epicture.ui.profile.MyAdapterMyImage
 
 class HomeFragment : Fragment() {
 
     private fun GetImagesResolve(data: List<Image>) {
         activity?.runOnUiThread {
-            adapter = MyAdapter(requireContext(), data)
+            adapter = MyAdapterMyImage(requireContext(), data, {res,res2 ->likeCallback(res, res2)})
             _viewList?.adapter = adapter
         }
     }
+
+    private fun likeCallback(id: String?, type: String)
+    {
+
+    }
+
     private var _viewList: RecyclerView? = null
-    private lateinit var adapter: MyAdapter
+    private lateinit var adapter: MyAdapterMyImage
     private var myUsername: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
@@ -53,7 +57,7 @@ class HomeFragment : Fragment() {
 
         _viewList = inflate?.findViewById<RecyclerView>(R.id.imageList)?.apply {
             setHasFixedSize(false)
-            adapter = MyAdapter(requireContext(), null)
+            adapter = MyAdapterMyImage(requireContext(), null, {res, res2 ->likeCallback(res, res2)})
             layoutManager = viewManager
         }
 
