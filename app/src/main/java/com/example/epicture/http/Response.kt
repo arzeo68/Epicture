@@ -1,9 +1,8 @@
 package com.example.epicture.http
 
-import com.beust.klaxon.Json
-import com.beust.klaxon.JsonArray
-import com.beust.klaxon.JsonObject
-import com.beust.klaxon.TypeFor
+import com.beust.klaxon.*
+import java.lang.IllegalArgumentException
+import kotlin.reflect.KClass
 
 class AuthResponse(
     val access_token: String?,
@@ -172,4 +171,57 @@ class SearchGallery(
     val images_count: Int?,
     val in_gallery: Boolean?,
     val images: List<AlbumImage?>?
+)
+
+class GalleryAdapter: TypeAdapter<GalleryType> {
+    override fun classFor(type: Any): KClass<out GalleryType> = when(type as Boolean){
+        true -> HomeAlbum::class
+        false -> HomeImage::class
+    }
+}
+
+@TypeFor(field = "is_album", adapter = GalleryAdapter::class)
+open class GalleryType(val is_album: Boolean?)
+data class HomeAlbum(
+    val id: String?,
+    val title: String?,
+    val description: String?,
+    val datetime: Int?,
+    val cover: String?,
+    val cover_width: Int?,
+    val cover_height: Int?,
+    val account_url: String?,
+    val account_id: Int?,
+    val privacy: String?,
+    val layout: String?,
+    val views: Int?,
+    val ups: Int?,
+    val downs: Int?,
+    val points: Int?,
+    val score: Int?,
+    val vote: String?,
+    val favorite: Boolean?,
+    val images_count: Int?,
+    val in_gallery: Boolean?,
+    val images: List<AlbumImage?>?
+) : GalleryType(true)
+data class HomeImage(
+    val id: String?,
+    val title: String?,
+    val description: String?,
+    val datetime: Int?,
+    val link: String?,
+    val account_url: String?,
+    val account_id: Int?,
+    val favorite: Boolean?,
+) : GalleryType(false)
+
+class HomeGallery(
+    val id: String?,
+    val title: String?,
+    val description: String?,
+    val datetime: Int?,
+    val favorite: Boolean?,
+    val is_album: Boolean?,
+    val link: String?,
 )

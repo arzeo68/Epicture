@@ -163,7 +163,6 @@ object ImgurAuth {
                 val jArray = jObj.array<Any>("data")
                 val images = Klaxon().parseArray<Image>(jArray?.toJsonString().toString())
                 if (images != null) {
-                    Log.d("AUTH", images[0].id.toString())
                     return resolve(images)
                 }
                 return reject()
@@ -309,7 +308,6 @@ object ImgurAuth {
                     return reject()
                 class Settings(val data: AccountSettings?)
                 val res = response.body()!!.string()!!
-                Log.d("AUTH", res)
                 val jObj = Klaxon().parseJsonObject(StringReader(res))
                 val settings = Klaxon().parseFromJsonObject<Settings>(jObj)?.data
                 if (settings != null) {
@@ -343,7 +341,7 @@ object ImgurAuth {
         })
     }
 
-    fun getGallery(resolve: () -> Unit, reject: () -> Unit, page: String = "", section: String = "hot", sort: String = "viral", window: String = "day") {
+    fun getGallery(resolve: (ArrayList<HomeGallery>) -> Unit, reject: () -> Unit, page: String = "0", section: String = "hot", sort: String = "viral", window: String = "day") {
         val request = HttpCall.getRequestBuilder(
             HttpCall.urlBuilder(imgurUrl, listOf("3", "gallery", section, sort, window, page)),
             mapOf(
@@ -357,11 +355,40 @@ object ImgurAuth {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                if (!response.isSuccessful)
-                    return reject()
                 val res = response.body()!!.string()!!
-                Log.d("AUTH", res)
-                TODO("do parsing")
+                val jObj = Klaxon().parseJsonObject(StringReader(res))
+                val jArray = jObj.array<Any>("data")
+                val galleryList = Klaxon().parseArray<GalleryType>(jArray?.toJsonString().toString())
+                val homeGallery: ArrayList<HomeGallery> = ArrayList()
+                if (galleryList != null) {
+                    for (gallery in galleryList) {
+                        if (gallery.is_album == true) {
+                            val h = gallery as HomeAlbum
+                            homeGallery.add(HomeGallery(
+                                h.id,
+                                h.title,
+                                h.description,
+                                h.datetime,
+                                h.favorite,
+                                h.is_album,
+                                "https://i.imgur.com/${gallery.cover}.${gallery.images?.get(0)?.type?.substring(6)}"
+                            ))
+                        } else {
+                            val h = gallery as HomeImage
+                            homeGallery.add(HomeGallery(
+                                h.id,
+                                h.title,
+                                h.description,
+                                h.datetime,
+                                h.favorite,
+                                h.is_album,
+                                h.link
+                            ))
+                        }
+                    }
+                    return resolve(homeGallery)
+                }
+                return reject()
             }
 
         })
@@ -391,7 +418,6 @@ object ImgurAuth {
                     for (gallery in galleries) {
                         val type = gallery.type.toString().substring(6)
                         gallery.cover = "https://i.imgur.com/${gallery.cover}.${type}"
-                        Log.d("AUTH", gallery.cover.toString())
                     }
                     return resolve(galleries)
                 }
@@ -492,7 +518,6 @@ object ImgurAuth {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                Log.d("AUTH", response.body()!!.string()!!)
                 if (!response.isSuccessful) {
                     return reject()
                 }
