@@ -1,10 +1,7 @@
 package com.example.epicture
 
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +12,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
 
-        ImgurAuth.alreadyConnected ({ accessApp() }, { connection() })
+        ImgurAuth.alreadyConnected({ accessApp() }, { connection() })
         val button = findViewById<Button>(R.id.connection)
         button.setOnClickListener {
             connection()

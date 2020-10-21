@@ -1,4 +1,4 @@
-package com.example.epicture.ui.profile
+package com.example.epicture.ui.home
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,11 +11,11 @@ import com.example.epicture.http.Image
 import kotlinx.android.synthetic.main.my_picture_view_list.view.*
 
 
-class MyAdapterMyImage(
+class MyAdapterHomePage(
     private val context: Context,
     private val dataSource: List<Image>?,
-    private val buttonDeleteCallback: (String?, String) -> Unit
-) : RecyclerView.Adapter<MyAdapterMyImage.MyViewHolder>() {
+    private val buttonLikeCallback: (String?, String) -> Unit
+) : RecyclerView.Adapter<MyAdapterHomePage.MyViewHolder>() {
 
     private val inflater: LayoutInflater =
         context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -57,15 +57,16 @@ class MyAdapterMyImage(
                 holder.myView.likeButton.setImageResource(R.drawable.ic_like_complete)
             holder.myView.likeButton.setOnClickListener {
 
-                buttonDeleteCallback(dataSource[position].id, "image")
-//                if (holder.myView.likeButton.drawable.getConstantState()?.equals(
-//                        context.getResources().getDrawable(
-//                            R.drawable.ic_like_complete
-//                        ).getConstantState()
-//                    )!!)
-//                    holder.myView.likeButton.setImageResource(R.drawable.ic_unlike)
-//                else
-//                    holder.myView.likeButton.setImageResource(R.drawable.ic_like_complete)
+                buttonLikeCallback(dataSource[position].id, "image")
+                if (holder.myView.likeButton.drawable.getConstantState()?.equals(
+                        context.getResources().getDrawable(
+                            R.drawable.ic_like_complete
+                        ).getConstantState()
+                    )!!
+                )
+                    holder.myView.likeButton.setImageResource(R.drawable.ic_unlike)
+                else
+                    holder.myView.likeButton.setImageResource(R.drawable.ic_like_complete)
 
             }
         }

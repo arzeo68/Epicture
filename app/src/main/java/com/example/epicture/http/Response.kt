@@ -1,7 +1,7 @@
 package com.example.epicture.http
 
-import com.beust.klaxon.*
-import java.lang.IllegalArgumentException
+import com.beust.klaxon.TypeAdapter
+import com.beust.klaxon.TypeFor
 import kotlin.reflect.KClass
 
 class AuthResponse(
@@ -72,7 +72,7 @@ class Album(
     val order: Int?
 )
 
-class AlbumImage (
+class AlbumImage(
     val id: String?,
     val title: String?,
     val description: String?,
@@ -173,8 +173,8 @@ class SearchGallery(
     val images: List<AlbumImage?>?
 )
 
-class GalleryAdapter: TypeAdapter<GalleryType> {
-    override fun classFor(type: Any): KClass<out GalleryType> = when(type as Boolean){
+class GalleryAdapter : TypeAdapter<GalleryType> {
+    override fun classFor(type: Any): KClass<out GalleryType> = when (type as Boolean) {
         true -> HomeAlbum::class
         false -> HomeImage::class
     }
@@ -205,6 +205,7 @@ data class HomeAlbum(
     val in_gallery: Boolean?,
     val images: List<AlbumImage?>?
 ) : GalleryType(true)
+
 data class HomeImage(
     val id: String?,
     val title: String?,

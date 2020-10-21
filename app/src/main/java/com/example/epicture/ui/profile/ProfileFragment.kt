@@ -15,7 +15,10 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.epicture.*
+import com.example.epicture.App
+import com.example.epicture.ImgurAuth
+import com.example.epicture.R
+import com.example.epicture.SettingsActivity
 import com.example.epicture.http.AccountBase
 import com.example.epicture.http.AlbumImage
 import com.example.epicture.http.Gallery
@@ -31,12 +34,17 @@ class ProfileFragment : Fragment() {
     private lateinit var adapterFavorite: MyAdapterFavorite
     private lateinit var adapterInAlbum: MyAdapterInAlbum
     private lateinit var profileViewModel: ProfileViewModel
-    private var account = AccountBase(0,"","","",0,"", 0, false)
+    private var account = AccountBase(0, "", "", "", 0, "", 0, false)
     private var username: String = ""
     private lateinit var buttonArray: ArrayList<ImageButton>
 
-    private fun getFavorite()
-    {
+    private fun unlikeButtonCallBack(id: String?, type: String) {
+        if (id != null) {
+            ImgurAuth.putFavorite({ unlikeResolve() }, {}, id, type)
+        }
+    }
+
+    private fun getFavorite() {
         val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
             .getString("account_username", "")
         if (pseudo != null) {
@@ -46,8 +54,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun getUserImage()
-    {
+    private fun getUserImage() {
         val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
             .getString("account_username", "")
         if (pseudo != null) {
@@ -65,47 +72,75 @@ class ProfileFragment : Fragment() {
             .getString("account_username", "")
         if (pseudo != null) {
             if (data != null) {
-                ImgurAuth.getAlbumImages({ res ->
-                    getImagesInAlbumResolve(res)
-                },
-                    {Log.d("JHGFDDF", "call back failed")
-                    }, data)
+                ImgurAuth.getAlbumImages(
+                    { res ->
+                        getImagesInAlbumResolve(res)
+                    },
+                    {
+                        Log.d("JHGFDDF", "call back failed")
+                    }, data
+                )
             }
         }
     }
 
-    private fun switchMode()
-    {
+    private fun switchMode() {
         _viewList?.removeAllViews()
-        if (isOnMyPicture)
-        {
+        if (isOnMyPicture) {
             getUserImage()
-            buttonArray[2].setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
-            buttonArray[0].setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonSelectedColor))
-        }
-        else
-        {
+            buttonArray[2].setColorFilter(
+                ContextCompat.getColor(
+                    this.requireContext(),
+                    R.color.buttonreleaseColor
+                )
+            )
+            buttonArray[0].setColorFilter(
+                ContextCompat.getColor(
+                    this.requireContext(),
+                    R.color.buttonSelectedColor
+                )
+            )
+        } else {
             getFavorite()
-            buttonArray[0].setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
-            buttonArray[2].setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonSelectedColor))
+            buttonArray[0].setColorFilter(
+                ContextCompat.getColor(
+                    this.requireContext(),
+                    R.color.buttonreleaseColor
+                )
+            )
+            buttonArray[2].setColorFilter(
+                ContextCompat.getColor(
+                    this.requireContext(),
+                    R.color.buttonSelectedColor
+                )
+            )
         }
     }
 
-    private fun likeCallback(id: String?, type: String)
-    {
+    private fun deleteCallBack(id: String?, type: String) {
         if (id != null) {
-            ImgurAuth.putFavorite({putFavoriteResolve()}, {}, id, type)
+            ImgurAuth.deleteImageOrAlbum({ deleteResolve() }, {}, type, username, id)
         }
     }
 
     private fun getUserImagesResolve(data: List<Image>) {
         activity?.runOnUiThread {
-            adapterUser = MyAdapterMyImage(requireContext(), data, {res, res2 ->likeCallback(res, res2)})
+            adapterUser =
+                MyAdapterMyImage(requireContext(), data, { res, res2 -> deleteCallBack(res, res2) })
             _viewList?.adapter = adapterUser
         }
     }
 
-    private fun putFavoriteResolve() {
+    private fun deleteResolve() {
+        activity?.runOnUiThread {
+            switchMode()
+        }
+    }
+
+    private fun unlikeResolve() {
+        activity?.runOnUiThread {
+            switchMode()
+        }
     }
 
     private fun getImagesInAlbumResolve(data: List<AlbumImage>) {
@@ -118,14 +153,17 @@ class ProfileFragment : Fragment() {
 
     private fun GetUserFavoriteResolve(data: List<Gallery>) {
         activity?.runOnUiThread {
-            adapterFavorite = MyAdapterFavorite(requireContext(), data, {res ->getAlbumImage(res)})
+            adapterFavorite = MyAdapterFavorite(
+                requireContext(),
+                data,
+                { res -> getAlbumImage(res) },
+                { res, res2 -> unlikeButtonCallBack(res, res2) })
             _viewList?.adapter = adapterFavorite
         }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    fun callBackGetUserDataResolve(data: AccountBase)
-    {
+    fun callBackGetUserDataResolve(data: AccountBase) {
         activity?.runOnUiThread {
             account = data
             descriptionText.text = account.bio
@@ -137,8 +175,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun callBackGetUserDataReject()
-    {
+    private fun callBackGetUserDataReject() {
 
     }
 
@@ -148,13 +185,14 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         profileViewModel =
-                ViewModelProviders.of(this).get(ProfileViewModel::class.java)
-        val returnValue : View? = inflater.inflate(R.layout.fragment_profile, container, false)
+            ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+        val returnValue: View? = inflater.inflate(R.layout.fragment_profile, container, false)
         val viewManager = LinearLayoutManager(context)
 
         _viewList = returnValue?.findViewById<RecyclerView>(R.id.imageList)?.apply {
             setHasFixedSize(false)
-            adapter = MyAdapterMyImage(requireContext(), null, {res, res2 ->likeCallback(res, res2)})
+            adapter =
+                MyAdapterMyImage(requireContext(), null, { res, res2 -> deleteCallBack(res, res2) })
             layoutManager = viewManager
         }
 
@@ -166,14 +204,13 @@ class ProfileFragment : Fragment() {
         //////////////////////////// STYLE //////////////////////////////
 
 
-
-
         ////////////////////////////   BUTTON SWITCH BETWEEN MY PICTURE AND LIKED ///////////////////////
         isOnMyPicture = true
         val buttonMyPicture: ImageButton = returnValue.findViewById(R.id.myPictureButton)!!
         val buttonLikedPicture: ImageButton = returnValue.findViewById(R.id.likedPicture)!!
         val backMyPicture: ImageButton = returnValue.findViewById(R.id.backgroundButtonMyPicture)!!
-        val backLikedPicture: ImageButton = returnValue.findViewById(R.id.backgroundButtonLikedPicture)!!
+        val backLikedPicture: ImageButton =
+            returnValue.findViewById(R.id.backgroundButtonLikedPicture)!!
         buttonArray = ArrayList()
         buttonArray.add(buttonMyPicture)
         buttonArray.add(backMyPicture)
@@ -181,15 +218,24 @@ class ProfileFragment : Fragment() {
         buttonArray.add(backLikedPicture)
 
 
-        buttonLikedPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonreleaseColor))
-        buttonMyPicture.setColorFilter(ContextCompat.getColor(this.requireContext(), R.color.buttonSelectedColor))
+        buttonLikedPicture.setColorFilter(
+            ContextCompat.getColor(
+                this.requireContext(),
+                R.color.buttonreleaseColor
+            )
+        )
+        buttonMyPicture.setColorFilter(
+            ContextCompat.getColor(
+                this.requireContext(),
+                R.color.buttonSelectedColor
+            )
+        )
 
 
         return returnValue
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
-    {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         buttonArray[2].setOnClickListener {
             isOnMyPicture = false
@@ -218,11 +264,10 @@ class ProfileFragment : Fragment() {
             if (pseudo != null) {
                 username = pseudo
                 ImgurAuth.getAccountBase({ res ->
-                        callBackGetUserDataResolve(res)
+                    callBackGetUserDataResolve(res)
                 }, { callBackGetUserDataReject() }, pseudo)
             }
-        }
-        else {
+        } else {
             callBackGetUserDataResolve(account)
         }
         switchMode()

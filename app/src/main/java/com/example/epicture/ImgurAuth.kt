@@ -4,24 +4,22 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
-import android.util.Base64
 import android.util.Log
 import androidx.core.content.ContextCompat.startActivity
 import androidx.preference.PreferenceManager
-import com.beust.klaxon.*
+import com.beust.klaxon.Klaxon
 import com.example.epicture.http.*
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
 import java.io.IOException
 import java.io.StringReader
-import java.lang.invoke.CallSite
 
 class Config {
 
     companion object {
-        const val clientID : String = "aca4de364cccb3a"
-        const val clientSecret : String = "46d9b9dc5c215cf383fa5d786457c76b6194c240"
+        const val clientID: String = "aca4de364cccb3a"
+        const val clientSecret: String = "46d9b9dc5c215cf383fa5d786457c76b6194c240"
     }
 }
 
@@ -172,7 +170,12 @@ object ImgurAuth {
     }
 
 
-    fun getImageByIdAuth(resolve: (Image) -> Unit, reject: () -> Unit, username: String, id: String) {
+    fun getImageByIdAuth(
+        resolve: (Image) -> Unit,
+        reject: () -> Unit,
+        username: String,
+        id: String
+    ) {
         val request = HttpCall.getRequestBuilder(
             HttpCall.urlBuilder(imgurUrl, listOf("3", "account", username, "image", id)),
             mapOf(
@@ -191,6 +194,7 @@ object ImgurAuth {
                     return
                 }
                 class ImageById(val data: Image?)
+
                 val res = response.body()!!.string()!!
                 val jObj = Klaxon().parseJsonObject(StringReader(res))
                 val image = Klaxon().parseFromJsonObject<ImageById>(jObj)?.data
@@ -221,6 +225,7 @@ object ImgurAuth {
                     return reject()
                 }
                 class Account(val data: AccountBase?)
+
                 val res = response.body()!!.string()!!
                 val jObj = Klaxon().parseJsonObject(StringReader(res))
                 val account = Klaxon().parseFromJsonObject<Account>(jObj)?.data
@@ -233,7 +238,12 @@ object ImgurAuth {
         })
     }
 
-    fun getAlbumsNoAuth(resolve: (List<Album>) -> Unit, reject: () -> Unit, username: String, page: String = "0") {
+    fun getAlbumsNoAuth(
+        resolve: (List<Album>) -> Unit,
+        reject: () -> Unit,
+        username: String,
+        page: String = "0"
+    ) {
         val request = HttpCall.getRequestBuilder(
             HttpCall.urlBuilder(imgurUrl, listOf("3", "account", username, "albums", page)),
             mapOf(
@@ -307,6 +317,7 @@ object ImgurAuth {
                 if (!response.isSuccessful)
                     return reject()
                 class Settings(val data: AccountSettings?)
+
                 val res = response.body()!!.string()!!
                 val jObj = Klaxon().parseJsonObject(StringReader(res))
                 val settings = Klaxon().parseFromJsonObject<Settings>(jObj)?.data
@@ -318,7 +329,12 @@ object ImgurAuth {
         })
     }
 
-    fun changeAccountSettings(resolve: () -> Unit, reject: () -> Unit, username: String, settings: Map<String, String>) {
+    fun changeAccountSettings(
+        resolve: () -> Unit,
+        reject: () -> Unit,
+        username: String,
+        settings: Map<String, String>
+    ) {
         val request = HttpCall.postRequestBuilder(
             HttpCall.urlBuilder(imgurUrl, listOf("3", "account", username, "settings")),
             HttpCall.bodyBuilder(settings),
@@ -341,7 +357,14 @@ object ImgurAuth {
         })
     }
 
-    fun getGallery(resolve: (ArrayList<HomeGallery>) -> Unit, reject: () -> Unit, page: String = "0", section: String = "hot", sort: String = "viral", window: String = "day") {
+    fun getGallery(
+        resolve: (ArrayList<HomeGallery>) -> Unit,
+        reject: () -> Unit,
+        page: String = "0",
+        section: String = "hot",
+        sort: String = "viral",
+        window: String = "day"
+    ) {
         val request = HttpCall.getRequestBuilder(
             HttpCall.urlBuilder(imgurUrl, listOf("3", "gallery", section, sort, window, page)),
             mapOf(
@@ -358,32 +381,41 @@ object ImgurAuth {
                 val res = response.body()!!.string()!!
                 val jObj = Klaxon().parseJsonObject(StringReader(res))
                 val jArray = jObj.array<Any>("data")
-                val galleryList = Klaxon().parseArray<GalleryType>(jArray?.toJsonString().toString())
+                val galleryList =
+                    Klaxon().parseArray<GalleryType>(jArray?.toJsonString().toString())
                 val homeGallery: ArrayList<HomeGallery> = ArrayList()
                 if (galleryList != null) {
                     for (gallery in galleryList) {
                         if (gallery.is_album == true) {
                             val h = gallery as HomeAlbum
-                            homeGallery.add(HomeGallery(
-                                h.id,
-                                h.title,
-                                h.description,
-                                h.datetime,
-                                h.favorite,
-                                h.is_album,
-                                "https://i.imgur.com/${gallery.cover}.${gallery.images?.get(0)?.type?.substring(6)}"
-                            ))
+                            homeGallery.add(
+                                HomeGallery(
+                                    h.id,
+                                    h.title,
+                                    h.description,
+                                    h.datetime,
+                                    h.favorite,
+                                    h.is_album,
+                                    "https://i.imgur.com/${gallery.cover}.${
+                                        gallery.images?.get(0)?.type?.substring(
+                                            6
+                                        )
+                                    }"
+                                )
+                            )
                         } else {
                             val h = gallery as HomeImage
-                            homeGallery.add(HomeGallery(
-                                h.id,
-                                h.title,
-                                h.description,
-                                h.datetime,
-                                h.favorite,
-                                h.is_album,
-                                h.link
-                            ))
+                            homeGallery.add(
+                                HomeGallery(
+                                    h.id,
+                                    h.title,
+                                    h.description,
+                                    h.datetime,
+                                    h.favorite,
+                                    h.is_album,
+                                    h.link
+                                )
+                            )
                         }
                     }
                     return resolve(homeGallery)
@@ -396,7 +428,10 @@ object ImgurAuth {
 
     fun getFavorites(resolve: (List<Gallery>) -> Unit, reject: () -> Unit, page: String = "") {
         val request = HttpCall.getRequestBuilder(
-            HttpCall.urlBuilder(imgurUrl, listOf("3", "account", authParams["account_username"].toString(), "favorites", page)),
+            HttpCall.urlBuilder(
+                imgurUrl,
+                listOf("3", "account", authParams["account_username"].toString(), "favorites", page)
+            ),
             mapOf(
                 "Authorization" to "Client-ID $clientId",
                 "Authorization" to "Bearer ${authParams["access_token"]}"
@@ -426,7 +461,11 @@ object ImgurAuth {
         })
     }
 
-    fun getGalleryImages(resolve: (List<GalleryAlbumImage>) -> Unit, reject: () -> Unit, galleryId: String) {
+    fun getGalleryImages(
+        resolve: (List<GalleryAlbumImage>) -> Unit,
+        reject: () -> Unit,
+        galleryId: String
+    ) {
         val request = HttpCall.getRequestBuilder(
             HttpCall.urlBuilder(imgurUrl, listOf("3", "gallery", "album", galleryId)),
             mapOf(
@@ -444,6 +483,7 @@ object ImgurAuth {
                     return reject()
                 class AlbumImages(val images: List<GalleryAlbumImage>)
                 class AlbumData(val data: AlbumImages)
+
                 val res = response.body()!!.string()!!
                 val images = Klaxon().parse<AlbumData>(res)
                 if (images != null) {
@@ -476,9 +516,20 @@ object ImgurAuth {
         })
     }
 
-    fun searchGallery(resolve: (List<SearchGallery>) -> Unit, reject: () -> Unit, q: String, page: String = "0", sort: String = "time", window: String = "all") {
+    fun searchGallery(
+        resolve: (List<SearchGallery>) -> Unit,
+        reject: () -> Unit,
+        q: String,
+        page: String = "0",
+        sort: String = "time",
+        window: String = "all"
+    ) {
         val request = HttpCall.getRequestBuilder(
-            HttpCall.urlBuilder(imgurUrl, listOf("3", "gallery", "search", sort, window, page), mapOf("q" to q)),
+            HttpCall.urlBuilder(
+                imgurUrl,
+                listOf("3", "gallery", "search", sort, window, page),
+                mapOf("q" to q)
+            ),
             mapOf(
                 "Authorization" to "Client-ID $clientId",
                 "Authorization" to "Bearer ${authParams["access_token"]}"
@@ -504,7 +555,13 @@ object ImgurAuth {
         })
     }
 
-    fun deleteImageOrAlbum(resolve: () -> Unit, reject: () -> Unit, type: String, username: String, id: String) {
+    fun deleteImageOrAlbum(
+        resolve: () -> Unit,
+        reject: () -> Unit,
+        type: String,
+        username: String,
+        id: String
+    ) {
         val request = HttpCall.deleteRequestBuilder(
             HttpCall.urlBuilder(imgurUrl, listOf("3", "account", username, type, id)),
             mapOf(
@@ -526,16 +583,27 @@ object ImgurAuth {
         })
     }
 
-    fun uploadImage(resolve: () -> Unit, reject: () -> Unit, type: String, base64: String, urlType: String, name: String, title: String, description: String) {
+    fun uploadImage(
+        resolve: () -> Unit,
+        reject: () -> Unit,
+        type: String,
+        base64: String,
+        urlType: String,
+        name: String,
+        title: String,
+        description: String
+    ) {
         val request = HttpCall.postRequestBuilder(
             HttpCall.urlBuilder(imgurUrl, listOf("3", "upload")),
-            HttpCall.bodyBuilder(mapOf(
-                type to "",
-                "type" to urlType,
-                "name" to name,
-                "title" to title,
-                "description" to description
-            )),
+            HttpCall.bodyBuilder(
+                mapOf(
+                    type to "",
+                    "type" to urlType,
+                    "name" to name,
+                    "title" to title,
+                    "description" to description
+                )
+            ),
             mapOf(
                 "Authorization" to "Client-ID $clientId",
                 "Authorization" to "Bearer ${authParams["access_token"]}"
