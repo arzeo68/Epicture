@@ -14,4 +14,5 @@
     <string name="point_nb">0</string>
     <string name="reputation_text">Reputation</string>
     <string name="reputation_nb">neutral</string>
+    <string name="title">Title</string>
 </resources>
