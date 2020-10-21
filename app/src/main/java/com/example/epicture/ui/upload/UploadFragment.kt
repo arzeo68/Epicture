@@ -3,22 +3,28 @@ package com.example.epicture.ui.upload
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.example.epicture.ImgurAuth
 import com.example.epicture.R
+import kotlinx.android.synthetic.main.favorite_list_view.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_upload.*
 import java.io.ByteArrayOutputStream
+import java.net.URI
 
 
 class UploadFragment : Fragment() {
     private var image: Boolean = false
-    private var imagePath: String = ""
+    private lateinit var imagePath: URI
+    private lateinit var bitmapImage: Bitmap
 
     private lateinit var uploadViewModel: UploadViewModel
     override fun onCreateView(
@@ -35,15 +41,24 @@ class UploadFragment : Fragment() {
 
         upload_button.setOnClickListener {
             if (image) {
-                val bm = BitmapFactory.decodeFile(imagePath)
                 val byteArrayOutputStream = ByteArrayOutputStream()
-                bm.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-                byteArrayOutputStream.toByteArray()
+                bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+                val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
+                val encoded: String = Base64.encodeToString(byteArray, Base64.DEFAULT)
+                Log.d("UPLOAD", encoded)
+                ImgurAuth.uploadImage({
+                    activity?.runOnUiThread {
+                        selected_image.setImageDrawable(null)
+                        upload_title.text?.clear()
+                        upload_description.text?.clear()
+                        upload_description.clearFocus()
+                        upload_title.clearFocus()
+                    }
+                }, {}, "image", encoded, "base64", upload_title.text.toString(), upload_title.text.toString(), upload_description.text.toString())
             }
         }
 
         select_image.setOnClickListener {
-            select_image.setColorFilter(0)
             openGalleryForImage()
         }
     }
@@ -59,8 +74,9 @@ class UploadFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
             selected_image.setImageURI(data?.data) // handle chosen image
             image = true
-            imagePath = data?.data?.path.toString()
-            Log.d("UPLOAD", imagePath)
+            imagePath = URI(data?.data.toString())
+            bitmapImage = MediaStore.Images.Media.getBitmap(activity?.contentResolver, data?.data)
+            Log.d("UPLOAD", imagePath.toString())
         }
     }
 

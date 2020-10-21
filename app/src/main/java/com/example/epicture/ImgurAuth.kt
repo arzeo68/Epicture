@@ -597,7 +597,7 @@ object ImgurAuth {
             HttpCall.urlBuilder(imgurUrl, listOf("3", "upload")),
             HttpCall.bodyBuilder(
                 mapOf(
-                    type to "",
+                    type to base64,
                     "type" to urlType,
                     "name" to name,
                     "title" to title,
@@ -615,6 +615,7 @@ object ImgurAuth {
             }
 
             override fun onResponse(call: Call, response: Response) {
+                Log.d("UPLOAD", response.body()!!.string()!!)
                 if (!response.isSuccessful)
                     return reject()
                 return resolve()
