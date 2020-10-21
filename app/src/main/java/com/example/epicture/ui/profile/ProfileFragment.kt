@@ -35,6 +35,13 @@ class ProfileFragment : Fragment() {
     private var username: String = ""
     private lateinit var buttonArray: ArrayList<ImageButton>
 
+    private fun unlikeButtonCallBack(id: String?, type: String)
+    {
+        if (id != null) {
+            ImgurAuth.putFavorite({unlikeResolve()}, {}, id, type)
+        }
+    }
+
     private fun getFavorite()
     {
         val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
@@ -91,21 +98,30 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun likeCallback(id: String?, type: String)
+    private fun deleteCallBack(id: String?, type: String)
     {
         if (id != null) {
-            ImgurAuth.putFavorite({putFavoriteResolve()}, {}, id, type)
+            ImgurAuth.deleteImageOrAlbum({deleteResolve()}, {}, type, username, id)
         }
     }
 
     private fun getUserImagesResolve(data: List<Image>) {
         activity?.runOnUiThread {
-            adapterUser = MyAdapterMyImage(requireContext(), data, {res, res2 ->likeCallback(res, res2)})
+            adapterUser = MyAdapterMyImage(requireContext(), data, {res, res2 ->deleteCallBack(res, res2)})
             _viewList?.adapter = adapterUser
         }
     }
 
-    private fun putFavoriteResolve() {
+    private fun deleteResolve() {
+        activity?.runOnUiThread {
+            switchMode()
+        }
+    }
+
+    private fun unlikeResolve() {
+        activity?.runOnUiThread {
+            switchMode()
+        }
     }
 
     private fun getImagesInAlbumResolve(data: List<AlbumImage>) {
@@ -118,7 +134,7 @@ class ProfileFragment : Fragment() {
 
     private fun GetUserFavoriteResolve(data: List<Gallery>) {
         activity?.runOnUiThread {
-            adapterFavorite = MyAdapterFavorite(requireContext(), data, {res ->getAlbumImage(res)})
+            adapterFavorite = MyAdapterFavorite(requireContext(), data, {res ->getAlbumImage(res)}, {res,res2->unlikeButtonCallBack(res, res2)})
             _viewList?.adapter = adapterFavorite
         }
     }
@@ -154,7 +170,7 @@ class ProfileFragment : Fragment() {
 
         _viewList = returnValue?.findViewById<RecyclerView>(R.id.imageList)?.apply {
             setHasFixedSize(false)
-            adapter = MyAdapterMyImage(requireContext(), null, {res, res2 ->likeCallback(res, res2)})
+            adapter = MyAdapterMyImage(requireContext(), null, {res, res2 ->deleteCallBack(res, res2)})
             layoutManager = viewManager
         }
 

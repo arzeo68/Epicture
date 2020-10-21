@@ -9,6 +9,8 @@ import com.bumptech.glide.Glide
 import com.example.epicture.R
 import com.example.epicture.http.AlbumImage
 import kotlinx.android.synthetic.main.image_view_on_profile_page_in_album.view.*
+import kotlinx.android.synthetic.main.image_view_on_profile_page_in_album.view.image
+import kotlinx.android.synthetic.main.my_picture_view_list.view.*
 
 
 class MyAdapterInAlbum(
@@ -47,6 +49,7 @@ class MyAdapterInAlbum(
         {
             Glide.with(context).load(dataSource[position].link).into(holder.myView.image);
         }
+
     }
 
     override fun getItemCount(): Int {
