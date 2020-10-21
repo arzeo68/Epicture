@@ -133,7 +133,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/imageList"
         android:layout_width="411dp"
-        android:layout_height="519dp"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
