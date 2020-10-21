@@ -16,4 +16,7 @@
     <string name="reputation_nb">neutral</string>
     <string name="search">Search</string>
     <string name="title">Title</string>
+    <string name="points">Points</string>
+    <string name="reputation">Reputation</string>
+    <string name="edit">Edit Profile</string>
 </resources>

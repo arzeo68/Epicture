@@ -9,13 +9,13 @@
         android:id="@+id/usernameDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:text="@string/pseudo"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.12" />
+        app:layout_constraintVertical_bias="0.134"
+        android:textStyle="bold"/>
 
     <ImageButton
         android:id="@+id/buttonSetting"
@@ -32,14 +32,11 @@
 
     <TextView
         android:id="@+id/descriptionText"
-        android:layout_width="370dp"
+        android:layout_width="286dp"
         android:layout_height="30dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="13dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="2dp"
         android:text="@string/description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.187"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameDisplay" />
 
@@ -50,8 +47,10 @@
         android:layout_height="33dp"
         android:layout_marginTop="13dp"
         android:background="@drawable/corner"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="#00FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <ImageButton
         android:id="@+id/backgroundButtonLikedPicture"
@@ -59,19 +58,22 @@
         android:layout_height="33dp"
         android:layout_marginTop="13dp"
         android:background="@drawable/corner"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
 
     <ImageButton
         android:id="@+id/myPictureButton"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="12dp"
         android:background="#00FFFFFF"
         android:backgroundTint="#00FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionText"
+        app:layout_constraintTop_toBottomOf="@+id/button"
         app:srcCompat="@drawable/ic_person" />
 
     <ImageButton
@@ -79,29 +81,31 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="188dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:background="#FFFFFF"
         android:backgroundTint="#00FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/myPictureButton"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionText"
+        app:layout_constraintTop_toBottomOf="@+id/button"
         app:srcCompat="@drawable/ic_like_complete" />
 
-    <ImageView
-        android:id="@+id/userProfileImage"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
         android:layout_width="65dp"
-        android:layout_height="71dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="281dp"
-        android:layout_marginBottom="1dp"
-        android:background="@drawable/circle"
-        app:layout_constraintBottom_toTopOf="@+id/usernameDisplay"
-        app:layout_constraintEnd_toStartOf="@+id/buttonSetting"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        app:cardCornerRadius="64dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/userProfileImage"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@drawable/circle"
+            app:srcCompat="@drawable/ic_launcher_background" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/pointsText"
@@ -111,9 +115,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.121"
-        app:layout_constraintStart_toEndOf="@+id/userProfileImage"
+        app:layout_constraintStart_toEndOf="@+id/card_view"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.056" />
+        app:layout_constraintVertical_bias="0.056"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/points"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.118"
+        app:layout_constraintStart_toEndOf="@+id/card_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.081" />
 
     <TextView
         android:id="@+id/reputationText"
@@ -128,7 +145,23 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/pointsText"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.056" />
+        app:layout_constraintVertical_bias="0.056"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/reputation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="77dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/reputation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSetting"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/pointsText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.082" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/imageList"
@@ -142,5 +175,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backgroundButtonMyPicture"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="369dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/button_bordered"
+        android:text="@string/edit"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

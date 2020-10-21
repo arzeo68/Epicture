@@ -14,7 +14,6 @@
     <string name="reply_title">Default reply action</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title">jg est une grosse pute</string>
     <string name="attachment_title">Download incoming attachments</string>
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
@@ -31,4 +30,8 @@
     <string name="reputation_nb">neutral</string>
     <string name="search">Search</string>
     <string name="title">Title</string>
+    <string name="points">Points</string>
+    <string name="reputation">Reputation</string>
+    <string name="edit">Edit Profile</string>
+    <string name="sync_title">jg est une grosse pute</string>
 </resources>
