@@ -34,7 +34,7 @@ class MyAdapterInAlbum(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MyAdapterInAlbum.MyViewHolder {
+    ): MyViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.image_view_on_profile_page_in_album, parent, false)
