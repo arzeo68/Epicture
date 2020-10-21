@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.epicture.R
-import com.otaliastudios.cameraview.CameraListener
-import kotlinx.android.synthetic.main.fragment_upload.*
 
 
 class UploadFragment : Fragment() {

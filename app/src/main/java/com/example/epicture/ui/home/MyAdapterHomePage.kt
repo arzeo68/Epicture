@@ -17,7 +17,8 @@ class MyAdapterHomePage(
     private val buttonLikeCallback: (String?, String) -> Unit
 ) : RecyclerView.Adapter<MyAdapterHomePage.MyViewHolder>() {
 
-    private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private val inflater: LayoutInflater =
+        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     override fun getItemId(position: Int): Long {
         if (dataSource != null) {
@@ -41,7 +42,7 @@ class MyAdapterHomePage(
         // set the view's size, margins, paddings and layout parameters
         val scale: Float = context.getResources().getDisplayMetrics().density
         val dpAsPixels = (32 * scale + 0.5f).toInt()
-        view.setPadding(view.paddingLeft,view.paddingTop,view.paddingRight,dpAsPixels);
+        view.setPadding(view.paddingLeft, view.paddingTop, view.paddingRight, dpAsPixels);
         return MyViewHolder(view)
     }
 
@@ -49,8 +50,7 @@ class MyAdapterHomePage(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        if (dataSource != null)
-        {
+        if (dataSource != null) {
             holder.myView.imageTitle.text = dataSource[position].name
             Glide.with(context).load(dataSource[position].link).into(holder.myView.image)
             if (dataSource[position].favorite!!)
@@ -62,7 +62,8 @@ class MyAdapterHomePage(
                         context.getResources().getDrawable(
                             R.drawable.ic_like_complete
                         ).getConstantState()
-                    )!!)
+                    )!!
+                )
                     holder.myView.likeButton.setImageResource(R.drawable.ic_unlike)
                 else
                     holder.myView.likeButton.setImageResource(R.drawable.ic_like_complete)

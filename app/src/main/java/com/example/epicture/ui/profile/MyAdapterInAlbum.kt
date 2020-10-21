@@ -9,8 +9,6 @@ import com.bumptech.glide.Glide
 import com.example.epicture.R
 import com.example.epicture.http.AlbumImage
 import kotlinx.android.synthetic.main.image_view_on_profile_page_in_album.view.*
-import kotlinx.android.synthetic.main.image_view_on_profile_page_in_album.view.image
-import kotlinx.android.synthetic.main.my_picture_view_list.view.*
 
 
 class MyAdapterInAlbum(
@@ -18,7 +16,8 @@ class MyAdapterInAlbum(
     private val dataSource: List<AlbumImage>?
 ) : RecyclerView.Adapter<MyAdapterInAlbum.MyViewHolder>() {
 
-    private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private val inflater: LayoutInflater =
+        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     override fun getItemId(position: Int): Long {
         if (dataSource != null) {
@@ -32,8 +31,10 @@ class MyAdapterInAlbum(
 
 
     // Create new views (invoked by the layout manager)
-    override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): MyAdapterInAlbum.MyViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): MyAdapterInAlbum.MyViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.image_view_on_profile_page_in_album, parent, false)
@@ -45,8 +46,7 @@ class MyAdapterInAlbum(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        if (dataSource != null)
-        {
+        if (dataSource != null) {
             Glide.with(context).load(dataSource[position].link).into(holder.myView.image);
         }
 
