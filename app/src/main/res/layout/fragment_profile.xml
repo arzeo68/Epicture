@@ -10,12 +10,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
         android:text="@string/pseudo"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.134"
-        android:textStyle="bold"/>
+        app:layout_constraintTop_toBottomOf="@+id/card_view"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/buttonSetting"
@@ -51,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/button_edit" />
 
     <ImageButton
         android:id="@+id/backgroundButtonMyPicture"
@@ -63,7 +64,7 @@
         android:backgroundTint="#00FFFFFF"
         android:tint="#00FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/button_edit" />
 
     <ImageButton
         android:id="@+id/backgroundButtonLikedPicture"
@@ -74,7 +75,7 @@
         android:backgroundTint="#00FFFFFF"
         android:tint="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/button_edit" />
 
 
     <ImageButton
@@ -86,7 +87,7 @@
         android:background="#00FFFFFF"
         android:backgroundTint="#00FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/button_edit"
         app:srcCompat="@drawable/ic_person" />
 
     <ImageButton
@@ -98,7 +99,7 @@
         android:background="#FFFFFF"
         android:backgroundTint="#00FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/myPictureButton"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/button_edit"
         app:srcCompat="@drawable/ic_like_complete" />
 
     <androidx.cardview.widget.CardView
@@ -180,7 +181,7 @@
         android:id="@+id/imageList"
         android:layout_width="411dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:layout_marginBottom="0dp"
         android:background="#0B0B0B"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -191,7 +192,7 @@
         app:layout_constraintVertical_bias="0.153" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_edit"
         android:layout_width="369dp"
         android:layout_height="38dp"
         android:layout_marginTop="4dp"

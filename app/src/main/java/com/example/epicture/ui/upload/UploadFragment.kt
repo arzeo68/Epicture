@@ -12,6 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.preference.PreferenceManager
+import com.example.epicture.App
 import com.example.epicture.ImgurAuth
 import com.example.epicture.R
 import kotlinx.android.synthetic.main.favorite_list_view.*
@@ -32,6 +34,9 @@ class UploadFragment : Fragment() {
     ): View? {
         uploadViewModel = ViewModelProviders.of(this).get(UploadViewModel::class.java)
         val res = inflater.inflate(R.layout.fragment_upload, container, false)
+
+
+
 
         return res
     }

@@ -37,12 +37,13 @@
         app:layout_constraintTop_toBottomOf="@+id/usernameUploader" />
 
     <ImageButton
-        android:scaleType="centerInside"
-        android:adjustViewBounds="true"
         android:id="@+id/buttonImageOrPreview"
         android:layout_width="410dp"
         android:layout_height="347dp"
         android:layout_marginTop="11dp"
+        android:adjustViewBounds="true"
+        android:background="#00FFFFFF"
+        android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageTitle"
         app:srcCompat="@drawable/ic_links_folder" />

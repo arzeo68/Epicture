@@ -2,11 +2,13 @@ package com.example.epicture.ui.profile
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
@@ -16,10 +18,7 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.epicture.App
-import com.example.epicture.ImgurAuth
-import com.example.epicture.R
-import com.example.epicture.SettingsActivity
+import com.example.epicture.*
 import com.example.epicture.http.AccountBase
 import com.example.epicture.http.AlbumImage
 import com.example.epicture.http.Gallery
@@ -197,7 +196,15 @@ class ProfileFragment : Fragment() {
             layoutManager = viewManager
         }
 
-        val button: ImageButton = returnValue?.findViewById(R.id.buttonSetting)!!
+        val edit: Button = returnValue?.findViewById(R.id.button_edit)!!
+        edit.setOnClickListener {
+            val intent = Intent(App.context, EditProfile::class.java)
+            intent.putExtra("avatar", account.avatar.toString())
+            intent.putExtra("username", username)
+            intent.putExtra("bio", account.bio.toString())
+            startActivity(intent)
+        }
+        val button: ImageButton = returnValue.findViewById(R.id.buttonSetting)!!
         button.setOnClickListener {
             val intent = Intent(context, SettingsActivity::class.java)
             startActivity(intent)
@@ -238,6 +245,7 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         buttonArray[2].setOnClickListener {
             isOnMyPicture = false
             switchMode()
@@ -272,5 +280,17 @@ class ProfileFragment : Fragment() {
             callBackGetUserDataResolve(account)
         }
         switchMode()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
+            .getString("account_username", "")
+        if (pseudo != null) {
+            username = pseudo
+            ImgurAuth.getAccountBase({ res ->
+                callBackGetUserDataResolve(res)
+            }, { callBackGetUserDataReject() }, pseudo)
+        }
     }
 }

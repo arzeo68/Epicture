@@ -36,6 +36,10 @@ object ImgurAuth {
         "expires_in" to ""
     )
 
+    fun setUsername(username: String) {
+        authParams["account_username"] = username
+    }
+
     fun getToken(context: Context) {
         val intent = Intent(
             Intent.ACTION_VIEW,
@@ -349,8 +353,9 @@ object ImgurAuth {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful)
+                if (response.isSuccessful) {
                     return resolve()
+                }
                 return reject()
             }
 

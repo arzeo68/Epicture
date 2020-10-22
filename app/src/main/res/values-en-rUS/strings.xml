@@ -20,4 +20,6 @@
     <string name="reputation">Reputation</string>
     <string name="edit">Edit Profile</string>
     <string name="done">Done</string>
+    <string name="name">Name</string>
+    <string name="bio">Bio</string>
 </resources>
