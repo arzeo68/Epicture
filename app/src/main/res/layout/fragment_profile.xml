@@ -35,16 +35,29 @@
         android:layout_width="286dp"
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="0dp"
         android:text="@string/description"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameDisplay"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:layout_width="411dp"
+        android:layout_height="0.05dp"
+        android:layout_marginTop="12dp"
+        android:background="#CDB3B3B3"
+        android:backgroundTint="#CBB3B3B3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <ImageButton
         android:id="@+id/backgroundButtonMyPicture"
         style="str"
-        android:layout_width="209dp"
-        android:layout_height="33dp"
+        android:layout_width="205dp"
+        android:layout_height="40dp"
         android:layout_marginTop="13dp"
         android:background="@drawable/corner"
         android:backgroundTint="#00FFFFFF"
@@ -54,8 +67,8 @@
 
     <ImageButton
         android:id="@+id/backgroundButtonLikedPicture"
-        android:layout_width="201dp"
-        android:layout_height="33dp"
+        android:layout_width="205dp"
+        android:layout_height="40dp"
         android:layout_marginTop="13dp"
         android:background="@drawable/corner"
         android:backgroundTint="#00FFFFFF"
@@ -69,7 +82,7 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:background="#00FFFFFF"
         android:backgroundTint="#00FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +94,7 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="188dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:background="#FFFFFF"
         android:backgroundTint="#00FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/myPictureButton"
@@ -168,13 +181,14 @@
         android:layout_width="411dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="0dp"
+        android:background="#0B0B0B"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backgroundButtonMyPicture"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.153" />
 
     <Button
         android:id="@+id/button"
@@ -186,8 +200,11 @@
         android:textAllCaps="false"
         android:textSize="12sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionText"
+        app:layout_constraintVertical_bias="0.007" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
