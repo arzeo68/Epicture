@@ -10,8 +10,9 @@
         android:id="@+id/edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="14dp"
         android:text="@string/edit"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -22,8 +23,9 @@
         android:id="@+id/cancel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="14dp"
         android:text="@android:string/cancel"
+        android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/edit_text"
         app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,10 +35,11 @@
         android:id="@+id/done_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="16dp"
         android:text="@string/done"
         android:textColor="#5793F4"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,16 +47,17 @@
     <ImageView
         android:id="@+id/settings_view"
         android:layout_width="411dp"
-        android:layout_height="700dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="680dp"
+        android:layout_marginTop="14dp"
         android:background="#0B0B0B"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_text" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
         app:cardCornerRadius="64dp"
@@ -63,8 +67,8 @@
 
         <ImageView
             android:id="@+id/userProfileImageEdit"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:background="@drawable/circle"
             app:srcCompat="@drawable/ic_launcher_background" />
     </androidx.cardview.widget.CardView>
@@ -74,7 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="43dp"
         android:text="@string/name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_view" />
@@ -95,7 +99,7 @@
         android:layout_height="47dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.732"
         app:layout_constraintStart_toEndOf="@+id/name"
