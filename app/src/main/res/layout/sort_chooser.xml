@@ -2,12 +2,96 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
+
     <RadioGroup
-        android:id="@+id/radio_group"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
+        android:id="@+id/sort1"
+        android:layout_width="75dp"
+        android:layout_height="109dp"
         android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/hotButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hot" />
+
+        <RadioButton
+            android:id="@+id/topButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Top" />
+
+        <RadioButton
+            android:id="@+id/userButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="User" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/sort2"
+        android:layout_width="95dp"
+        android:layout_height="141dp">
+
+        <RadioButton
+            android:id="@+id/popularSort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Viral" />
+
+        <RadioButton
+            android:id="@+id/newestSort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Top" />
+
+        <RadioButton
+            android:id="@+id/bestSort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Time" />
+
+        <RadioButton
+            android:id="@+id/randomSort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rising" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/sort3"
+        android:layout_width="83dp"
+        android:layout_height="171dp">
+
+        <RadioButton
+            android:id="@+id/dayButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Day" />
+
+        <RadioButton
+            android:id="@+id/weekButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Week" />
+
+        <RadioButton
+            android:id="@+id/monthButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Month" />
+
+        <RadioButton
+            android:id="@+id/yeaerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Year" />
+
+        <RadioButton
+            android:id="@+id/allButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="All" />
     </RadioGroup>
 </LinearLayout>

@@ -41,7 +41,9 @@ class HomeFragment : Fragment() {
     private lateinit var adapter: MyAdapterHomePage
     private var myUsername: String = ""
     private lateinit var _dialog: Dialog
-    private lateinit var _radioGroup: RadioGroup
+    private lateinit var _sort1: RadioGroup
+    private lateinit var _sort2: RadioGroup
+    private lateinit var _sort3: RadioGroup
 
     fun Fragment.hideKeyboard() {
         val view = activity?.currentFocus
@@ -68,7 +70,27 @@ class HomeFragment : Fragment() {
             searchBar.clearFocus()
         }
 
-        _radioGroup.setOnCheckedChangeListener { group, checkedId ->
+        _sort1.setOnCheckedChangeListener { group, checkedId ->
+            val childCount = group.childCount
+            for (x in 0 until childCount) {
+                val btn = group.getChildAt(x) as RadioButton
+                if (btn.id == checkedId) {
+                    Log.d("MANGETESMORTS", btn.text.toString())
+                }
+            }
+        }
+
+        _sort2.setOnCheckedChangeListener { group, checkedId ->
+            val childCount = group.childCount
+            for (x in 0 until childCount) {
+                val btn = group.getChildAt(x) as RadioButton
+                if (btn.id == checkedId) {
+                    Log.d("MANGETESMORTS", btn.text.toString())
+                }
+            }
+        }
+
+        _sort3.setOnCheckedChangeListener { group, checkedId ->
             val childCount = group.childCount
             for (x in 0 until childCount) {
                 val btn = group.getChildAt(x) as RadioButton
@@ -112,16 +134,11 @@ class HomeFragment : Fragment() {
             _dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             _dialog.setContentView(R.layout.sort_chooser)
         }
-        val stringList: MutableList<String> = ArrayList() // here is list
-        stringList.add("hot")
-        stringList.add("top")
-        stringList.add("user")
-        _radioGroup = _dialog?.findViewById(R.id.radio_group) as RadioGroup
-        for (i in stringList.indices) {
-            val rb = RadioButton(context) // dynamically creating RadioButton and adding to Rad
-            rb.text = stringList[i]
-            _radioGroup.addView(rb)
-        }
-        _radioGroup.check(_radioGroup.getChildAt(0).id)
+        _sort1 = _dialog?.findViewById(R.id.sort1) as RadioGroup
+        _sort1.check(_sort1.getChildAt(0).id)
+        _sort2 = _dialog?.findViewById(R.id.sort2) as RadioGroup
+        _sort2.check(_sort2.getChildAt(0).id)
+        _sort3 = _dialog?.findViewById(R.id.sort3) as RadioGroup
+        _sort3.check(_sort3.getChildAt(0).id)
     }
 }
