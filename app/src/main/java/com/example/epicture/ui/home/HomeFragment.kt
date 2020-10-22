@@ -18,25 +18,47 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.epicture.App
 import com.example.epicture.ImgurAuth
 import com.example.epicture.R
+import com.example.epicture.http.AlbumImage
+import com.example.epicture.http.HomeGallery
 import com.example.epicture.http.Image
+import com.example.epicture.ui.profile.MyAdapterInAlbum
 import com.example.epicture.ui.profile.MyAdapterMyImage
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment() {
 
-    private fun GetImagesResolve(data: List<Image>) {
+    private fun GetImagesResolve(data: List<HomeGallery>) {
         activity?.runOnUiThread {
             adapter =
-                MyAdapterHomePage(requireContext(), data, { res, res2 -> likeCallback(res, res2) })
+                MyAdapterHomePage(requireContext(), data, { res, res2 -> likeCallback(res, res2) }, {res -> clickOnAlbumCallback(res)})
             _viewList?.adapter = adapter
         }
     }
 
     private fun likeCallback(id: String?, type: String) {
+        if (id != null) {
+            Log.d("GJKJFVGHJK<MNG", "sdsdfsdgsfgsfgsfgsfgsfg")
+            ImgurAuth.putFavorite({ likeResolve() }, {}, id, type)
+        }
+    }
+
+    private fun likeResolve()
+    {
 
     }
 
+    private fun getHomeImage() {
+        val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context).getString("account_username", "")
+        if (pseudo != null) {
+            myUsername = pseudo
+            ImgurAuth.getGallery({ res ->
+                GetImagesResolve(res)
+            }, { }, "0", _searchParam[0].toLowerCase(), _searchParam[1].toLowerCase(), _searchParam[2].toLowerCase())
+        }
+    }
+
+    private lateinit var _searchParam: ArrayList<String>
     private var _viewList: RecyclerView? = null
     private lateinit var adapter: MyAdapterHomePage
     private var myUsername: String = ""
@@ -44,11 +66,39 @@ class HomeFragment : Fragment() {
     private lateinit var _sort1: RadioGroup
     private lateinit var _sort2: RadioGroup
     private lateinit var _sort3: RadioGroup
+    private lateinit var adapterInAlbum: MyAdapterInAlbum
+
 
     fun Fragment.hideKeyboard() {
         val view = activity?.currentFocus
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view!!.getWindowToken(), 0)
+    }
+
+    fun clickOnAlbumCallback(data: String?)
+    {
+        val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
+            .getString("account_username", "")
+        if (pseudo != null) {
+            if (data != null) {
+                ImgurAuth.getAlbumImages(
+                    { res ->
+                        getImagesInAlbumResolve(res)
+                    },
+                    {
+                        Log.d("JHGFDDF", "call back failed")
+                    }, data
+                )
+            }
+        }
+    }
+
+    private fun getImagesInAlbumResolve(data: List<AlbumImage>) {
+        activity?.runOnUiThread {
+            Log.d("JHGFDDF", "call back resolve")
+            adapterInAlbum = MyAdapterInAlbum(requireContext(), data)
+            _viewList?.adapter = adapterInAlbum
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,6 +126,8 @@ class HomeFragment : Fragment() {
                 val btn = group.getChildAt(x) as RadioButton
                 if (btn.id == checkedId) {
                     Log.d("MANGETESMORTS", btn.text.toString())
+                    _searchParam[0] = btn.text.toString()
+                    getHomeImage()
                 }
             }
         }
@@ -86,6 +138,9 @@ class HomeFragment : Fragment() {
                 val btn = group.getChildAt(x) as RadioButton
                 if (btn.id == checkedId) {
                     Log.d("MANGETESMORTS", btn.text.toString())
+                    _searchParam[1] = btn.text.toString()
+                    getHomeImage()
+
                 }
             }
         }
@@ -96,16 +151,15 @@ class HomeFragment : Fragment() {
                 val btn = group.getChildAt(x) as RadioButton
                 if (btn.id == checkedId) {
                     Log.d("MANGETESMORTS", btn.text.toString())
+                    _searchParam[2] = btn.text.toString()
+                    getHomeImage()
+
                 }
             }
         }
+        getHomeImage()
 
-        if (pseudo != null) {
-            myUsername = pseudo
-            ImgurAuth.getImagesByAccountAuth({ res ->
-                GetImagesResolve(res)
-            }, { }, pseudo)
-        }
+
     }
 
     override fun onCreateView(
@@ -118,8 +172,6 @@ class HomeFragment : Fragment() {
         initSortList()
         _viewList = inflate?.findViewById<RecyclerView>(R.id.imageList)?.apply {
             setHasFixedSize(false)
-            adapter =
-                MyAdapterMyImage(requireContext(), null, { res, res2 -> likeCallback(res, res2) })
             layoutManager = viewManager
         }
 
@@ -134,6 +186,10 @@ class HomeFragment : Fragment() {
             _dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             _dialog.setContentView(R.layout.sort_chooser)
         }
+        _searchParam = ArrayList()
+        _searchParam.add("Hot")
+        _searchParam.add("Viral")
+        _searchParam.add("Day")
         _sort1 = _dialog?.findViewById(R.id.sort1) as RadioGroup
         _sort1.check(_sort1.getChildAt(0).id)
         _sort2 = _dialog?.findViewById(R.id.sort2) as RadioGroup
