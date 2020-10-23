@@ -247,7 +247,10 @@ class HomeFragment : Fragment() {
                 if (btn.id == checkedId) {
                     Log.d("MANGETESMORTS", btn.text.toString())
                     _searchParam[0] = btn.text.toString()
-                    getHomeImage()
+                    if (!searchMode)
+                        getHomeImage()
+                    else
+                        getSearchImage()
                 }
             }
         }
@@ -259,7 +262,10 @@ class HomeFragment : Fragment() {
                 if (btn.id == checkedId) {
                     Log.d("MANGETESMORTS", btn.text.toString())
                     _searchParam[1] = btn.text.toString()
-                    getHomeImage()
+                    if (!searchMode)
+                        getHomeImage()
+                    else
+                        getSearchImage()
 
                 }
             }
@@ -272,8 +278,10 @@ class HomeFragment : Fragment() {
                 if (btn.id == checkedId) {
                     Log.d("MANGETESMORTS", btn.text.toString())
                     _searchParam[2] = btn.text.toString()
-                    getHomeImage()
-
+                    if (!searchMode)
+                        getHomeImage()
+                    else
+                        getSearchImage()
                 }
             }
         }
