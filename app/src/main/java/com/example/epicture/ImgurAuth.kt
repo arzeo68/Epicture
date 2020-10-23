@@ -522,7 +522,7 @@ object ImgurAuth {
     }
 
     fun searchGallery(
-        resolve: (List<SearchGallery>) -> Unit,
+        resolve: (ArrayList<HomeGallery>) -> Unit,
         reject: () -> Unit,
         q: String,
         page: String = "0",
@@ -546,14 +546,48 @@ object ImgurAuth {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                if (!response.isSuccessful)
-                    return reject()
                 val res = response.body()!!.string()!!
                 val jObj = Klaxon().parseJsonObject(StringReader(res))
                 val jArray = jObj.array<Any>("data")
-                val albums = Klaxon().parseArray<SearchGallery>(jArray?.toJsonString().toString())
-                if (albums != null) {
-                    return resolve(albums)
+                val galleryList =
+                    Klaxon().parseArray<GalleryType>(jArray?.toJsonString().toString())
+                val homeGallery: ArrayList<HomeGallery> = ArrayList()
+                if (galleryList != null) {
+                    for (gallery in galleryList) {
+                        Log.d("EDIT", "wallah ça marche")
+                        if (gallery.is_album == true) {
+                            val h = gallery as HomeAlbum
+                            homeGallery.add(
+                                HomeGallery(
+                                    h.id,
+                                    h.title,
+                                    h.description,
+                                    h.datetime,
+                                    h.favorite,
+                                    h.is_album,
+                                    "https://i.imgur.com/${gallery.cover}.${
+                                        gallery.images?.get(0)?.type?.substring(
+                                            6
+                                        )
+                                    }"
+                                )
+                            )
+                        } else {
+                            val h = gallery as HomeImage
+                            homeGallery.add(
+                                HomeGallery(
+                                    h.id,
+                                    h.title,
+                                    h.description,
+                                    h.datetime,
+                                    h.favorite,
+                                    h.is_album,
+                                    h.link
+                                )
+                            )
+                        }
+                    }
+                    return resolve(homeGallery)
                 }
                 return reject()
             }
