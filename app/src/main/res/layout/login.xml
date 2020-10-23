@@ -9,7 +9,7 @@
     tools:context=".LoginActivity">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imgur_logo"
         android:layout_width="195dp"
         android:layout_height="83dp"
         android:layout_marginTop="284dp"
@@ -28,6 +28,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/imgur_logo" />
+
+    <ProgressBar
+        android:id="@+id/pBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:theme="@style/AppTheme"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgur_logo"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
