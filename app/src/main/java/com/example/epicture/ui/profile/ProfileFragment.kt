@@ -44,6 +44,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
+
     private fun getFavorite() {
         val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
             .getString("account_username", "")
