@@ -20,25 +20,43 @@ import com.example.epicture.ImgurAuth
 import com.example.epicture.R
 import com.example.epicture.http.AlbumImage
 import com.example.epicture.http.HomeGallery
-import com.example.epicture.http.Image
 import com.example.epicture.ui.profile.MyAdapterInAlbum
-import com.example.epicture.ui.profile.MyAdapterMyImage
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment() {
 
     private fun GetImagesResolve(data: List<HomeGallery>) {
+
         activity?.runOnUiThread {
+            var sdfsdf: MutableList<HomeGallery> = data.toMutableList()
             adapter =
-                MyAdapterHomePage(requireContext(), data, { res, res2 -> likeCallback(res, res2) }, {res -> clickOnAlbumCallback(res)})
+                MyAdapterHomePage(
+                    requireContext(),
+                    sdfsdf,
+                    { res, res2 -> likeCallback(res, res2) },
+                    { res ->
+                        clickOnAlbumCallback(
+                            res
+                        )
+                    })
             _viewList?.adapter = adapter
         }
     }
 
+    private fun GetNextPageResolve(data: List<HomeGallery>) {
+
+        activity?.runOnUiThread {
+            loadingFinished = true
+            var sdfsdf: MutableList<HomeGallery> = data.toMutableList()
+            adapter.addItems(data)
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+
     private fun likeCallback(id: String?, type: String) {
         if (id != null) {
-            Log.d("GJKJFVGHJK<MNG", "sdsdfsdgsfgsfgsfgsfgsfg")
             ImgurAuth.putFavorite({ likeResolve() }, {}, id, type)
         }
     }
@@ -48,16 +66,110 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun getHomeImage() {
-        val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context).getString("account_username", "")
-        if (pseudo != null) {
-            myUsername = pseudo
-            ImgurAuth.getGallery({ res ->
-                GetImagesResolve(res)
-            }, { }, "0", _searchParam[0].toLowerCase(), _searchParam[1].toLowerCase(), _searchParam[2].toLowerCase())
+    private fun switchMode()
+    {
+        searchMode = !searchMode
+        _page = 0
+        if (searchMode)
+        {
+            getSearchImage()
+        }
+        else
+        {
+            getHomeImage()
         }
     }
 
+    private fun getHomeImage() {
+        val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context).getString(
+            "account_username",
+            ""
+        )
+        if (pseudo != null) {
+            myUsername = pseudo
+            ImgurAuth.getGallery(
+                { res ->
+                    GetImagesResolve(res)
+                },
+                { },
+                "0",
+                _searchParam[0].toLowerCase(),
+                _searchParam[1].toLowerCase(),
+                _searchParam[2].toLowerCase()
+            )
+        }
+    }
+
+    private fun getSearchImage() {
+        if (searchText == "")
+            return
+        val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context).getString(
+            "account_username",
+            ""
+        )
+        if (pseudo != null) {
+            myUsername = pseudo
+            ImgurAuth.searchGallery(
+                { res ->
+                    GetImagesResolve(res)
+                },
+                { },
+                searchText,
+                "0",
+            )
+        }
+    }
+
+    private fun getNextPage() {
+
+        if (!searchMode) {
+            val pseudo: String? =
+                PreferenceManager.getDefaultSharedPreferences(App.context).getString(
+                    "account_username",
+                    ""
+                )
+            if (pseudo != null) {
+                Log.d("FGHJKKJHDGHJ", "call start")
+                myUsername = pseudo
+                ImgurAuth.getGallery(
+                    { res ->
+                        GetNextPageResolve(res)
+                    },
+                    { },
+                    _page.toString(),
+                    _searchParam[0].toLowerCase(),
+                    _searchParam[1].toLowerCase(),
+                    _searchParam[2].toLowerCase()
+                )
+            }
+        }
+        else
+        {
+            if (searchText == "")
+                return
+            val pseudo: String? =
+                PreferenceManager.getDefaultSharedPreferences(App.context).getString(
+                    "account_username",
+                    ""
+                )
+            if (pseudo != null) {
+                Log.d("FGHJKKJHDGHJ", "call start")
+                myUsername = pseudo
+                ImgurAuth.searchGallery(
+                    { res ->
+                        GetNextPageResolve(res)
+                    },
+                    { },
+                    searchText,
+                    _page.toString(),
+                )
+            }
+        }
+    }
+    private var searchText:String = ""
+    private var searchMode = false
+    private var loadingFinished = true
+    private var _page = 0
     private lateinit var _searchParam: ArrayList<String>
     private var _viewList: RecyclerView? = null
     private lateinit var adapter: MyAdapterHomePage
@@ -72,7 +184,10 @@ class HomeFragment : Fragment() {
     fun Fragment.hideKeyboard() {
         val view = activity?.currentFocus
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view!!.getWindowToken(), 0)
+        val focusedView = requireActivity().currentFocus
+        if (focusedView != null) {
+            imm.hideSoftInputFromWindow(view!!.getWindowToken(), 0)
+        }
     }
 
     fun clickOnAlbumCallback(data: String?)
@@ -112,12 +227,17 @@ class HomeFragment : Fragment() {
         }
 
         searchButton.setOnClickListener {
-            // when user press on search button
+            hideKeyboard()
+            searchText = searchBar.text.toString()
+            searchBar.clearFocus()
+            switchMode()
         }
         cancelButton.setOnClickListener {
             hideKeyboard()
+            searchText = ""
             searchBar.text?.clear()
             searchBar.clearFocus()
+            switchMode()
         }
 
         _sort1.setOnCheckedChangeListener { group, checkedId ->
@@ -127,7 +247,10 @@ class HomeFragment : Fragment() {
                 if (btn.id == checkedId) {
                     Log.d("MANGETESMORTS", btn.text.toString())
                     _searchParam[0] = btn.text.toString()
-                    getHomeImage()
+                    if (!searchMode)
+                        getHomeImage()
+                    else
+                        getSearchImage()
                 }
             }
         }
@@ -139,7 +262,10 @@ class HomeFragment : Fragment() {
                 if (btn.id == checkedId) {
                     Log.d("MANGETESMORTS", btn.text.toString())
                     _searchParam[1] = btn.text.toString()
-                    getHomeImage()
+                    if (!searchMode)
+                        getHomeImage()
+                    else
+                        getSearchImage()
 
                 }
             }
@@ -152,11 +278,25 @@ class HomeFragment : Fragment() {
                 if (btn.id == checkedId) {
                     Log.d("MANGETESMORTS", btn.text.toString())
                     _searchParam[2] = btn.text.toString()
-                    getHomeImage()
-
+                    if (!searchMode)
+                        getHomeImage()
+                    else
+                        getSearchImage()
                 }
             }
         }
+
+        _viewList?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1) && loadingFinished) {
+                    loadingFinished = false
+                    _page += 1
+                    getNextPage()
+                }
+            }
+        })
+
         getHomeImage()
 
 
@@ -197,4 +337,5 @@ class HomeFragment : Fragment() {
         _sort3 = _dialog?.findViewById(R.id.sort3) as RadioGroup
         _sort3.check(_sort3.getChildAt(0).id)
     }
+
 }

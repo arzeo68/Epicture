@@ -1,6 +1,7 @@
 package com.example.epicture.ui.home
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.my_picture_view_list.view.likeButton
 
 class MyAdapterHomePage(
     private val context: Context,
-    private val dataSource: List<HomeGallery>?,
+    private val dataSource: MutableList<HomeGallery>?,
     private val buttonLikeCallback: (String?, String) -> Unit,
     private val clickOnAlbumCallback: (String?) -> Unit
 ) : RecyclerView.Adapter<MyAdapterHomePage.MyViewHolder>() {
@@ -35,18 +36,23 @@ class MyAdapterHomePage(
     class MyViewHolder(val myView: View) : RecyclerView.ViewHolder(myView)
 
 
-    // Create new views (invoked by the layout manager)
+    // Create new views (invoked by the layout manager
+    fun addItems(new: List<HomeGallery>)
+    {
+        if (dataSource != null) {
+            dataSource.addAll(new)
+        }
+    }
+
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): MyViewHolder {
         // create a new view
+        Log.d("TESTADAPTER", "test")
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.home_view_list, parent, false)
-        // set the view's size, margins, paddings and layout parameters
-//        val scale: Float = context.getResources().getDisplayMetrics().density
-//        val dpAsPixels = (32 * scale + 0.5f).toInt()
-//        view.setPadding(view.paddingLeft, view.paddingTop, view.paddingRight, dpAsPixels);
         return MyViewHolder(view)
     }
 
