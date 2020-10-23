@@ -45,7 +45,8 @@
         android:layout_marginTop="40dp"
         app:helperTextEnabled="false"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:maxWidth="64dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/upload_title"
@@ -65,7 +66,8 @@
         app:layout_constraintBottom_toTopOf="@+id/selected_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117">
+        app:layout_constraintVertical_bias="0.117"
+        android:maxWidth="57dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/upload_description"
