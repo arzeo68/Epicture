@@ -23,9 +23,16 @@ import com.example.epicture.services.http.AlbumImage
 import com.example.epicture.services.http.HomeGallery
 import kotlinx.android.synthetic.main.fragment_home.*
 
-
+/**
+ * The HomeFragement
+ * It manage all the home page interaction and do the right api call
+ */
 class HomeFragment : Fragment() {
 
+    /**
+     * call back resolve of the GetGallery api call
+     * @param data list of HomeGallery (contain all image)
+     */
     private fun GetImagesResolve(data: List<HomeGallery>) {
 
         activity?.runOnUiThread {
@@ -44,6 +51,10 @@ class HomeFragment : Fragment() {
         }
     }
 
+    /**
+     * call back resolve when the user reach the end of the page
+     * @param data list of HomeGallery (contain all image of the next page)
+     */
     private fun GetNextPageResolve(data: List<HomeGallery>) {
 
         activity?.runOnUiThread {
@@ -55,7 +66,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-
+    /**
+     * function called when the user press the like button of an image
+     * @param id id of the image
+     * @param type "album" or "image"
+     */
     private fun likeCallback(id: String?, type: String) {
         if (id != null) {
             try {
@@ -73,11 +88,15 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
+    /**
+     * call back if the like api call resolve
+     */
     private fun likeResolve() {
 
     }
-
+    /**
+     * function called to switched between search mode and home view
+     */
     private fun switchMode() {
         _page = 0
         if (searchMode) {
@@ -88,7 +107,9 @@ class HomeFragment : Fragment() {
             getHomeImage()
         }
     }
-
+    /**
+     * api call to get home image
+     */
     private fun getHomeImage() {
         myRefreshLayout.isRefreshing = true
         val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context).getString(
@@ -126,7 +147,9 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
+    /**
+     * api call to get the image of the user research
+     */
     private fun getSearchImage() {
         if (searchText == "")
             return
@@ -164,7 +187,9 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
+    /**
+     * api call to get the next page image this function will handle if you are in search or home mode
+     */
     private fun getNextPage() {
 
         if (!searchMode) {
@@ -263,7 +288,9 @@ class HomeFragment : Fragment() {
     private lateinit var adapterInAlbum: MyAdapterInAlbum
     private lateinit var myRefreshLayout: SwipeRefreshLayout
 
-
+    /**
+     * hide the keyboard
+     */
     fun Fragment.hideKeyboard() {
         val view = activity?.currentFocus
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -272,7 +299,10 @@ class HomeFragment : Fragment() {
             imm.hideSoftInputFromWindow(view!!.getWindowToken(), 0)
         }
     }
-
+    /**
+     * this function is called when the user click on an album
+     * @param data id of the album
+     */
     fun clickOnAlbumCallback(data: String?) {
 
         val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
@@ -303,14 +333,21 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
+    /**
+     * this function is the resolved call back when the user click on an album
+     * @param data album image list
+     */
     private fun getImagesInAlbumResolve(data: List<AlbumImage>) {
         activity?.runOnUiThread {
             adapterInAlbum = MyAdapterInAlbum(requireContext(), data)
             _viewList?.adapter = adapterInAlbum
         }
     }
-
+    /**
+     * function call when the view as been created
+     * @param view view
+     * @param savedInstanceState bundle
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
@@ -363,7 +400,9 @@ class HomeFragment : Fragment() {
 
 
     }
-
+    /**
+     * function to create the view
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -378,7 +417,9 @@ class HomeFragment : Fragment() {
 
         return inflate
     }
-
+    /**
+     * function that init the search parameter
+     */
     private fun initSortListSearch() {
 
         // custom dialog
@@ -417,7 +458,9 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
+    /**
+     * function that init the home filter
+     */
     private fun initSortList() {
 
         // custom dialog

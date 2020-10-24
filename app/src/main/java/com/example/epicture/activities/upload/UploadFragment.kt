@@ -26,7 +26,6 @@ class UploadFragment : Fragment() {
     private lateinit var imagePath: URI
     private lateinit var bitmapImage: Bitmap
     private lateinit var myRefreshLayout: SwipeRefreshLayout
-    private lateinit var uploadViewModel: UploadViewModel
 
     /**
      * onCreateView override called when the user is on the upload view
@@ -34,7 +33,6 @@ class UploadFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        uploadViewModel = ViewModelProviders.of(this).get(UploadViewModel::class.java)
         val res = inflater.inflate(R.layout.fragment_upload, container, false)
         return res
     }

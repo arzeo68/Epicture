@@ -10,7 +10,12 @@ import com.example.epicture.R
 import com.example.epicture.services.http.Image
 import kotlinx.android.synthetic.main.my_picture_view_list.view.*
 
-
+/**
+ * this class is the same as the MyAdapterHomePage, please check the documentation of that one
+ *  @param context application context
+ *  @param dataSource list of cell content
+ *  @param buttonDeleteCallback function called when the user click delete an image
+ */
 class MyAdapterMyImage(
     private val context: Context,
     private val dataSource: List<Image>?,

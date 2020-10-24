@@ -25,7 +25,9 @@ import com.example.epicture.services.http.Gallery
 import com.example.epicture.services.http.Image
 import kotlinx.android.synthetic.main.fragment_profile.*
 
-
+/**
+ * this class handle all the interaction with the profile page
+ */
 class ProfileFragment : Fragment() {
 
     private var isOnMyPicture: Boolean = true
@@ -33,12 +35,15 @@ class ProfileFragment : Fragment() {
     private lateinit var adapterUser: MyAdapterMyImage
     private lateinit var adapterFavorite: MyAdapterFavorite
     private lateinit var adapterInAlbum: MyAdapterInAlbum
-    private lateinit var profileViewModel: ProfileViewModel
     private var account = AccountBase(0, "", "", "", 0, "", 0, false)
     private var username: String = ""
     private lateinit var buttonArray: ArrayList<ImageButton>
     private lateinit var myRefreshLayout: SwipeRefreshLayout
-
+    /**
+     * this function is called when the user wanna delete an image
+     *  @param id id of the image
+     *  @param dataSource "image" or "album" depending on the type of deletion
+     */
     private fun unlikeButtonCallBack(id: String?, type: String) {
         if (id != null) {
             ImgurAuth.putFavorite({
@@ -51,7 +56,9 @@ class ProfileFragment : Fragment() {
         }
     }
 
-
+    /**
+     * this function call the api to get the user favorite
+     */
     private fun getFavorite() {
         val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
             .getString("account_username", "")
@@ -76,7 +83,9 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-
+    /**
+     * this function call the api to get the user image
+     */
     private fun getUserImage() {
         val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
             .getString("account_username", "")
@@ -97,7 +106,10 @@ class ProfileFragment : Fragment() {
             }, pseudo)
         }
     }
-
+    /**
+     * this function call the api to get all the image contain in an album
+     * @param data id of the album
+     */
     private fun getAlbumImage(data: String?) {
         myRefreshLayout.isRefreshing = true
         if (data != null) {
@@ -126,7 +138,9 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-
+    /**
+     * this function switch between user favorite and user post and call the right api function
+     */
     private fun switchMode() {
         myRefreshLayout.isRefreshing = true
         _viewList?.removeAllViews()
@@ -160,7 +174,11 @@ class ProfileFragment : Fragment() {
             )
         }
     }
-
+    /**
+     * this function is called when the user wanna delete something
+     * @param id id of what you want to delete
+     * @param type "image" or "album" depending of what you want to delete
+     */
     private fun deleteCallBack(id: String?, type: String) {
         if (id != null) {
             ImgurAuth.deleteImageOrAlbum({
@@ -172,7 +190,10 @@ class ProfileFragment : Fragment() {
             }, {}, type, username, id)
         }
     }
-
+    /**
+     * this function is the resolved callback called when you get the user image
+     * @param data list of the user image
+     */
     private fun getUserImagesResolve(data: List<Image>) {
         activity?.runOnUiThread {
             adapterUser =
@@ -180,26 +201,36 @@ class ProfileFragment : Fragment() {
             _viewList?.adapter = adapterUser
         }
     }
-
+    /**
+     * this function is the resolved callback called when you delete something
+     */
     private fun deleteResolve() {
         activity?.runOnUiThread {
             switchMode()
         }
     }
-
+    /**
+     * this function is the resolved callback called when you like or unlike something
+     */
     private fun unlikeResolve() {
         activity?.runOnUiThread {
             switchMode()
         }
     }
-
+    /**
+     * this function is the resolved callback called when you get all image in an album
+     * @param data list of all the image in the album
+     */
     private fun getImagesInAlbumResolve(data: List<AlbumImage>) {
         activity?.runOnUiThread {
             adapterInAlbum = MyAdapterInAlbum(requireContext(), data)
             _viewList?.adapter = adapterInAlbum
         }
     }
-
+    /**
+     * this function is the resolved callback called when you get the user favorite images
+     * @param data list of all the user favorite images
+     */
     private fun GetUserFavoriteResolve(data: List<Gallery>) {
         activity?.runOnUiThread {
             adapterFavorite = MyAdapterFavorite(
@@ -211,6 +242,10 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    /**
+     * this function is the resolved callback called when you get the user information
+     * @param data user information
+     */
     @SuppressLint("UseCompatLoadingForDrawables")
     fun callBackGetUserDataResolve(data: AccountBase) {
         activity?.runOnUiThread {
@@ -223,18 +258,20 @@ class ProfileFragment : Fragment() {
             userProfileImage.background = requireContext().resources.getDrawable(R.drawable.circle)
         }
     }
-
+    /**
+     * this function is the reject callback called when you get the user information
+     */
     private fun callBackGetUserDataReject() {
 
     }
-
+    /**
+     * this function init the view
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        profileViewModel =
-            ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         val returnValue: View? = inflater.inflate(R.layout.fragment_profile, container, false)
         val viewManager = LinearLayoutManager(context)
 
@@ -294,7 +331,11 @@ class ProfileFragment : Fragment() {
 
         return returnValue
     }
-
+    /**
+     * this function is called when the view is created
+     * @param view view
+     * @param bundle bundle
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -343,7 +384,9 @@ class ProfileFragment : Fragment() {
         }
         switchMode()
     }
-
+    /**
+     * this function is called when the user update his information
+     */
     override fun onResume() {
         super.onResume()
         val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)

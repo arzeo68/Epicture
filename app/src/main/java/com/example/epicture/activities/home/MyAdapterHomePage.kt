@@ -12,7 +12,13 @@ import kotlinx.android.synthetic.main.home_view_list.view.*
 import kotlinx.android.synthetic.main.my_picture_view_list.view.imageTitle
 import kotlinx.android.synthetic.main.my_picture_view_list.view.likeButton
 
-
+/**
+ * this class create the list and fill it with dataSource
+ *  @param context application context
+ *  @param dataSource list of cell content
+ *  @param buttonLikeCallback function called when the user like an image
+ *  @param clickOnAlbumCallback function called when the user click on a album
+ */
 class MyAdapterHomePage(
     private val context: Context,
     private val dataSource: MutableList<HomeGallery>?,
@@ -22,7 +28,10 @@ class MyAdapterHomePage(
 
     private val inflater: LayoutInflater =
         context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
+    /**
+     * return the item id
+     * @param position item position in the list
+     */
     override fun getItemId(position: Int): Long {
         if (dataSource != null) {
             if (position >= dataSource.size)
@@ -34,14 +43,21 @@ class MyAdapterHomePage(
     class MyViewHolder(val myView: View) : RecyclerView.ViewHolder(myView)
 
 
-    // Create new views (invoked by the layout manager
+    /**
+     * append e new list to the recycler views
+     * @param new new item list to append
+     */
     fun addItems(new: List<HomeGallery>) {
         if (dataSource != null) {
             dataSource.addAll(new)
         }
     }
 
-
+    /**
+     * init the recycler view
+     * @param parent param
+     * @param viewType view type
+     */
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -52,7 +68,11 @@ class MyAdapterHomePage(
         return MyViewHolder(view)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
+    /**
+     * init the recycler view
+     * @param holder the cell that your are binding
+     * @param position position in the list
+     */
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
@@ -85,6 +105,9 @@ class MyAdapterHomePage(
         }
     }
 
+    /**
+     * return the list size
+     */
     override fun getItemCount(): Int {
         if (dataSource != null) {
             return dataSource.size

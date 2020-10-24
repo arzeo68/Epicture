@@ -10,7 +10,13 @@ import com.example.epicture.R
 import com.example.epicture.services.http.Gallery
 import kotlinx.android.synthetic.main.favorite_list_view.view.*
 
-
+/**
+ * this class is the same as the MyAdapterHomePage, please check the documentation of that one
+ *  @param context application context
+ *  @param dataSource list of cell content
+ *  @param buttonCallback function called when the user click on a album
+ *  @param buttonLikeCallback function called when the user like an image
+ */
 class MyAdapterFavorite(
     private val context: Context,
     private val dataSource: List<Gallery>?,
