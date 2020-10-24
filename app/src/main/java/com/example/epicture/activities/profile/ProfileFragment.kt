@@ -1,4 +1,4 @@
-package com.example.epicture.ui.profile
+package com.example.epicture.activities.profile
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -16,7 +16,6 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.bumptech.glide.Glide
 import com.example.epicture.*
 import com.example.epicture.http.AccountBase

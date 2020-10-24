@@ -1,4 +1,4 @@
-package com.example.epicture.ui.profile
+package com.example.epicture.activities.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -37,14 +37,14 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditProfile"
+        <activity android:name=".activities.profile.EditProfile"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.profile.SettingsActivity"
             android:label="@string/title_activity_settings" />
     </application>
 </manifest>

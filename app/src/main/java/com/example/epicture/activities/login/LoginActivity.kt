@@ -11,9 +11,16 @@ import com.example.epicture.ImgurAuth
 import com.example.epicture.activities.MainActivity
 import com.example.epicture.R
 
+/**
+ * This activity is the one called when the user run the application or when the user logged out
+ * It allows the user to connect or if he was already connected verify if his credentials are still good
+ */
 class LoginActivity : AppCompatActivity() {
     var needToConnect: Boolean = false
 
+    /**
+     * onCreate is override and called when the activity is starting
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
@@ -35,11 +42,17 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Allow the user to connect to the app and enter his credentials on Imgur thanks to his navigator
+     */
     private fun connection() {
         ImgurAuth.printCredentials()
         ImgurAuth.getToken(this)
     }
 
+    /**
+     * Allow the user to access the rest of the App if he logged in well
+     */
     private fun accessApp() {
         val button = findViewById<Button>(R.id.connection)
         val progressBar = findViewById<ProgressBar>(R.id.pBar)
@@ -52,6 +65,10 @@ class LoginActivity : AppCompatActivity() {
         startActivity(appIntent)
     }
 
+    /**
+     * onNewIntent is override and called when the user finished to enter is credentials on Imgur
+     * It's calling the accessApp method if he's well connected
+     */
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         runOnUiThread {

@@ -1,15 +1,19 @@
-package com.example.epicture
+package com.example.epicture.activities.profile
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.fragment_profile.*
+import com.example.epicture.App
+import com.example.epicture.ImgurAuth
+import com.example.epicture.R
 
+/**
+ * This Activity is called when the user want to edit is profile
+ * It allows the user to change his username or/and his bio
+ */
 class EditProfile : AppCompatActivity() {
     private var name: String = ""
     private var avatar: String = ""
@@ -49,7 +53,8 @@ class EditProfile : AppCompatActivity() {
             }, name, mapOf(
                 "bio" to bioInput.text.toString(),
                 "username" to nameInput.text.toString()
-            ))
+            )
+            )
         }
     }
 }

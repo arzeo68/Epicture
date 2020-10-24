@@ -1,4 +1,4 @@
-package com.example.epicture.ui.profile
+package com.example.epicture.activities.profile
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -36,7 +36,7 @@ class MyAdapterFavorite(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MyAdapterFavorite.MyViewHolder {
+    ): MyViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.favorite_list_view, parent, false)

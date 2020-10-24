@@ -1,14 +1,23 @@
-package com.example.epicture
+package com.example.epicture.activities.profile
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
+import com.example.epicture.App
+import com.example.epicture.ImgurAuth
+import com.example.epicture.R
 import com.example.epicture.activities.login.LoginActivity
 
+/**
+ * The settings activity deal with the settings page where the user can logout
+ */
 class SettingsActivity : AppCompatActivity() {
 
+    /**
+     * onCreate override and called when the activity is starting
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
@@ -26,7 +35,13 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Basic settings fragment
+     */
     class SettingsFragment : PreferenceFragmentCompat() {
+        /**
+         * onCreatePreferences override called when the settings activity is starting
+         */
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
         }
