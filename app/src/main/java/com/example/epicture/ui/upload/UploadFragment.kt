@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.preference.PreferenceManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.epicture.App
 import com.example.epicture.ImgurAuth
 import com.example.epicture.R
@@ -27,8 +28,9 @@ class UploadFragment : Fragment() {
     private var image: Boolean = false
     private lateinit var imagePath: URI
     private lateinit var bitmapImage: Bitmap
-
+    private lateinit var myRefreshLayout: SwipeRefreshLayout
     private lateinit var uploadViewModel: UploadViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -44,8 +46,13 @@ class UploadFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        myRefreshLayout = refreshLayout2
+        myRefreshLayout.setOnRefreshListener {
+            myRefreshLayout.isRefreshing = false
+        }
         upload_button.setOnClickListener {
             if (image) {
+                myRefreshLayout.isRefreshing = true
                 val byteArrayOutputStream = ByteArrayOutputStream()
                 bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
                 val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
@@ -58,8 +65,11 @@ class UploadFragment : Fragment() {
                         upload_description.text?.clear()
                         upload_description.clearFocus()
                         upload_title.clearFocus()
+                        myRefreshLayout.isRefreshing = false
                     }
-                }, {}, "image", encoded, "base64", upload_title.text.toString(), upload_title.text.toString(), upload_description.text.toString())
+                }, {
+                    myRefreshLayout.isRefreshing = false
+                }, "image", encoded, "base64", upload_title.text.toString(), upload_title.text.toString(), upload_description.text.toString())
             }
         }
 

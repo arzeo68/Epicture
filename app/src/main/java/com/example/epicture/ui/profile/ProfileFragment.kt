@@ -37,7 +37,7 @@ class ProfileFragment : Fragment() {
     private var account = AccountBase(0, "", "", "", 0, "", 0, false)
     private var username: String = ""
     private lateinit var buttonArray: ArrayList<ImageButton>
-    private lateinit var myRefreshLayout: SwipeRefreshLayout;
+    private lateinit var myRefreshLayout: SwipeRefreshLayout
 
     private fun unlikeButtonCallBack(id: String?, type: String) {
         if (id != null) {
@@ -52,7 +52,10 @@ class ProfileFragment : Fragment() {
         if (pseudo != null) {
             ImgurAuth.getFavorites({ res ->
                 GetUserFavoriteResolve(res)
-            }, { }, pseudo)
+                myRefreshLayout.isRefreshing = false
+            }, {
+                myRefreshLayout.isRefreshing = false
+            }, pseudo)
         }
     }
 
@@ -62,11 +65,15 @@ class ProfileFragment : Fragment() {
         if (pseudo != null) {
             ImgurAuth.getImagesByAccountAuth({ res ->
                 getUserImagesResolve(res)
-            }, { }, pseudo)
+                myRefreshLayout.isRefreshing = false
+            }, {
+                myRefreshLayout.isRefreshing = false
+            }, pseudo)
         }
     }
 
     private fun getAlbumImage(data: String?) {
+        myRefreshLayout.isRefreshing = true
         if (data != null) {
             Log.d("JHGFDDF", data)
         }
@@ -77,8 +84,10 @@ class ProfileFragment : Fragment() {
                 ImgurAuth.getAlbumImages(
                     { res ->
                         getImagesInAlbumResolve(res)
+                        myRefreshLayout.isRefreshing = false
                     },
                     {
+                        myRefreshLayout.isRefreshing = false
                         Log.d("JHGFDDF", "call back failed")
                     }, data
                 )
@@ -87,6 +96,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun switchMode() {
+        myRefreshLayout.isRefreshing = true
         _viewList?.removeAllViews()
         if (isOnMyPicture) {
             getUserImage()
@@ -192,7 +202,7 @@ class ProfileFragment : Fragment() {
         val viewManager = LinearLayoutManager(context)
 
         myRefreshLayout = returnValue?.findViewById(R.id.refreshLayout)!!
-        myRefreshLayout.setOnRefreshListener { myRefreshLayout.isRefreshing = false }
+        myRefreshLayout.setOnRefreshListener { switchMode() }
 
         _viewList = returnValue?.findViewById<RecyclerView>(R.id.imageList)?.apply {
             setHasFixedSize(false)
