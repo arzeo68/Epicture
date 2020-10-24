@@ -40,7 +40,10 @@ class ProfileFragment : Fragment() {
 
     private fun unlikeButtonCallBack(id: String?, type: String) {
         if (id != null) {
-            ImgurAuth.putFavorite({ unlikeResolve() }, {}, id, type)
+            ImgurAuth.putFavorite({ try {unlikeResolve()
+                            } catch (e:Exception) {
+                    e.printStackTrace()
+                }}, {}, id, type)
         }
     }
 
@@ -49,12 +52,23 @@ class ProfileFragment : Fragment() {
         val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
             .getString("account_username", "")
         if (pseudo != null) {
-            ImgurAuth.getFavorites({ res ->
+            try { ImgurAuth.getFavorites({ res ->
+                try {
                 GetUserFavoriteResolve(res)
                 myRefreshLayout.isRefreshing = false
+                } catch (e:Exception) {
+                    e.printStackTrace()
+                }
             }, {
+                try {
                 myRefreshLayout.isRefreshing = false
+                } catch (e:Exception) {
+                    e.printStackTrace()
+                }
             }, pseudo)
+            } catch (e:Exception) {
+                    e.printStackTrace()
+                }
         }
     }
 
@@ -63,10 +77,18 @@ class ProfileFragment : Fragment() {
             .getString("account_username", "")
         if (pseudo != null) {
             ImgurAuth.getImagesByAccountAuth({ res ->
+                try {
                 getUserImagesResolve(res)
                 myRefreshLayout.isRefreshing = false
+                } catch (e:Exception) {
+                    e.printStackTrace()
+                }
             }, {
+                try {
                 myRefreshLayout.isRefreshing = false
+                } catch (e:Exception) {
+                    e.printStackTrace()
+                }
             }, pseudo)
         }
     }
@@ -82,12 +104,19 @@ class ProfileFragment : Fragment() {
             if (data != null) {
                 ImgurAuth.getAlbumImages(
                     { res ->
+                        try {
                         getImagesInAlbumResolve(res)
                         myRefreshLayout.isRefreshing = false
+                        } catch (e:Exception) {
+                    e.printStackTrace()
+                }
                     },
-                    {
+                    {try {
                         myRefreshLayout.isRefreshing = false
                         Log.d("JHGFDDF", "call back failed")
+                    } catch (e:Exception) {
+                    e.printStackTrace()
+                }
                     }, data
                 )
             }
@@ -130,7 +159,10 @@ class ProfileFragment : Fragment() {
 
     private fun deleteCallBack(id: String?, type: String) {
         if (id != null) {
-            ImgurAuth.deleteImageOrAlbum({ deleteResolve() }, {}, type, username, id)
+            ImgurAuth.deleteImageOrAlbum({ try {deleteResolve()
+            } catch (e:Exception) {
+                    e.printStackTrace()
+                }}, {}, type, username, id)
         }
     }
 
@@ -287,8 +319,15 @@ class ProfileFragment : Fragment() {
             if (pseudo != null) {
                 username = pseudo
                 ImgurAuth.getAccountBase({ res ->
+                    try {
                     callBackGetUserDataResolve(res)
-                }, { callBackGetUserDataReject() }, pseudo)
+                    } catch (e: java.lang.Exception) {
+                        e.printStackTrace()
+                    }
+                }, { try {callBackGetUserDataReject()
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }}, pseudo)
             }
         } else {
             callBackGetUserDataResolve(account)
@@ -303,8 +342,15 @@ class ProfileFragment : Fragment() {
         if (pseudo != null) {
             username = pseudo
             ImgurAuth.getAccountBase({ res ->
+                try {
                 callBackGetUserDataResolve(res)
-            }, { callBackGetUserDataReject() }, pseudo)
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }
+            }, { try {callBackGetUserDataReject()
+            } catch (e: java.lang.Exception) {
+                e.printStackTrace()
+            }}, pseudo)
         }
     }
 }
