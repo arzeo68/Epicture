@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RadioGroup
+        android:id="@+id/sort1"
+        android:layout_width="79dp"
+        android:layout_height="151dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="sort by:" />
+
+        <RadioButton
+            android:id="@+id/hotButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="time" />
+
+        <RadioButton
+            android:id="@+id/topButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="viral" />
+
+        <RadioButton
+            android:id="@+id/userButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="top" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/sort2"
+        android:layout_width="125dp"
+        android:layout_height="199dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Time" />
+
+        <RadioButton
+            android:id="@+id/popularSort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="day" />
+
+        <RadioButton
+            android:id="@+id/newestSort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="week" />
+
+        <RadioButton
+            android:id="@+id/bestSort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="month" />
+
+        <RadioButton
+            android:id="@+id/randomSort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="year" />
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="all" />
+    </RadioGroup>
+
+</TableRow>
