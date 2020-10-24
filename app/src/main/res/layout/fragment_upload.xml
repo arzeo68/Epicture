@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -28,13 +27,13 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ImageView
-            android:id="@+id/selected_image"
-            android:layout_width="match_parent"
-            android:layout_height="334dp"
-            android:layout_marginTop="232dp"
-            android:backgroundTint="#00FFFFFF"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/selected_image"
+        android:layout_width="match_parent"
+        android:layout_height="334dp"
+        android:layout_marginTop="232dp"
+        android:backgroundTint="#00FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/upload_button"
@@ -47,25 +46,25 @@
         app:layout_constraintTop_toBottomOf="@+id/refreshLayout2" />
 
     <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout2"
-            android:layout_width="205dp"
-            android:layout_height="64dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="40dp"
-            android:maxWidth="64dp"
-            app:helperTextEnabled="false"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        android:id="@+id/textInputLayout2"
+        android:layout_width="205dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="40dp"
+        android:maxWidth="64dp"
+        app:helperTextEnabled="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/upload_title"
-                android:layout_width="203dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/title"
-                android:inputType="text"
-                android:text=""
-                android:textAlignment="center" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/upload_title"
+            android:layout_width="203dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/title"
+            android:inputType="text"
+            android:text=""
+            android:textAlignment="center" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout4"
