@@ -22,7 +22,9 @@ import com.example.epicture.R
 import com.example.epicture.http.AlbumImage
 import com.example.epicture.http.HomeGallery
 import com.example.epicture.ui.profile.MyAdapterInAlbum
+import kotlinx.android.synthetic.main.favorite_list_view.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.my_picture_view_list.view.*
 
 
 class HomeFragment : Fragment() {
@@ -88,6 +90,8 @@ class HomeFragment : Fragment() {
             myUsername = pseudo
             ImgurAuth.getGallery(
                 { res ->
+                    isInALubum  = false
+                    sortButton.setImageResource(R.drawable.ic_filter_list)
                     GetImagesResolve(res)
                     myRefreshLayout.isRefreshing = false
                 },
@@ -116,6 +120,8 @@ class HomeFragment : Fragment() {
             myUsername = pseudo
             ImgurAuth.searchGallery(
                 { res ->
+                    isInALubum  = false
+                    sortButton.setImageResource(R.drawable.ic_filter_list)
                     GetImagesResolve(res)
                     myRefreshLayout.isRefreshing = false
                 },
@@ -140,6 +146,8 @@ class HomeFragment : Fragment() {
                 myRefreshLayout.isRefreshing = true
                 ImgurAuth.getGallery(
                     { res ->
+                        isInALubum  = false
+                        sortButton.setImageResource(R.drawable.ic_filter_list)
                         GetNextPageResolve(res)
                         myRefreshLayout.isRefreshing = false
                     },
@@ -164,6 +172,8 @@ class HomeFragment : Fragment() {
                 myUsername = pseudo
                 ImgurAuth.searchGallery(
                     { res ->
+                        isInALubum  = false
+                        sortButton.setImageResource(R.drawable.ic_filter_list)
                         GetNextPageResolve(res)
                         myRefreshLayout.isRefreshing = false
                     },
@@ -174,7 +184,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
+    private var isInALubum = false
     private var searchText: String = ""
     private var searchMode = false
     private var loadingFinished = true
@@ -204,6 +214,7 @@ class HomeFragment : Fragment() {
     }
 
     fun clickOnAlbumCallback(data: String?) {
+
         val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
             .getString("account_username", "")
         if (pseudo != null) {
@@ -211,6 +222,8 @@ class HomeFragment : Fragment() {
                 ImgurAuth.getAlbumImages(
                     { res ->
                         getImagesInAlbumResolve(res)
+                        isInALubum = true
+                        sortButton.setImageResource(R.drawable.ic_left_arrow)
                     },
                     {
                         Log.d("JHGFDDF", "call back failed")
@@ -242,7 +255,12 @@ class HomeFragment : Fragment() {
             myRefreshLayout.isRefreshing = false
         }
         sortButton.setOnClickListener {
-            _dialog.show()
+            if (isInALubum)
+            {
+                switchMode()
+            }
+            else
+                _dialog.show()
         }
 
         searchButton.setOnClickListener {
