@@ -14,15 +14,12 @@ import okhttp3.Callback
 import okhttp3.Response
 import java.io.IOException
 import java.io.StringReader
+import com.example.epicture.config.Config
 
-class Config {
-
-    companion object {
-        const val clientID: String = "aca4de364cccb3a"
-        const val clientSecret: String = "46d9b9dc5c215cf383fa5d786457c76b6194c240"
-    }
-}
-
+/**
+ * The ImgurAuth object deal with the Imgur API
+ * It manage all the available call to the API
+ */
 object ImgurAuth {
     private const val clientId: String = Config.clientID
     private const val clientSecret: String = Config.clientSecret
@@ -36,10 +33,18 @@ object ImgurAuth {
         "expires_in" to ""
     )
 
+    /**
+     * Set the user name of the actual user
+     * @param username the new username
+     */
     fun setUsername(username: String) {
         authParams["account_username"] = username
     }
 
+    /**
+     * Open a navigator with the login page of Imgur to get user credentials
+     * @param context Base context for the login activity
+     */
     fun getToken(context: Context) {
         val intent = Intent(
             Intent.ACTION_VIEW,
@@ -48,6 +53,12 @@ object ImgurAuth {
         startActivity(context, intent, null)
     }
 
+    /**
+     * Check if the user is connected, reload the actual credentials and call the resolve function
+     * Otherwise call the reject function
+     * @param resolve resolve callback
+     * @param reject reject callback
+     */
     fun alreadyConnected(resolve: () -> Unit, reject: () -> Unit) {
         val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.context)
         val vals: List<String> =
@@ -67,12 +78,18 @@ object ImgurAuth {
         Log.d("AUTH", "Should skip asking credentials")
     }
 
+    /**
+     * Logout the user into removing his credentials
+     */
     fun logout() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(App.context).edit()
         prefs.clear()
         prefs.apply()
     }
 
+    /**
+     * Save the credentials preferences
+     */
     fun savePreferences() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(App.context).edit()
         for (param in authParams) {
@@ -81,6 +98,9 @@ object ImgurAuth {
         }
     }
 
+    /**
+     * Print the user preferences
+     */
     fun printCredentials() {
         val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.context)
         for (pref in prefs.all) {
@@ -88,6 +108,11 @@ object ImgurAuth {
         }
     }
 
+    /**
+     * Reload the user credentials
+     * @param resolve resolve callback
+     * @param reject reject callback
+     */
     private fun reloadToken(resolve: () -> Unit, reject: () -> Unit) {
         val request = HttpCall.postRequestBuilder(
             HttpCall.urlBuilder(imgurUrl, listOf("oauth2", "token")),
@@ -126,6 +151,10 @@ object ImgurAuth {
         })
     }
 
+    /**
+     * Save the credentials when the navigator activity is over
+     * @param intent the activity intent response
+     */
     fun saveToken(intent: Intent) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(App.context).edit()
         val uri = intent.data
@@ -145,6 +174,13 @@ object ImgurAuth {
         }
     }
 
+    /**
+     * Get Images of the actual user connected on Imgur
+     * @param resolve resolve callback which take a list of Response Image as parameter
+     * @param reject reject callback
+     * @param username the username
+     * @param page the pagination id
+     */
     fun getImagesByAccountAuth(
         resolve: (List<Image>) -> Unit,
         reject: () -> Unit,
@@ -179,7 +215,13 @@ object ImgurAuth {
         })
     }
 
-
+    /**
+     * Get an Image by ID of the connected user
+     * @param resolve resolve callback which take a list of Response Image as parameter
+     * @param reject reject callback
+     * @param username the username
+     * @param id the image ID
+     */
     fun getImageByIdAuth(
         resolve: (Image) -> Unit,
         reject: () -> Unit,
@@ -216,6 +258,12 @@ object ImgurAuth {
         })
     }
 
+    /**
+     * Get Account Base of the connected user on Imgur
+     * @param resolve resolve callback which take a list of Response Image as parameter
+     * @param reject reject callback
+     * @param username the username
+     */
     fun getAccountBase(resolve: (AccountBase) -> Unit, reject: () -> Unit, username: String) {
         Log.d("PROFIL", username)
         val request = HttpCall.getRequestBuilder(
@@ -248,6 +296,13 @@ object ImgurAuth {
         })
     }
 
+    /**
+     * Get Images of an user on Imgur (no auth)
+     * @param resolve resolve callback which take a list of Response Image as parameter
+     * @param reject reject callback
+     * @param username the username
+     * @param page the pagination id
+     */
     fun getAlbumsNoAuth(
         resolve: (List<Album>) -> Unit,
         reject: () -> Unit,
@@ -282,6 +337,12 @@ object ImgurAuth {
         })
     }
 
+    /**
+     * Get Images of an album on Imgur
+     * @param resolve resolve callback which take a list of Response Image as parameter
+     * @param reject reject callback
+     * @param albumId the album ID
+     */
     fun getAlbumImages(resolve: (List<AlbumImage>) -> Unit, reject: () -> Unit, albumId: String) {
         val request = HttpCall.getRequestBuilder(
             HttpCall.urlBuilder(imgurUrl, listOf("3", "album", albumId, "images")),
@@ -310,6 +371,11 @@ object ImgurAuth {
         })
     }
 
+    /**
+     * Get Account Settings of the actual connected user on Imgur
+     * @param resolve resolve callback which take a list of Response Image as parameter
+     * @param reject reject callback
+     */
     fun getAccountSettings(resolve: (AccountSettings) -> Unit, reject: () -> Unit) {
         val request = HttpCall.getRequestBuilder(
             HttpCall.urlBuilder(imgurUrl, listOf("3", "account", "me", "settings")),
@@ -339,6 +405,13 @@ object ImgurAuth {
         })
     }
 
+    /**
+     * Change Account Settings of the actual user connected on Imgur
+     * @param resolve resolve callback which take a list of Response Image as parameter
+     * @param reject reject callback
+     * @param username the username
+     * @param settings a string map of string which contain the parameters you want to change
+     */
     fun changeAccountSettings(
         resolve: () -> Unit,
         reject: () -> Unit,
@@ -368,6 +441,15 @@ object ImgurAuth {
         })
     }
 
+    /**
+     * Get Gallery on Imgur
+     * @param resolve resolve callback which take a list of Response Image as parameter
+     * @param reject reject callback
+     * @param page the pagination id
+     * @param section the section type
+     * @param sort the sort type
+     * @param window the window type
+     */
     fun getGallery(
         resolve: (ArrayList<HomeGallery>) -> Unit,
         reject: () -> Unit,
@@ -437,6 +519,12 @@ object ImgurAuth {
         })
     }
 
+    /**
+     * Get the Favorite Images or Albums of the actual user connected on Imgur
+     * @param resolve resolve callback which take a list of Response Image as parameter
+     * @param reject reject callback
+     * @param page the pagination id
+     */
     fun getFavorites(resolve: (List<Gallery>) -> Unit, reject: () -> Unit, page: String = "") {
         val request = HttpCall.getRequestBuilder(
             HttpCall.urlBuilder(
@@ -472,6 +560,12 @@ object ImgurAuth {
         })
     }
 
+    /**
+     * Get Images of a Gallery on Imgur
+     * @param resolve resolve callback which take a list of Response Image as parameter
+     * @param reject reject callback
+     * @param galleryId the gallery ID
+     */
     fun getGalleryImages(
         resolve: (List<GalleryAlbumImage>) -> Unit,
         reject: () -> Unit,
@@ -505,6 +599,13 @@ object ImgurAuth {
         })
     }
 
+    /**
+     * Put in favorite an Album or Image on Imgur
+     * @param resolve resolve callback which take a list of Response Image as parameter
+     * @param reject reject callback
+     * @param id the album/image ID
+     * @param type the type of the post to put in favorite (image or album)
+     */
     fun putFavorite(resolve: () -> Unit, reject: () -> Unit, id: String, type: String = "image") {
         val request = HttpCall.postRequestBuilder(
             HttpCall.urlBuilder(imgurUrl, listOf("3", type, id, "favorite")),
@@ -527,6 +628,15 @@ object ImgurAuth {
         })
     }
 
+    /**
+     * Search Album and Images on Imgur
+     * @param resolve resolve callback which take a list of Response Image as parameter
+     * @param reject reject callback
+     * @param q the tags you want to search
+     * @param page the pagination id
+     * @param sort the sort type
+     * @param window the window type
+     */
     fun searchGallery(
         resolve: (ArrayList<HomeGallery>) -> Unit,
         reject: () -> Unit,
@@ -600,6 +710,14 @@ object ImgurAuth {
         })
     }
 
+    /**
+     * Delete an Image or Album of the actual user connected on Imgur
+     * @param resolve resolve callback which take a list of Response Image as parameter
+     * @param reject reject callback
+     * @param type the type of the post which need to be deleted
+     * @param username the username of the user
+     * @param id the ID of the image/album
+     */
     fun deleteImageOrAlbum(
         resolve: () -> Unit,
         reject: () -> Unit,
@@ -628,6 +746,16 @@ object ImgurAuth {
         })
     }
 
+    /**
+     * Upload an image of the actual user connected on Imgur
+     * @param resolve resolve callback which take a list of Response Image as parameter
+     * @param reject reject callback
+     * @param type the type of the post (image or video)
+     * @param urlType the url type of the post (base64 or URL)
+     * @param name the name of the post
+     * @param title the title of the post
+     * @param description the description of the post
+     */
     fun uploadImage(
         resolve: () -> Unit,
         reject: () -> Unit,
