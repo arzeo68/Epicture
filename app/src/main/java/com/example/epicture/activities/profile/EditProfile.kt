@@ -50,9 +50,7 @@ class EditProfile : AppCompatActivity() {
                 prefs.apply()
                 ImgurAuth.setUsername(nameInput.text.toString())
                 finish()
-            }, {
-                finish()
-            }, name, mapOf(
+            }, {}, name, mapOf(
                 "bio" to bioInput.text.toString(),
                 "username" to nameInput.text.toString()
             )

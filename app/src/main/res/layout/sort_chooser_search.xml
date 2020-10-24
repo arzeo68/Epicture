@@ -13,25 +13,25 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="sort by:" />
+            android:text="@string/sort" />
 
         <RadioButton
             android:id="@+id/hotButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="time" />
+            android:text="@string/time" />
 
         <RadioButton
             android:id="@+id/topButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="viral" />
+            android:text="Viral" />
 
         <RadioButton
             android:id="@+id/userButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="top" />
+            android:text="Top" />
     </RadioGroup>
 
     <RadioGroup
@@ -43,37 +43,37 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Time" />
+            android:text="@string/time" />
 
         <RadioButton
             android:id="@+id/popularSort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="day" />
+            android:text="@string/day" />
 
         <RadioButton
             android:id="@+id/newestSort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="week" />
+            android:text="@string/week" />
 
         <RadioButton
             android:id="@+id/bestSort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="month" />
+            android:text="@string/month" />
 
         <RadioButton
             android:id="@+id/randomSort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="year" />
+            android:text="@string/year" />
 
         <RadioButton
             android:id="@+id/radioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="all" />
+            android:text="@string/all" />
     </RadioGroup>
 
 </TableRow>

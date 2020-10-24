@@ -18,9 +18,17 @@
     <string name="title">Titre</string>
     <string name="points">Points</string>
     <string name="reputation">Réputation</string>
-    <string name="edit">Modifier le Profile</string>
+    <string name="edit">Modifier le Profil</string>
     <string name="done">Sauvegarder</string>
     <string name="name">Nom</string>
     <string name="bio">Bio</string>
     <string name="logout">Se déconnecter</string>
+    <string name="section">Section</string>
+    <string name="time">Temps</string>
+    <string name="sort">Trie</string>
+    <string name="day">Jour</string>
+    <string name="week">Semaine</string>
+    <string name="month">Mois</string>
+    <string name="year">Année</string>
+    <string name="all">Tout</string>
 </resources>

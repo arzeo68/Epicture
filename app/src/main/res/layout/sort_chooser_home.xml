@@ -13,7 +13,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="param1" />
+            android:text="@string/section" />
 
         <RadioButton
             android:id="@+id/hotButton"
@@ -43,7 +43,7 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="param2" />
+            android:text="@string/sort" />
 
         <RadioButton
             android:id="@+id/popularSort"
@@ -79,36 +79,36 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="param3" />
+            android:text="@string/time" />
 
         <RadioButton
             android:id="@+id/dayButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Day" />
+            android:text="@string/day" />
 
         <RadioButton
             android:id="@+id/weekButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Week" />
+            android:text="@string/week" />
 
         <RadioButton
             android:id="@+id/monthButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Month" />
+            android:text="@string/month" />
 
         <RadioButton
             android:id="@+id/yeaerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Year" />
+            android:text="@string/year" />
 
         <RadioButton
             android:id="@+id/allButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="All" />
+            android:text="@string/all" />
     </RadioGroup>
 </TableRow>

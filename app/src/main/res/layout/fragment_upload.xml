@@ -2,24 +2,23 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="395dp"
+        android:layout_height="335dp"
+        android:layout_marginTop="44dp"
+        android:foregroundGravity="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        >
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
         <ImageButton
             android:id="@+id/select_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="116dp"
-            android:layout_marginTop="320dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:backgroundTint="#00FFFFFF"
             android:tint="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +28,7 @@
 
     <ImageView
         android:id="@+id/selected_image"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="334dp"
         android:layout_marginTop="232dp"
         android:backgroundTint="#00FFFFFF"
@@ -40,11 +39,11 @@
         android:id="@+id/upload_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="604dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="40dp"
         android:text="@string/upload"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/refreshLayout2" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2"
@@ -68,6 +67,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout4"
         android:layout_width="369dp"
         android:layout_height="57dp"
         android:layout_marginStart="20dp"
