@@ -76,7 +76,6 @@ class LoginActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
         button.visibility = View.GONE
         needToConnect = false
-        Log.d("AUTH", "Access app...")
         try { ImgurAuth.savePreferences()
         } catch (e:Exception) {
             e.printStackTrace()

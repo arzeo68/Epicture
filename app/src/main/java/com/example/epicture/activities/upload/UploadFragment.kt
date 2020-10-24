@@ -59,7 +59,6 @@ class UploadFragment : Fragment() {
                 bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
                 val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
                 val encoded: String = Base64.encodeToString(byteArray, Base64.DEFAULT)
-                Log.d("UPLOAD", encoded)
                 ImgurAuth.uploadImage({
                     try {
                     activity?.runOnUiThread {
@@ -107,7 +106,6 @@ class UploadFragment : Fragment() {
             image = true
             imagePath = URI(data?.data.toString())
             bitmapImage = MediaStore.Images.Media.getBitmap(activity?.contentResolver, data?.data)
-            Log.d("UPLOAD", imagePath.toString())
         }
     }
 }

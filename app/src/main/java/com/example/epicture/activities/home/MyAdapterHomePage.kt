@@ -49,7 +49,6 @@ class MyAdapterHomePage(
         viewType: Int
     ): MyViewHolder {
         // create a new view
-        Log.d("TESTADAPTER", "test")
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.home_view_list, parent, false)
         return MyViewHolder(view)

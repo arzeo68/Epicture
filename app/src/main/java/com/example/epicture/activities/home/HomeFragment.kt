@@ -131,10 +131,6 @@ class HomeFragment : Fragment() {
             ""
         )
         if (pseudo != null) {
-            Log.d("ertyuiop", _searchParam[0])
-            Log.d("ertyuiop", _searchParam[1])
-            Log.d("ertyuiop", "END")
-
             myUsername = pseudo
             try { ImgurAuth.searchGallery(
                 { res ->
@@ -169,7 +165,6 @@ class HomeFragment : Fragment() {
                     ""
                 )
             if (pseudo != null) {
-                Log.d("FGHJKKJHDGHJ", "call start")
                 myUsername = pseudo
                 myRefreshLayout.isRefreshing = true
                 try {
@@ -209,7 +204,6 @@ class HomeFragment : Fragment() {
                 )
             if (pseudo != null) {
                 myRefreshLayout.isRefreshing = true
-                Log.d("FGHJKKJHDGHJ", "call start")
                 myUsername = pseudo
                 try {
                     ImgurAuth.searchGallery(
@@ -285,7 +279,6 @@ class HomeFragment : Fragment() {
                     },
                     {
                         try {
-                        Log.d("JHGFDDF", "call back failed")
                         } catch (e:Exception) {
                             e.printStackTrace()
                         }
@@ -300,7 +293,6 @@ class HomeFragment : Fragment() {
 
     private fun getImagesInAlbumResolve(data: List<AlbumImage>) {
         activity?.runOnUiThread {
-            Log.d("JHGFDDF", "call back resolve")
             adapterInAlbum = MyAdapterInAlbum(requireContext(), data)
             _viewList?.adapter = adapterInAlbum
         }
@@ -397,7 +389,6 @@ class HomeFragment : Fragment() {
             for (x in 1 until childCount) {
                 val btn = group.getChildAt(x) as RadioButton
                 if (btn.id == checkedId) {
-                    Log.d("MANGETESMORTS", btn.text.toString())
                     _searchParam[0] = btn.text.toString()
                     getSearchImage()
                 }
@@ -408,7 +399,6 @@ class HomeFragment : Fragment() {
             for (x in 1 until childCount) {
                 val btn = group.getChildAt(x) as RadioButton
                 if (btn.id == checkedId) {
-                    Log.d("MANGETESMORTS", btn.text.toString())
                     _searchParam[1] = btn.text.toString()
                     getSearchImage()
 
@@ -441,7 +431,6 @@ class HomeFragment : Fragment() {
             for (x in 1 until childCount) {
                 val btn = group.getChildAt(x) as RadioButton
                 if (btn.id == checkedId) {
-                    Log.d("MANGETESMORTS", btn.text.toString())
                     _homeParam[0] = btn.text.toString()
                     if (!searchMode)
                         getHomeImage()
@@ -456,7 +445,6 @@ class HomeFragment : Fragment() {
             for (x in 1 until childCount) {
                 val btn = group.getChildAt(x) as RadioButton
                 if (btn.id == checkedId) {
-                    Log.d("MANGETESMORTS", btn.text.toString())
                     _homeParam[1] = btn.text.toString()
                     if (!searchMode)
                         getHomeImage()
@@ -472,7 +460,6 @@ class HomeFragment : Fragment() {
             for (x in 1 until childCount) {
                 val btn = group.getChildAt(x) as RadioButton
                 if (btn.id == checkedId) {
-                    Log.d("MANGETESMORTS", btn.text.toString())
                     _homeParam[2] = btn.text.toString()
                     if (!searchMode)
                         getHomeImage()

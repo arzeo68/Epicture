@@ -96,7 +96,6 @@ class ProfileFragment : Fragment() {
     private fun getAlbumImage(data: String?) {
         myRefreshLayout.isRefreshing = true
         if (data != null) {
-            Log.d("JHGFDDF", data)
         }
         val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
             .getString("account_username", "")
@@ -113,7 +112,6 @@ class ProfileFragment : Fragment() {
                     },
                     {try {
                         myRefreshLayout.isRefreshing = false
-                        Log.d("JHGFDDF", "call back failed")
                     } catch (e:Exception) {
                     e.printStackTrace()
                 }
@@ -188,7 +186,6 @@ class ProfileFragment : Fragment() {
 
     private fun getImagesInAlbumResolve(data: List<AlbumImage>) {
         activity?.runOnUiThread {
-            Log.d("JHGFDDF", "call back resolve")
             adapterInAlbum = MyAdapterInAlbum(requireContext(), data)
             _viewList?.adapter = adapterInAlbum
         }
