@@ -4,6 +4,9 @@ import com.beust.klaxon.TypeAdapter
 import com.beust.klaxon.TypeFor
 import kotlin.reflect.KClass
 
+/**
+ * Model class for the auth response
+ */
 class AuthResponse(
     val access_token: String?,
     val refresh_token: String?,
@@ -12,6 +15,9 @@ class AuthResponse(
     val account_username: String?
 )
 
+/**
+ * Model class for the Image Response
+ */
 class Image(
     val id: String?,
     val title: String?,
@@ -36,6 +42,9 @@ class Image(
     val tags: Array<String?>?
 )
 
+/**
+ * Model class for the AccountBase response
+ */
 class AccountBase(
     val id: Int?,
     val url: String?,
@@ -47,6 +56,9 @@ class AccountBase(
     val pro_expiration: Boolean?,
 )
 
+/**
+ * Model class for Album response
+ */
 class Album(
     val id: String?,
     val title: String?,
@@ -72,6 +84,9 @@ class Album(
     val order: Int?
 )
 
+/**
+ * Model class for Image of an Album response
+ */
 class AlbumImage(
     val id: String?,
     val title: String?,
@@ -96,6 +111,9 @@ class AlbumImage(
     val link: String?
 )
 
+/**
+ * Model class for AccountSettings response
+ */
 class AccountSettings(
     val account_url: String?,
     val email: String?,
@@ -113,6 +131,9 @@ class AccountSettings(
     val first_party: Boolean?
 )
 
+/**
+ * Model class for Gallery response
+ */
 class Gallery(
     val id: String?,
     val title: String?,
@@ -136,6 +157,9 @@ class Gallery(
     val type: String?,
 )
 
+/**
+ * Model class for an Image of an album in Gallery response
+ */
 class GalleryAlbumImage(
     val id: String?,
     val title: String?,
@@ -148,6 +172,9 @@ class GalleryAlbumImage(
     val link: String?
 )
 
+/**
+ * Model class for the search Gallery response
+ */
 class SearchGallery(
     val id: String?,
     val title: String?,
@@ -173,6 +200,9 @@ class SearchGallery(
     val images: List<AlbumImage?>?
 )
 
+/**
+ * Adapter class to choose the type of the response
+ */
 class GalleryAdapter : TypeAdapter<GalleryType> {
     override fun classFor(type: Any): KClass<out GalleryType> = when (type as Boolean) {
         true -> HomeAlbum::class
@@ -180,8 +210,15 @@ class GalleryAdapter : TypeAdapter<GalleryType> {
     }
 }
 
+/**
+ * GalleryType class to choose the correct model class before parsing
+ */
 @TypeFor(field = "is_album", adapter = GalleryAdapter::class)
 open class GalleryType(val is_album: Boolean?)
+
+/**
+ * Class model for home album response
+ */
 data class HomeAlbum(
     val id: String?,
     val title: String?,
@@ -206,6 +243,9 @@ data class HomeAlbum(
     val images: List<AlbumImage?>?
 ) : GalleryType(true)
 
+/**
+ * Class model for home image response
+ */
 data class HomeImage(
     val id: String?,
     val title: String?,
@@ -217,6 +257,9 @@ data class HomeImage(
     val favorite: Boolean?,
 ) : GalleryType(false)
 
+/**
+ * Class model for home gallery response
+ */
 class HomeGallery(
     val id: String?,
     val title: String?,
