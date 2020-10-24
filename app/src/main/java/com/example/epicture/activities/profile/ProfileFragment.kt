@@ -3,7 +3,6 @@ package com.example.epicture.activities.profile
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
-import com.example.epicture.*
+import com.example.epicture.App
+import com.example.epicture.ImgurAuth
+import com.example.epicture.R
 import com.example.epicture.services.http.AccountBase
 import com.example.epicture.services.http.AlbumImage
 import com.example.epicture.services.http.Gallery
@@ -40,10 +41,13 @@ class ProfileFragment : Fragment() {
 
     private fun unlikeButtonCallBack(id: String?, type: String) {
         if (id != null) {
-            ImgurAuth.putFavorite({ try {unlikeResolve()
-                            } catch (e:Exception) {
+            ImgurAuth.putFavorite({
+                try {
+                    unlikeResolve()
+                } catch (e: Exception) {
                     e.printStackTrace()
-                }}, {}, id, type)
+                }
+            }, {}, id, type)
         }
     }
 
@@ -52,23 +56,24 @@ class ProfileFragment : Fragment() {
         val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
             .getString("account_username", "")
         if (pseudo != null) {
-            try { ImgurAuth.getFavorites({ res ->
-                try {
-                GetUserFavoriteResolve(res)
-                myRefreshLayout.isRefreshing = false
-                } catch (e:Exception) {
-                    e.printStackTrace()
-                }
-            }, {
-                try {
-                myRefreshLayout.isRefreshing = false
-                } catch (e:Exception) {
-                    e.printStackTrace()
-                }
-            }, pseudo)
-            } catch (e:Exception) {
-                    e.printStackTrace()
-                }
+            try {
+                ImgurAuth.getFavorites({ res ->
+                    try {
+                        GetUserFavoriteResolve(res)
+                        myRefreshLayout.isRefreshing = false
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }, {
+                    try {
+                        myRefreshLayout.isRefreshing = false
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }, pseudo)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
@@ -78,15 +83,15 @@ class ProfileFragment : Fragment() {
         if (pseudo != null) {
             ImgurAuth.getImagesByAccountAuth({ res ->
                 try {
-                getUserImagesResolve(res)
-                myRefreshLayout.isRefreshing = false
-                } catch (e:Exception) {
+                    getUserImagesResolve(res)
+                    myRefreshLayout.isRefreshing = false
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }, {
                 try {
-                myRefreshLayout.isRefreshing = false
-                } catch (e:Exception) {
+                    myRefreshLayout.isRefreshing = false
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }, pseudo)
@@ -104,17 +109,18 @@ class ProfileFragment : Fragment() {
                 ImgurAuth.getAlbumImages(
                     { res ->
                         try {
-                        getImagesInAlbumResolve(res)
-                        myRefreshLayout.isRefreshing = false
-                        } catch (e:Exception) {
-                    e.printStackTrace()
-                }
+                            getImagesInAlbumResolve(res)
+                            myRefreshLayout.isRefreshing = false
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
                     },
-                    {try {
-                        myRefreshLayout.isRefreshing = false
-                    } catch (e:Exception) {
-                    e.printStackTrace()
-                }
+                    {
+                        try {
+                            myRefreshLayout.isRefreshing = false
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
                     }, data
                 )
             }
@@ -157,10 +163,13 @@ class ProfileFragment : Fragment() {
 
     private fun deleteCallBack(id: String?, type: String) {
         if (id != null) {
-            ImgurAuth.deleteImageOrAlbum({ try {deleteResolve()
-            } catch (e:Exception) {
+            ImgurAuth.deleteImageOrAlbum({
+                try {
+                    deleteResolve()
+                } catch (e: Exception) {
                     e.printStackTrace()
-                }}, {}, type, username, id)
+                }
+            }, {}, type, username, id)
         }
     }
 
@@ -317,14 +326,17 @@ class ProfileFragment : Fragment() {
                 username = pseudo
                 ImgurAuth.getAccountBase({ res ->
                     try {
-                    callBackGetUserDataResolve(res)
+                        callBackGetUserDataResolve(res)
                     } catch (e: java.lang.Exception) {
                         e.printStackTrace()
                     }
-                }, { try {callBackGetUserDataReject()
-                } catch (e: java.lang.Exception) {
-                    e.printStackTrace()
-                }}, pseudo)
+                }, {
+                    try {
+                        callBackGetUserDataReject()
+                    } catch (e: java.lang.Exception) {
+                        e.printStackTrace()
+                    }
+                }, pseudo)
             }
         } else {
             callBackGetUserDataResolve(account)
@@ -340,14 +352,17 @@ class ProfileFragment : Fragment() {
             username = pseudo
             ImgurAuth.getAccountBase({ res ->
                 try {
-                callBackGetUserDataResolve(res)
+                    callBackGetUserDataResolve(res)
                 } catch (e: java.lang.Exception) {
                     e.printStackTrace()
                 }
-            }, { try {callBackGetUserDataReject()
-            } catch (e: java.lang.Exception) {
-                e.printStackTrace()
-            }}, pseudo)
+            }, {
+                try {
+                    callBackGetUserDataReject()
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }
+            }, pseudo)
         }
     }
 }

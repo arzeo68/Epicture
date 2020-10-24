@@ -4,17 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
-import android.util.Log
 import androidx.core.content.ContextCompat.startActivity
 import androidx.preference.PreferenceManager
 import com.beust.klaxon.Klaxon
+import com.example.epicture.config.Config
 import com.example.epicture.services.http.*
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
 import java.io.IOException
 import java.io.StringReader
-import com.example.epicture.config.Config
 
 /**
  * The ImgurAuth object deal with the Imgur API

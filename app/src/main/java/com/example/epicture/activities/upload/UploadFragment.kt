@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,6 @@ import com.example.epicture.ImgurAuth
 import com.example.epicture.R
 import kotlinx.android.synthetic.main.fragment_upload.*
 import java.io.ByteArrayOutputStream
-import java.lang.Exception
 import java.net.URI
 
 /**
@@ -59,26 +57,35 @@ class UploadFragment : Fragment() {
                 bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
                 val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
                 val encoded: String = Base64.encodeToString(byteArray, Base64.DEFAULT)
-                ImgurAuth.uploadImage({
-                    try {
-                    activity?.runOnUiThread {
-                        selected_image.setImageDrawable(null)
-                        upload_title.text?.clear()
-                        upload_description.text?.clear()
-                        upload_description.clearFocus()
-                        upload_title.clearFocus()
-                        myRefreshLayout.isRefreshing = false
-                    }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }, {
-                    try {
-                    myRefreshLayout.isRefreshing = false
-                    } catch (e:Exception) {
-                        e.printStackTrace()
-                    }
-                }, "image", encoded, "base64", upload_title.text.toString(), upload_title.text.toString(), upload_description.text.toString())
+                ImgurAuth.uploadImage(
+                    {
+                        try {
+                            activity?.runOnUiThread {
+                                selected_image.setImageDrawable(null)
+                                upload_title.text?.clear()
+                                upload_description.text?.clear()
+                                upload_description.clearFocus()
+                                upload_title.clearFocus()
+                                myRefreshLayout.isRefreshing = false
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    },
+                    {
+                        try {
+                            myRefreshLayout.isRefreshing = false
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    },
+                    "image",
+                    encoded,
+                    "base64",
+                    upload_title.text.toString(),
+                    upload_title.text.toString(),
+                    upload_description.text.toString()
+                )
             }
         }
 

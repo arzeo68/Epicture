@@ -2,15 +2,13 @@ package com.example.epicture.activities.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.epicture.ImgurAuth
-import com.example.epicture.activities.MainActivity
 import com.example.epicture.R
-import java.lang.Exception
+import com.example.epicture.activities.MainActivity
 
 /**
  * This activity is the one called when the user run the application or when the user logged out
@@ -99,8 +97,9 @@ class LoginActivity : AppCompatActivity() {
         when (intent?.action) {
             Intent.ACTION_VIEW -> {
                 if (intent.data != null) {
-                    try { ImgurAuth.saveToken(intent)
-                    } catch (e:Exception) {
+                    try {
+                        ImgurAuth.saveToken(intent)
+                    } catch (e: Exception) {
                         e.printStackTrace()
                     }
                     accessApp()

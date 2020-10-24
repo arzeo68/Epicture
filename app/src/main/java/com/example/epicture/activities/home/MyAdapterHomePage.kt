@@ -1,14 +1,13 @@
 package com.example.epicture.activities.home
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.epicture.R
 import com.example.epicture.services.http.HomeGallery
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.home_view_list.view.*
 import kotlinx.android.synthetic.main.my_picture_view_list.view.imageTitle
 import kotlinx.android.synthetic.main.my_picture_view_list.view.likeButton
@@ -36,8 +35,7 @@ class MyAdapterHomePage(
 
 
     // Create new views (invoked by the layout manager
-    fun addItems(new: List<HomeGallery>)
-    {
+    fun addItems(new: List<HomeGallery>) {
         if (dataSource != null) {
             dataSource.addAll(new)
         }
@@ -79,8 +77,7 @@ class MyAdapterHomePage(
                     holder.myView.likeButton.setImageResource(R.drawable.ic_like_complete)
 
             }
-            if (dataSource[position].is_album!!)
-            {
+            if (dataSource[position].is_album!!) {
                 holder.myView.imageButton.setOnClickListener {
                     clickOnAlbumCallback(dataSource[position].id)
                 }
