@@ -17,6 +17,7 @@ import com.example.epicture.ImgurAuth
 import com.example.epicture.R
 import kotlinx.android.synthetic.main.fragment_upload.*
 import java.io.ByteArrayOutputStream
+import java.lang.Exception
 import java.net.URI
 
 /**
@@ -60,6 +61,7 @@ class UploadFragment : Fragment() {
                 val encoded: String = Base64.encodeToString(byteArray, Base64.DEFAULT)
                 Log.d("UPLOAD", encoded)
                 ImgurAuth.uploadImage({
+                    try {
                     activity?.runOnUiThread {
                         selected_image.setImageDrawable(null)
                         upload_title.text?.clear()
@@ -68,8 +70,15 @@ class UploadFragment : Fragment() {
                         upload_title.clearFocus()
                         myRefreshLayout.isRefreshing = false
                     }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }, {
+                    try {
                     myRefreshLayout.isRefreshing = false
+                    } catch (e:Exception) {
+                        e.printStackTrace()
+                    }
                 }, "image", encoded, "base64", upload_title.text.toString(), upload_title.text.toString(), upload_description.text.toString())
             }
         }

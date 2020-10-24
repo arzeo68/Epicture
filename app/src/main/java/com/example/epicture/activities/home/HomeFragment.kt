@@ -23,6 +23,7 @@ import com.example.epicture.services.http.AlbumImage
 import com.example.epicture.services.http.HomeGallery
 import com.example.epicture.activities.profile.MyAdapterInAlbum
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.lang.Exception
 
 
 class HomeFragment : Fragment() {
@@ -59,7 +60,16 @@ class HomeFragment : Fragment() {
 
     private fun likeCallback(id: String?, type: String) {
         if (id != null) {
-            ImgurAuth.putFavorite({ likeResolve() }, {}, id, type)
+            try { ImgurAuth.putFavorite(
+                {
+                    try {
+                        likeResolve()
+                } catch (e:Exception) {
+                e.printStackTrace()
+            }}, {}, id, type)
+            } catch (e:Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
@@ -86,19 +96,29 @@ class HomeFragment : Fragment() {
         )
         if (pseudo != null) {
             myUsername = pseudo
-            ImgurAuth.getGallery(
+            try { ImgurAuth.getGallery(
                 { res ->
+                    try {
                     isInALubum  = false
                     sortButton.setImageResource(R.drawable.ic_filter_list)
                     GetImagesResolve(res)
                     myRefreshLayout.isRefreshing = false
+                    } catch (e:Exception) {
+                        e.printStackTrace()
+                    }
                 },
-                {myRefreshLayout.isRefreshing = false },
+                {try {myRefreshLayout.isRefreshing = false
+                } catch (e:Exception) {
+                    e.printStackTrace()
+                }},
                 "0",
                 _homeParam[0].toLowerCase(),
                 _homeParam[1].toLowerCase(),
                 _homeParam[2].toLowerCase()
             )
+            } catch (e:Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
@@ -116,17 +136,27 @@ class HomeFragment : Fragment() {
             Log.d("ertyuiop", "END")
 
             myUsername = pseudo
-            ImgurAuth.searchGallery(
+            try { ImgurAuth.searchGallery(
                 { res ->
+                    try {
                     isInALubum  = false
                     sortButton.setImageResource(R.drawable.ic_filter_list)
                     GetImagesResolve(res)
                     myRefreshLayout.isRefreshing = false
+                    } catch (e:Exception) {
+                        e.printStackTrace()
+                    }
                 },
-                {myRefreshLayout.isRefreshing = false },
+                {try {myRefreshLayout.isRefreshing = false
+                } catch (e:Exception) {
+                    e.printStackTrace()
+                }},
                 searchText,
                 "0", _searchParam[0], _searchParam[1]
             )
+            } catch (e:Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
@@ -142,19 +172,32 @@ class HomeFragment : Fragment() {
                 Log.d("FGHJKKJHDGHJ", "call start")
                 myUsername = pseudo
                 myRefreshLayout.isRefreshing = true
-                ImgurAuth.getGallery(
+                try {
+                    ImgurAuth.getGallery(
                     { res ->
-                        isInALubum  = false
+                        try { isInALubum  = false
                         sortButton.setImageResource(R.drawable.ic_filter_list)
                         GetNextPageResolve(res)
                         myRefreshLayout.isRefreshing = false
+                        } catch (e:Exception) {
+                            e.printStackTrace()
+                        }
                     },
-                    { myRefreshLayout.isRefreshing = false },
+                    {
+                        try {
+                        myRefreshLayout.isRefreshing = false
+                        } catch (e:Exception) {
+                            e.printStackTrace()
+                        }
+                    },
                     _page.toString(),
                     _homeParam[0].toLowerCase(),
                     _homeParam[1].toLowerCase(),
                     _homeParam[2].toLowerCase()
                 )
+                } catch (e:Exception) {
+                    e.printStackTrace()
+                }
             }
         } else {
             if (searchText == "")
@@ -168,17 +211,30 @@ class HomeFragment : Fragment() {
                 myRefreshLayout.isRefreshing = true
                 Log.d("FGHJKKJHDGHJ", "call start")
                 myUsername = pseudo
-                ImgurAuth.searchGallery(
-                    { res ->
-                        isInALubum  = false
-                        sortButton.setImageResource(R.drawable.ic_filter_list)
-                        GetNextPageResolve(res)
-                        myRefreshLayout.isRefreshing = false
-                    },
-                    { myRefreshLayout.isRefreshing = false},
-                    searchText,
-                    _page.toString(), _searchParam[0], _searchParam[1]
-                )
+                try {
+                    ImgurAuth.searchGallery(
+                        { res ->
+                             try { isInALubum = false
+                            sortButton.setImageResource(R.drawable.ic_filter_list)
+                            GetNextPageResolve(res)
+                            myRefreshLayout.isRefreshing = false
+                             } catch (e:Exception) {
+                                 e.printStackTrace()
+                             }
+                        },
+                        {
+                            try
+                            {
+                                myRefreshLayout.isRefreshing = false
+                            } catch (e:Exception) {
+                                e.printStackTrace()
+                            }},
+                        searchText,
+                        _page.toString(), _searchParam[0], _searchParam[1]
+                    )
+                } catch (e:Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }
@@ -217,16 +273,27 @@ class HomeFragment : Fragment() {
             .getString("account_username", "")
         if (pseudo != null) {
             if (data != null) {
-                ImgurAuth.getAlbumImages(
+                try {ImgurAuth.getAlbumImages(
                     { res ->
+                        try {
                         getImagesInAlbumResolve(res)
                         isInALubum = true
                         sortButton.setImageResource(R.drawable.ic_left_arrow)
+                        } catch (e:Exception) {
+                            e.printStackTrace()
+                        }
                     },
                     {
+                        try {
                         Log.d("JHGFDDF", "call back failed")
+                        } catch (e:Exception) {
+                            e.printStackTrace()
+                        }
                     }, data
                 )
+                } catch (e:Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }

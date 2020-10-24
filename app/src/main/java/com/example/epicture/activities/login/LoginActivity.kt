@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.epicture.ImgurAuth
 import com.example.epicture.activities.MainActivity
 import com.example.epicture.R
+import java.lang.Exception
 
 /**
  * This activity is the one called when the user run the application or when the user logged out
@@ -33,21 +34,37 @@ class LoginActivity : AppCompatActivity() {
         val progressBar = findViewById<ProgressBar>(R.id.pBar)
         progressBar.visibility = View.VISIBLE
         button.visibility = View.GONE
-        ImgurAuth.alreadyConnected({ accessApp() }, {
+        try { ImgurAuth.alreadyConnected({ try {accessApp()
+        } catch (e:Exception) {
+            e.printStackTrace()
+        }}, {
+            try {
             runOnUiThread {
                 needToConnect = true
                 progressBar.visibility = View.GONE
                 button.visibility = View.VISIBLE
             }
+            } catch (e:Exception) {
+                e.printStackTrace()
+            }
         })
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     /**
      * Allow the user to connect to the app and enter his credentials on Imgur thanks to his navigator
      */
     private fun connection() {
-        ImgurAuth.printCredentials()
-        ImgurAuth.getToken(this)
+        try { ImgurAuth.printCredentials()
+        } catch (e:Exception) {
+            e.printStackTrace()
+        }
+        try { ImgurAuth.getToken(this)
+        } catch (e:Exception) {
+            e.printStackTrace()
+        }
     }
 
     /**
@@ -60,7 +77,10 @@ class LoginActivity : AppCompatActivity() {
         button.visibility = View.GONE
         needToConnect = false
         Log.d("AUTH", "Access app...")
-        ImgurAuth.savePreferences()
+        try { ImgurAuth.savePreferences()
+        } catch (e:Exception) {
+            e.printStackTrace()
+        }
         val appIntent = Intent(applicationContext, MainActivity::class.java)
         startActivity(appIntent)
     }
@@ -80,7 +100,10 @@ class LoginActivity : AppCompatActivity() {
         when (intent?.action) {
             Intent.ACTION_VIEW -> {
                 if (intent.data != null) {
-                    ImgurAuth.saveToken(intent)
+                    try { ImgurAuth.saveToken(intent)
+                    } catch (e:Exception) {
+                        e.printStackTrace()
+                    }
                     accessApp()
                 }
             }
