@@ -40,9 +40,6 @@ class MyAdapterMyImage(
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.my_picture_view_list, parent, false)
         // set the view's size, margins, paddings and layout parameters
-        val scale: Float = context.getResources().getDisplayMetrics().density
-        val dpAsPixels = (32 * scale + 0.5f).toInt()
-        view.setPadding(view.paddingLeft, view.paddingTop, view.paddingRight, dpAsPixels);
         return MyViewHolder(view)
     }
 
@@ -52,20 +49,13 @@ class MyAdapterMyImage(
         // - replace the contents of the view with that element
         if (dataSource != null) {
             holder.myView.imageTitle.text = dataSource[position].name
+            holder.myView.description_image.text = dataSource[position].description
             Glide.with(context).load(dataSource[position].link).into(holder.myView.image)
             if (dataSource[position].favorite!!)
                 holder.myView.likeButton.setImageResource(R.drawable.ic_like_complete)
             holder.myView.likeButton.setOnClickListener {
 
                 buttonDeleteCallback(dataSource[position].id, "image")
-//                if (holder.myView.likeButton.drawable.getConstantState()?.equals(
-//                        context.getResources().getDrawable(
-//                            R.drawable.ic_like_complete
-//                        ).getConstantState()
-//                    )!!)
-//                    holder.myView.likeButton.setImageResource(R.drawable.ic_unlike)
-//                else
-//                    holder.myView.likeButton.setImageResource(R.drawable.ic_like_complete)
 
             }
         }
