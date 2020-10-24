@@ -1,4 +1,4 @@
-package com.example.epicture.http
+package com.example.epicture.services.http
 
 import com.beust.klaxon.TypeAdapter
 import com.beust.klaxon.TypeFor

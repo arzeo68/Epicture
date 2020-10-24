@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.epicture.R
-import com.example.epicture.http.AlbumImage
+import com.example.epicture.services.http.AlbumImage
 import kotlinx.android.synthetic.main.image_view_on_profile_page_in_album.view.*
 
 

@@ -1,4 +1,4 @@
-package com.example.epicture.http
+package com.example.epicture.services.http
 
 import okhttp3.FormBody
 import okhttp3.HttpUrl

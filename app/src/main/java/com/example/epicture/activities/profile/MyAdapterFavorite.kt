@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.epicture.R
-import com.example.epicture.http.Gallery
+import com.example.epicture.services.http.Gallery
 import kotlinx.android.synthetic.main.favorite_list_view.view.*
 
 

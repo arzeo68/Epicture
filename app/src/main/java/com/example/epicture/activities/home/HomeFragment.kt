@@ -19,8 +19,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.epicture.App
 import com.example.epicture.ImgurAuth
 import com.example.epicture.R
-import com.example.epicture.http.AlbumImage
-import com.example.epicture.http.HomeGallery
+import com.example.epicture.services.http.AlbumImage
+import com.example.epicture.services.http.HomeGallery
 import com.example.epicture.activities.profile.MyAdapterInAlbum
 import kotlinx.android.synthetic.main.fragment_home.*
 

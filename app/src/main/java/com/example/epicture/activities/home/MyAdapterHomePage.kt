@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.epicture.R
-import com.example.epicture.http.HomeGallery
+import com.example.epicture.services.http.HomeGallery
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.home_view_list.view.*
 import kotlinx.android.synthetic.main.my_picture_view_list.view.imageTitle

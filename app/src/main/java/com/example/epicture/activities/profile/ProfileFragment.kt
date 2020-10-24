@@ -18,10 +18,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.example.epicture.*
-import com.example.epicture.http.AccountBase
-import com.example.epicture.http.AlbumImage
-import com.example.epicture.http.Gallery
-import com.example.epicture.http.Image
+import com.example.epicture.services.http.AccountBase
+import com.example.epicture.services.http.AlbumImage
+import com.example.epicture.services.http.Gallery
+import com.example.epicture.services.http.Image
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 

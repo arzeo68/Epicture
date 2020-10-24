@@ -8,7 +8,7 @@ import android.util.Log
 import androidx.core.content.ContextCompat.startActivity
 import androidx.preference.PreferenceManager
 import com.beust.klaxon.Klaxon
-import com.example.epicture.http.*
+import com.example.epicture.services.http.*
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
@@ -20,7 +20,7 @@ import com.example.epicture.config.Config
  * The ImgurAuth object deal with the Imgur API
  * It manage all the available call to the API
  */
-object ImgurAuth {
+public object ImgurAuth {
     private const val clientId: String = Config.clientID
     private const val clientSecret: String = Config.clientSecret
     private const val imgurUrl: String = "api.imgur.com"
