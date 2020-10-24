@@ -1,10 +1,11 @@
-package com.example.epicture
+package com.example.epicture.activities
 
 import android.os.Bundle
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import com.example.epicture.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 

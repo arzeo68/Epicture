@@ -1,9 +1,9 @@
-package com.example.epicture
+package com.example.epicture.activities
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.epicture.ui.home.HomeFragment
+import com.example.epicture.activities.home.HomeFragment
 import com.example.epicture.ui.profile.ProfileFragment
 import com.example.epicture.ui.upload.UploadFragment
 

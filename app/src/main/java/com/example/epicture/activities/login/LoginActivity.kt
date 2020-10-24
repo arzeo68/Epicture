@@ -1,4 +1,4 @@
-package com.example.epicture
+package com.example.epicture.activities.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import com.example.epicture.ImgurAuth
+import com.example.epicture.activities.MainActivity
+import com.example.epicture.R
 
 class LoginActivity : AppCompatActivity() {
     var needToConnect: Boolean = false

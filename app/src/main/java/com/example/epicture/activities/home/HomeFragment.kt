@@ -1,4 +1,4 @@
-package com.example.epicture.ui.home
+package com.example.epicture.activities.home
 
 import android.app.Dialog
 import android.content.Context
@@ -22,9 +22,7 @@ import com.example.epicture.R
 import com.example.epicture.http.AlbumImage
 import com.example.epicture.http.HomeGallery
 import com.example.epicture.ui.profile.MyAdapterInAlbum
-import kotlinx.android.synthetic.main.favorite_list_view.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.my_picture_view_list.view.*
 
 
 class HomeFragment : Fragment() {

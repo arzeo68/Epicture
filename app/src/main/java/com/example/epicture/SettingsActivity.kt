@@ -2,13 +2,10 @@ package com.example.epicture
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.View
 import android.widget.Button
-import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.preference.PreferenceFragmentCompat
+import com.example.epicture.activities.login.LoginActivity
 
 class SettingsActivity : AppCompatActivity() {
 

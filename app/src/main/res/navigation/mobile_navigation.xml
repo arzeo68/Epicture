@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.epicture.ui.home.HomeFragment"
+        android:name="com.example.epicture.activities.home.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home" />
 
