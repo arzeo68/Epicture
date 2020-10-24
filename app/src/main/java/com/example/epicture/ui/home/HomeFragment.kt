@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.epicture.App
 import com.example.epicture.ImgurAuth
 import com.example.epicture.R
@@ -48,6 +49,7 @@ class HomeFragment : Fragment() {
 
         activity?.runOnUiThread {
             loadingFinished = true
+            myRefreshLayout.isRefreshing = false
             var sdfsdf: MutableList<HomeGallery> = data.toMutableList()
             adapter.addItems(data)
             adapter.notifyDataSetChanged()
@@ -135,7 +137,7 @@ class HomeFragment : Fragment() {
                     { res ->
                         GetNextPageResolve(res)
                     },
-                    { },
+                    { myRefreshLayout.isRefreshing = false },
                     _page.toString(),
                     _searchParam[0].toLowerCase(),
                     _searchParam[1].toLowerCase(),
@@ -179,6 +181,7 @@ class HomeFragment : Fragment() {
     private lateinit var _sort2: RadioGroup
     private lateinit var _sort3: RadioGroup
     private lateinit var adapterInAlbum: MyAdapterInAlbum
+    private lateinit var myRefreshLayout: SwipeRefreshLayout
 
 
     fun Fragment.hideKeyboard() {
@@ -222,6 +225,11 @@ class HomeFragment : Fragment() {
         val pseudo: String? = PreferenceManager.getDefaultSharedPreferences(App.context)
             .getString("account_username", "")
 
+        myRefreshLayout = refreshLayout1
+        myRefreshLayout.setOnRefreshListener {
+            switchMode()
+            myRefreshLayout.isRefreshing = false
+        }
         sortButton.setOnClickListener {
             _dialog.show()
         }
@@ -291,6 +299,7 @@ class HomeFragment : Fragment() {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1) && loadingFinished) {
                     loadingFinished = false
+                    myRefreshLayout.isRefreshing = true
                     _page += 1
                     getNextPage()
                 }
@@ -314,7 +323,6 @@ class HomeFragment : Fragment() {
             setHasFixedSize(false)
             layoutManager = viewManager
         }
-
         return inflate
     }
 
