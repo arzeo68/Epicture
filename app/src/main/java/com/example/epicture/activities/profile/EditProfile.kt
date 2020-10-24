@@ -26,8 +26,10 @@ class EditProfile : AppCompatActivity() {
         avatar = intent?.getString("avatar").toString()
         bio = intent?.getString("bio").toString()
         name = intent?.getString("username").toString()
-        var nameInput = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.name_input)
-        var bioInput = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.bio_input)
+        var nameInput =
+            findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.name_input)
+        var bioInput =
+            findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.bio_input)
         val userImage = findViewById<ImageView>(R.id.userProfileImageEdit)
 
         nameInput.setText(name)

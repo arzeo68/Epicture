@@ -3,7 +3,6 @@ package com.example.epicture.activities.home
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,11 +18,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.epicture.App
 import com.example.epicture.ImgurAuth
 import com.example.epicture.R
+import com.example.epicture.activities.profile.MyAdapterInAlbum
 import com.example.epicture.services.http.AlbumImage
 import com.example.epicture.services.http.HomeGallery
-import com.example.epicture.activities.profile.MyAdapterInAlbum
 import kotlinx.android.synthetic.main.fragment_home.*
-import java.lang.Exception
 
 
 class HomeFragment : Fragment() {
@@ -60,14 +58,17 @@ class HomeFragment : Fragment() {
 
     private fun likeCallback(id: String?, type: String) {
         if (id != null) {
-            try { ImgurAuth.putFavorite(
-                {
-                    try {
-                        likeResolve()
-                } catch (e:Exception) {
-                e.printStackTrace()
-            }}, {}, id, type)
-            } catch (e:Exception) {
+            try {
+                ImgurAuth.putFavorite(
+                    {
+                        try {
+                            likeResolve()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }, {}, id, type
+                )
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -96,27 +97,31 @@ class HomeFragment : Fragment() {
         )
         if (pseudo != null) {
             myUsername = pseudo
-            try { ImgurAuth.getGallery(
-                { res ->
-                    try {
-                    isInALubum  = false
-                    sortButton.setImageResource(R.drawable.ic_filter_list)
-                    GetImagesResolve(res)
-                    myRefreshLayout.isRefreshing = false
-                    } catch (e:Exception) {
-                        e.printStackTrace()
-                    }
-                },
-                {try {myRefreshLayout.isRefreshing = false
-                } catch (e:Exception) {
-                    e.printStackTrace()
-                }},
-                "0",
-                _homeParam[0].toLowerCase(),
-                _homeParam[1].toLowerCase(),
-                _homeParam[2].toLowerCase()
-            )
-            } catch (e:Exception) {
+            try {
+                ImgurAuth.getGallery(
+                    { res ->
+                        try {
+                            isInALubum = false
+                            sortButton.setImageResource(R.drawable.ic_filter_list)
+                            GetImagesResolve(res)
+                            myRefreshLayout.isRefreshing = false
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    },
+                    {
+                        try {
+                            myRefreshLayout.isRefreshing = false
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    },
+                    "0",
+                    _homeParam[0].toLowerCase(),
+                    _homeParam[1].toLowerCase(),
+                    _homeParam[2].toLowerCase()
+                )
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -131,30 +136,30 @@ class HomeFragment : Fragment() {
             ""
         )
         if (pseudo != null) {
-            Log.d("ertyuiop", _searchParam[0])
-            Log.d("ertyuiop", _searchParam[1])
-            Log.d("ertyuiop", "END")
-
             myUsername = pseudo
-            try { ImgurAuth.searchGallery(
-                { res ->
-                    try {
-                    isInALubum  = false
-                    sortButton.setImageResource(R.drawable.ic_filter_list)
-                    GetImagesResolve(res)
-                    myRefreshLayout.isRefreshing = false
-                    } catch (e:Exception) {
-                        e.printStackTrace()
-                    }
-                },
-                {try {myRefreshLayout.isRefreshing = false
-                } catch (e:Exception) {
-                    e.printStackTrace()
-                }},
-                searchText,
-                "0", _searchParam[0], _searchParam[1]
-            )
-            } catch (e:Exception) {
+            try {
+                ImgurAuth.searchGallery(
+                    { res ->
+                        try {
+                            isInALubum = false
+                            sortButton.setImageResource(R.drawable.ic_filter_list)
+                            GetImagesResolve(res)
+                            myRefreshLayout.isRefreshing = false
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    },
+                    {
+                        try {
+                            myRefreshLayout.isRefreshing = false
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    },
+                    searchText,
+                    "0", _searchParam[0], _searchParam[1]
+                )
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -169,33 +174,33 @@ class HomeFragment : Fragment() {
                     ""
                 )
             if (pseudo != null) {
-                Log.d("FGHJKKJHDGHJ", "call start")
                 myUsername = pseudo
                 myRefreshLayout.isRefreshing = true
                 try {
                     ImgurAuth.getGallery(
-                    { res ->
-                        try { isInALubum  = false
-                        sortButton.setImageResource(R.drawable.ic_filter_list)
-                        GetNextPageResolve(res)
-                        myRefreshLayout.isRefreshing = false
-                        } catch (e:Exception) {
-                            e.printStackTrace()
-                        }
-                    },
-                    {
-                        try {
-                        myRefreshLayout.isRefreshing = false
-                        } catch (e:Exception) {
-                            e.printStackTrace()
-                        }
-                    },
-                    _page.toString(),
-                    _homeParam[0].toLowerCase(),
-                    _homeParam[1].toLowerCase(),
-                    _homeParam[2].toLowerCase()
-                )
-                } catch (e:Exception) {
+                        { res ->
+                            try {
+                                isInALubum = false
+                                sortButton.setImageResource(R.drawable.ic_filter_list)
+                                GetNextPageResolve(res)
+                                myRefreshLayout.isRefreshing = false
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        },
+                        {
+                            try {
+                                myRefreshLayout.isRefreshing = false
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        },
+                        _page.toString(),
+                        _homeParam[0].toLowerCase(),
+                        _homeParam[1].toLowerCase(),
+                        _homeParam[2].toLowerCase()
+                    )
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
@@ -209,35 +214,36 @@ class HomeFragment : Fragment() {
                 )
             if (pseudo != null) {
                 myRefreshLayout.isRefreshing = true
-                Log.d("FGHJKKJHDGHJ", "call start")
                 myUsername = pseudo
                 try {
                     ImgurAuth.searchGallery(
                         { res ->
-                             try { isInALubum = false
-                            sortButton.setImageResource(R.drawable.ic_filter_list)
-                            GetNextPageResolve(res)
-                            myRefreshLayout.isRefreshing = false
-                             } catch (e:Exception) {
-                                 e.printStackTrace()
-                             }
+                            try {
+                                isInALubum = false
+                                sortButton.setImageResource(R.drawable.ic_filter_list)
+                                GetNextPageResolve(res)
+                                myRefreshLayout.isRefreshing = false
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
                         },
                         {
-                            try
-                            {
+                            try {
                                 myRefreshLayout.isRefreshing = false
-                            } catch (e:Exception) {
+                            } catch (e: Exception) {
                                 e.printStackTrace()
-                            }},
+                            }
+                        },
                         searchText,
                         _page.toString(), _searchParam[0], _searchParam[1]
                     )
-                } catch (e:Exception) {
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
         }
     }
+
     private var isInALubum = false
     private var searchText: String = ""
     private var searchMode = false
@@ -273,25 +279,25 @@ class HomeFragment : Fragment() {
             .getString("account_username", "")
         if (pseudo != null) {
             if (data != null) {
-                try {ImgurAuth.getAlbumImages(
-                    { res ->
-                        try {
-                        getImagesInAlbumResolve(res)
-                        isInALubum = true
-                        sortButton.setImageResource(R.drawable.ic_left_arrow)
-                        } catch (e:Exception) {
-                            e.printStackTrace()
-                        }
-                    },
-                    {
-                        try {
-                        Log.d("JHGFDDF", "call back failed")
-                        } catch (e:Exception) {
-                            e.printStackTrace()
-                        }
-                    }, data
-                )
-                } catch (e:Exception) {
+                try {
+                    ImgurAuth.getAlbumImages(
+                        { res ->
+                            try {
+                                getImagesInAlbumResolve(res)
+                                isInALubum = true
+                                sortButton.setImageResource(R.drawable.ic_left_arrow)
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        },
+                        {
+                            try {
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }, data
+                    )
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
@@ -300,7 +306,6 @@ class HomeFragment : Fragment() {
 
     private fun getImagesInAlbumResolve(data: List<AlbumImage>) {
         activity?.runOnUiThread {
-            Log.d("JHGFDDF", "call back resolve")
             adapterInAlbum = MyAdapterInAlbum(requireContext(), data)
             _viewList?.adapter = adapterInAlbum
         }
@@ -320,11 +325,9 @@ class HomeFragment : Fragment() {
             myRefreshLayout.isRefreshing = false
         }
         sortButton.setOnClickListener {
-            if (isInALubum)
-            {
+            if (isInALubum) {
                 switchMode()
-            }
-            else
+            } else
                 _dialog.show()
         }
 
@@ -397,7 +400,6 @@ class HomeFragment : Fragment() {
             for (x in 1 until childCount) {
                 val btn = group.getChildAt(x) as RadioButton
                 if (btn.id == checkedId) {
-                    Log.d("MANGETESMORTS", btn.text.toString())
                     _searchParam[0] = btn.text.toString()
                     getSearchImage()
                 }
@@ -408,7 +410,6 @@ class HomeFragment : Fragment() {
             for (x in 1 until childCount) {
                 val btn = group.getChildAt(x) as RadioButton
                 if (btn.id == checkedId) {
-                    Log.d("MANGETESMORTS", btn.text.toString())
                     _searchParam[1] = btn.text.toString()
                     getSearchImage()
 
@@ -441,7 +442,6 @@ class HomeFragment : Fragment() {
             for (x in 1 until childCount) {
                 val btn = group.getChildAt(x) as RadioButton
                 if (btn.id == checkedId) {
-                    Log.d("MANGETESMORTS", btn.text.toString())
                     _homeParam[0] = btn.text.toString()
                     if (!searchMode)
                         getHomeImage()
@@ -456,7 +456,6 @@ class HomeFragment : Fragment() {
             for (x in 1 until childCount) {
                 val btn = group.getChildAt(x) as RadioButton
                 if (btn.id == checkedId) {
-                    Log.d("MANGETESMORTS", btn.text.toString())
                     _homeParam[1] = btn.text.toString()
                     if (!searchMode)
                         getHomeImage()
@@ -472,7 +471,6 @@ class HomeFragment : Fragment() {
             for (x in 1 until childCount) {
                 val btn = group.getChildAt(x) as RadioButton
                 if (btn.id == checkedId) {
-                    Log.d("MANGETESMORTS", btn.text.toString())
                     _homeParam[2] = btn.text.toString()
                     if (!searchMode)
                         getHomeImage()

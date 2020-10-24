@@ -4,17 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
-import android.util.Log
 import androidx.core.content.ContextCompat.startActivity
 import androidx.preference.PreferenceManager
 import com.beust.klaxon.Klaxon
+import com.example.epicture.config.Config
 import com.example.epicture.services.http.*
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
 import java.io.IOException
 import java.io.StringReader
-import com.example.epicture.config.Config
 
 /**
  * The ImgurAuth object deal with the Imgur API
@@ -64,18 +63,15 @@ public object ImgurAuth {
         val vals: List<String> =
             listOf("access_token", "refresh_token", "account_username", "account_id", "expires_in")
 
-        Log.d("AUTH", "alreadyConnected...")
         for (param in vals) {
             val preference = prefs.getString(param, "")!!
             if (preference.isEmpty()) {
-                Log.d("AUTH", "User not connected")
                 authParams.clear()
                 return reject()
             }
             authParams[param] = preference
         }
         reloadToken(resolve, reject)
-        Log.d("AUTH", "Should skip asking credentials")
     }
 
     /**
@@ -104,7 +100,6 @@ public object ImgurAuth {
     fun printCredentials() {
         val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.context)
         for (pref in prefs.all) {
-            Log.d("AUTH", pref.value.toString())
         }
     }
 
@@ -265,7 +260,6 @@ public object ImgurAuth {
      * @param username the username
      */
     fun getAccountBase(resolve: (AccountBase) -> Unit, reject: () -> Unit, username: String) {
-        Log.d("PROFIL", username)
         val request = HttpCall.getRequestBuilder(
             HttpCall.urlBuilder(imgurUrl, listOf("3", "account", username)),
             mapOf(
@@ -288,7 +282,6 @@ public object ImgurAuth {
                 val jObj = Klaxon().parseJsonObject(StringReader(res))
                 val account = Klaxon().parseFromJsonObject<Account>(jObj)?.data
                 if (account != null) {
-                    Log.d("PROFIL", account.avatar.toString())
                     return resolve(account)
                 }
                 return reject()
@@ -670,7 +663,6 @@ public object ImgurAuth {
                 val homeGallery: ArrayList<HomeGallery> = ArrayList()
                 if (galleryList != null) {
                     for (gallery in galleryList) {
-                        Log.d("EDIT", "wallah ça marche")
                         if (gallery.is_album == true) {
                             val h = gallery as HomeAlbum
                             homeGallery.add(
@@ -788,7 +780,6 @@ public object ImgurAuth {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                Log.d("UPLOAD", response.body()!!.string()!!)
                 if (!response.isSuccessful)
                     return reject()
                 return resolve()
