@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <RadioGroup
         android:id="@+id/sort1"
         android:layout_width="75dp"
         android:layout_height="109dp"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="param1" />
 
         <RadioButton
             android:id="@+id/hotButton"
@@ -33,6 +38,12 @@
         android:id="@+id/sort2"
         android:layout_width="95dp"
         android:layout_height="141dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="param2" />
 
         <RadioButton
             android:id="@+id/popularSort"
@@ -64,6 +75,12 @@
         android:layout_width="83dp"
         android:layout_height="171dp">
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="param3" />
+
         <RadioButton
             android:id="@+id/dayButton"
             android:layout_width="match_parent"
@@ -94,4 +111,4 @@
             android:layout_height="wrap_content"
             android:text="All" />
     </RadioGroup>
-</LinearLayout>
+</TableRow>
