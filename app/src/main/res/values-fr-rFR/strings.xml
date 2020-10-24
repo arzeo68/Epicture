@@ -22,4 +22,5 @@
     <string name="done">Sauvegarder</string>
     <string name="name">Nom</string>
     <string name="bio">Bio</string>
+    <string name="logout">Se déconnecter</string>
 </resources>

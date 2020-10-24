@@ -67,6 +67,12 @@ object ImgurAuth {
         Log.d("AUTH", "Should skip asking credentials")
     }
 
+    fun logout() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(App.context).edit()
+        prefs.clear()
+        prefs.apply()
+    }
+
     fun savePreferences() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(App.context).edit()
         for (param in authParams) {

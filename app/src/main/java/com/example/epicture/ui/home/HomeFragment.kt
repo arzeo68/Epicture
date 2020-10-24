@@ -87,13 +87,17 @@ class HomeFragment : Fragment() {
             "account_username",
             ""
         )
+        myRefreshLayout.isRefreshing = true
         if (pseudo != null) {
             myUsername = pseudo
             ImgurAuth.getGallery(
                 { res ->
                     GetImagesResolve(res)
+                    myRefreshLayout.isRefreshing = false
                 },
-                { },
+                {
+                    myRefreshLayout.isRefreshing = false
+                },
                 "0",
                 _searchParam[0].toLowerCase(),
                 _searchParam[1].toLowerCase(),
@@ -109,13 +113,17 @@ class HomeFragment : Fragment() {
             "account_username",
             ""
         )
+        myRefreshLayout.isRefreshing = true
         if (pseudo != null) {
             myUsername = pseudo
             ImgurAuth.searchGallery(
                 { res ->
                     GetImagesResolve(res)
+                    myRefreshLayout.isRefreshing = false
                 },
-                { },
+                {
+                    myRefreshLayout.isRefreshing = false
+                },
                 searchText,
                 "0",
             )
