@@ -88,12 +88,14 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
     /**
      * call back if the like api call resolve
      */
     private fun likeResolve() {
 
     }
+
     /**
      * function called to switched between search mode and home view
      */
@@ -107,6 +109,7 @@ class HomeFragment : Fragment() {
             getHomeImage()
         }
     }
+
     /**
      * api call to get home image
      */
@@ -147,6 +150,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
     /**
      * api call to get the image of the user research
      */
@@ -187,6 +191,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
     /**
      * api call to get the next page image this function will handle if you are in search or home mode
      */
@@ -536,7 +541,5 @@ class HomeFragment : Fragment() {
         })
 
         getHomeImage()
-
-
     }
 }

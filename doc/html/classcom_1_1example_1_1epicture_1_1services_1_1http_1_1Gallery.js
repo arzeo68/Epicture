@@ -1,0 +1,25 @@
+var classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery =
+[
+    [ "Gallery", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#acadbe80e418edd9c04021e7cd1fa2d38", null ],
+    [ "getAccount_id", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a0fd4456575023dce459ce5e8c914a96b", null ],
+    [ "getAccount_url", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a1db56a947cbe2cb8c049341b13eb548a", null ],
+    [ "getCover", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a2c9cc7a0df4e85da2aec64886f206b9b", null ],
+    [ "getCover_height", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a9b334bdfcf6f1e86eacaab8ff96c6cb5", null ],
+    [ "getCover_width", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a047ee86a23a075a128779130b56fc78d", null ],
+    [ "getDescription", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a2690d0c510c6d39c7690c170d726952e", null ],
+    [ "getDowns", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a031101dfbfeb88fb7b64e2a202099add", null ],
+    [ "getFavorite", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a3ad0b6ed692b458b98a35e792ceb9de0", null ],
+    [ "getFavorite_count", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a1565f13fc76d1d63ec879717323984f7", null ],
+    [ "getHeight", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a9c4603fabc626b87c257fcf79ae75f17", null ],
+    [ "getId", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#ae75f0d57bfc2348801564012507d12c0", null ],
+    [ "getIn_gallery", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a6aae5a680a1810c5ee1bd9b93f8fa417", null ],
+    [ "getPoints", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a5a7be349f415f232c70552b50f8aca1c", null ],
+    [ "getScore", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a0c500dc22eb910da403830d4b4840669", null ],
+    [ "getTitle", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#ad2941fe3463c91d4285768298ff91cf3", null ],
+    [ "getType", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#ae123e9f4f18c1e6902e67a989d7a58c2", null ],
+    [ "getUps", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a432cdf9083d5981bcfd586d40cc1b3cc", null ],
+    [ "getViews", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#acbe2452b831fc8310472f118bafe9f1f", null ],
+    [ "getWidth", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#af7b6b1eead174070f4c41211daa8f331", null ],
+    [ "is_album", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a35fcdd62af9e4e874b26969a50f6ca8e", null ],
+    [ "setCover", "classcom_1_1example_1_1epicture_1_1services_1_1http_1_1Gallery.html#a8fd82730b0d8c6e8401339bbe613febe", null ]
+];

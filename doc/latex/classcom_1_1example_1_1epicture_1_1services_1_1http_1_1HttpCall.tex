@@ -1,0 +1,115 @@
+\hypertarget{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall}{}\doxysection{com.\+example.\+epicture.\+services.\+http.\+Http\+Call Class Reference}
+\label{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall}\index{com.example.epicture.services.http.HttpCall@{com.example.epicture.services.http.HttpCall}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+final okhttp3.\+Ok\+Http\+Client \mbox{\hyperlink{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_af3fb7bce010abd21ebe22c609b077586}{get\+Client}} ()
+\item 
+final okhttp3.\+Http\+Url \mbox{\hyperlink{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_a82640de34aaa38351f8b00a355072ce4}{url\+Builder}} (@org.\+jetbrains.\+annotations.\+Not\+Null() java.\+lang.\+String host, @org.\+jetbrains.\+annotations.\+Nullable() java.\+util.\+List$<$ java.\+lang.\+String $>$ path\+Segments, @org.\+jetbrains.\+annotations.\+Nullable() java.\+util.\+Map$<$ java.\+lang.\+String, java.\+lang.\+String $>$ queries)
+\item 
+final okhttp3.\+Form\+Body \mbox{\hyperlink{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_a56fade4a4026b5f7897044d8c5ef4173}{body\+Builder}} (@org.\+jetbrains.\+annotations.\+Nullable() java.\+util.\+Map$<$ java.\+lang.\+String, java.\+lang.\+String $>$ arguments)
+\item 
+final okhttp3.\+Request \mbox{\hyperlink{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_a1a4e9d5c2a79d94293f2095acc4dc882}{post\+Request\+Builder}} (@org.\+jetbrains.\+annotations.\+Not\+Null() okhttp3.\+Http\+Url url, @org.\+jetbrains.\+annotations.\+Not\+Null() okhttp3.\+Form\+Body body, @org.\+jetbrains.\+annotations.\+Nullable() java.\+util.\+Map$<$ java.\+lang.\+String, java.\+lang.\+String $>$ header)
+\item 
+final okhttp3.\+Request \mbox{\hyperlink{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_a84436a0b9eaf94203961fc448871c108}{get\+Request\+Builder}} (@org.\+jetbrains.\+annotations.\+Not\+Null() okhttp3.\+Http\+Url url, @org.\+jetbrains.\+annotations.\+Nullable() java.\+util.\+Map$<$ java.\+lang.\+String, java.\+lang.\+String $>$ header)
+\item 
+final okhttp3.\+Request \mbox{\hyperlink{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_ae2a22dac3383b597bf47eb8310f9182a}{delete\+Request\+Builder}} (@org.\+jetbrains.\+annotations.\+Not\+Null() okhttp3.\+Http\+Url url, @org.\+jetbrains.\+annotations.\+Nullable() java.\+util.\+Map$<$ java.\+lang.\+String, java.\+lang.\+String $>$ header)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static final \mbox{\hyperlink{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall}{com.\+example.\+epicture.\+services.\+http.\+Http\+Call}} \mbox{\hyperlink{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_a9b54f95ee0afe0f8c7b52695a2c755ae}{I\+N\+S\+T\+A\+N\+CE}} = null
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Personalized \mbox{\hyperlink{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall}{Http\+Call}} with okhttp3 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_a56fade4a4026b5f7897044d8c5ef4173}\label{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_a56fade4a4026b5f7897044d8c5ef4173}} 
+\index{com.example.epicture.services.http.HttpCall@{com.example.epicture.services.http.HttpCall}!bodyBuilder@{bodyBuilder}}
+\index{bodyBuilder@{bodyBuilder}!com.example.epicture.services.http.HttpCall@{com.example.epicture.services.http.HttpCall}}
+\doxysubsubsection{\texorpdfstring{bodyBuilder()}{bodyBuilder()}}
+{\footnotesize\ttfamily final okhttp3.\+Form\+Body com.\+example.\+epicture.\+services.\+http.\+Http\+Call.\+body\+Builder (\begin{DoxyParamCaption}\item[{@org.\+jetbrains.\+annotations.\+Nullable() java.\+util.\+Map$<$ java.\+lang.\+String, java.\+lang.\+String $>$}]{arguments }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Build the body request 
+\begin{DoxyParams}{Parameters}
+{\em arguments} & string map of string of body arguments \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_ae2a22dac3383b597bf47eb8310f9182a}\label{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_ae2a22dac3383b597bf47eb8310f9182a}} 
+\index{com.example.epicture.services.http.HttpCall@{com.example.epicture.services.http.HttpCall}!deleteRequestBuilder@{deleteRequestBuilder}}
+\index{deleteRequestBuilder@{deleteRequestBuilder}!com.example.epicture.services.http.HttpCall@{com.example.epicture.services.http.HttpCall}}
+\doxysubsubsection{\texorpdfstring{deleteRequestBuilder()}{deleteRequestBuilder()}}
+{\footnotesize\ttfamily final okhttp3.\+Request com.\+example.\+epicture.\+services.\+http.\+Http\+Call.\+delete\+Request\+Builder (\begin{DoxyParamCaption}\item[{@org.\+jetbrains.\+annotations.\+Not\+Null() okhttp3.\+Http\+Url}]{url,  }\item[{@org.\+jetbrains.\+annotations.\+Nullable() java.\+util.\+Map$<$ java.\+lang.\+String, java.\+lang.\+String $>$}]{header }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Build a delete request 
+\begin{DoxyParams}{Parameters}
+{\em url} & the build Http\+Url \\
+\hline
+{\em header} & string map of string arguments for the header \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_af3fb7bce010abd21ebe22c609b077586}\label{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_af3fb7bce010abd21ebe22c609b077586}} 
+\index{com.example.epicture.services.http.HttpCall@{com.example.epicture.services.http.HttpCall}!getClient@{getClient}}
+\index{getClient@{getClient}!com.example.epicture.services.http.HttpCall@{com.example.epicture.services.http.HttpCall}}
+\doxysubsubsection{\texorpdfstring{getClient()}{getClient()}}
+{\footnotesize\ttfamily final okhttp3.\+Ok\+Http\+Client com.\+example.\+epicture.\+services.\+http.\+Http\+Call.\+get\+Client (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_a84436a0b9eaf94203961fc448871c108}\label{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_a84436a0b9eaf94203961fc448871c108}} 
+\index{com.example.epicture.services.http.HttpCall@{com.example.epicture.services.http.HttpCall}!getRequestBuilder@{getRequestBuilder}}
+\index{getRequestBuilder@{getRequestBuilder}!com.example.epicture.services.http.HttpCall@{com.example.epicture.services.http.HttpCall}}
+\doxysubsubsection{\texorpdfstring{getRequestBuilder()}{getRequestBuilder()}}
+{\footnotesize\ttfamily final okhttp3.\+Request com.\+example.\+epicture.\+services.\+http.\+Http\+Call.\+get\+Request\+Builder (\begin{DoxyParamCaption}\item[{@org.\+jetbrains.\+annotations.\+Not\+Null() okhttp3.\+Http\+Url}]{url,  }\item[{@org.\+jetbrains.\+annotations.\+Nullable() java.\+util.\+Map$<$ java.\+lang.\+String, java.\+lang.\+String $>$}]{header }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Build a get request 
+\begin{DoxyParams}{Parameters}
+{\em url} & the build Http\+Url \\
+\hline
+{\em header} & string map of string arguments for the header \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_a1a4e9d5c2a79d94293f2095acc4dc882}\label{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_a1a4e9d5c2a79d94293f2095acc4dc882}} 
+\index{com.example.epicture.services.http.HttpCall@{com.example.epicture.services.http.HttpCall}!postRequestBuilder@{postRequestBuilder}}
+\index{postRequestBuilder@{postRequestBuilder}!com.example.epicture.services.http.HttpCall@{com.example.epicture.services.http.HttpCall}}
+\doxysubsubsection{\texorpdfstring{postRequestBuilder()}{postRequestBuilder()}}
+{\footnotesize\ttfamily final okhttp3.\+Request com.\+example.\+epicture.\+services.\+http.\+Http\+Call.\+post\+Request\+Builder (\begin{DoxyParamCaption}\item[{@org.\+jetbrains.\+annotations.\+Not\+Null() okhttp3.\+Http\+Url}]{url,  }\item[{@org.\+jetbrains.\+annotations.\+Not\+Null() okhttp3.\+Form\+Body}]{body,  }\item[{@org.\+jetbrains.\+annotations.\+Nullable() java.\+util.\+Map$<$ java.\+lang.\+String, java.\+lang.\+String $>$}]{header }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Build a post request 
+\begin{DoxyParams}{Parameters}
+{\em url} & the build Http\+Url \\
+\hline
+{\em body} & the build Form\+Body \\
+\hline
+{\em header} & string map of string arguments for the header \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_a82640de34aaa38351f8b00a355072ce4}\label{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_a82640de34aaa38351f8b00a355072ce4}} 
+\index{com.example.epicture.services.http.HttpCall@{com.example.epicture.services.http.HttpCall}!urlBuilder@{urlBuilder}}
+\index{urlBuilder@{urlBuilder}!com.example.epicture.services.http.HttpCall@{com.example.epicture.services.http.HttpCall}}
+\doxysubsubsection{\texorpdfstring{urlBuilder()}{urlBuilder()}}
+{\footnotesize\ttfamily final okhttp3.\+Http\+Url com.\+example.\+epicture.\+services.\+http.\+Http\+Call.\+url\+Builder (\begin{DoxyParamCaption}\item[{@org.\+jetbrains.\+annotations.\+Not\+Null() java.\+lang.\+String}]{host,  }\item[{@org.\+jetbrains.\+annotations.\+Nullable() java.\+util.\+List$<$ java.\+lang.\+String $>$}]{path\+Segments,  }\item[{@org.\+jetbrains.\+annotations.\+Nullable() java.\+util.\+Map$<$ java.\+lang.\+String, java.\+lang.\+String $>$}]{queries }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Build the request url 
+\begin{DoxyParams}{Parameters}
+{\em host} & the url \\
+\hline
+{\em path\+Segments} & path segments for the url \\
+\hline
+{\em queries} & string map of string of queries \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_a9b54f95ee0afe0f8c7b52695a2c755ae}\label{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall_a9b54f95ee0afe0f8c7b52695a2c755ae}} 
+\index{com.example.epicture.services.http.HttpCall@{com.example.epicture.services.http.HttpCall}!INSTANCE@{INSTANCE}}
+\index{INSTANCE@{INSTANCE}!com.example.epicture.services.http.HttpCall@{com.example.epicture.services.http.HttpCall}}
+\doxysubsubsection{\texorpdfstring{INSTANCE}{INSTANCE}}
+{\footnotesize\ttfamily final \mbox{\hyperlink{classcom_1_1example_1_1epicture_1_1services_1_1http_1_1HttpCall}{com.\+example.\+epicture.\+services.\+http.\+Http\+Call}} com.\+example.\+epicture.\+services.\+http.\+Http\+Call.\+I\+N\+S\+T\+A\+N\+CE = null\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/build/tmp/kapt3/stubs/debug/com/example/epicture/services/http/\mbox{\hyperlink{HttpCall_8java}{Http\+Call.\+java}}\end{DoxyCompactItemize}

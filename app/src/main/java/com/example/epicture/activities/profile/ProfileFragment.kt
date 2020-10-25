@@ -247,7 +247,7 @@ class ProfileFragment : Fragment() {
      * @param data user information
      */
     @SuppressLint("UseCompatLoadingForDrawables")
-    fun callBackGetUserDataResolve(data: AccountBase) {
+    private fun callBackGetUserDataResolve(data: AccountBase) {
         activity?.runOnUiThread {
             account = data
             descriptionText.text = account.bio

@@ -18,6 +18,10 @@ class EditProfile : AppCompatActivity() {
     private var name: String = ""
     private var avatar: String = ""
     private var bio: String = ""
+
+    /**
+     * Called when the EditProfile Activity is starting
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_profile)
